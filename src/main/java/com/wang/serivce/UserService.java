@@ -38,7 +38,10 @@ public class UserService {
         }else{
             return userDao.addUserByphone(user);
         }
+    }
 
+    public boolean updatePasswordByUserId(int userId,String oldPassword,String newPassword){
+        return userDao.updatePasswordByUserId(userId,oldPassword,newPassword) == 1;
     }
 
 }

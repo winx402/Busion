@@ -15,10 +15,19 @@ public class User {
     private Date user_birthday;
     private String user_sex;
     private Date user_join_time;
+    private int user_message_attention;
     private int user_state;
 
     public Date getUser_birthday() {
         return user_birthday;
+    }
+
+    public int getUser_message_attention() {
+        return user_message_attention;
+    }
+
+    public void setUser_message_attention(int user_message_attention) {
+        this.user_message_attention = user_message_attention;
     }
 
     public void setUser_birthday(Date user_birthday) {

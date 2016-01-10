@@ -99,7 +99,6 @@ function submitMailorPhoneAjax(value) {
     step = 0;
     checkTimeOut();
     var params = {
-        registerType : registerType,
         account : value
     }
     $.ajax({

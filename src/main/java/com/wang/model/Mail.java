@@ -11,10 +11,10 @@ public class Mail {
     private String mailContent; //邮件内容
     private boolean isHtmlMail; //是否以html格式展示
 
-    public Mail(String toMail, String mailContent) {
+    public Mail(String mailTitle,String toMail, String mailContent) {
         this.formMail = "18623657744@163.com";
         this.replyMail = "18623657744@163.com";
-        this.mailTitle = "注册验证";
+        this.mailTitle = mailTitle;
         this.isHtmlMail = false;
         this.toMail = toMail;
         this.mailContent = mailContent;

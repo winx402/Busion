@@ -16,24 +16,7 @@
 	</style>
 </head>
 <body>
-<nav class="navbar navbar-fixed-top navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">
-				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;首页
-			</a>
-		</div>
-		<ul class="nav navbar-nav navbar-right">
-
-			<li>
-				<a href="#" data-toggle="modal">
-					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;注册
-				</a>
-			</li>
-		</ul>
-	</div>
-</nav>
-	<h1 align="center" style="margin-top: 100px; color: #fff">Welcome To Custom System !</h1>
+	<h1 align="center" style="margin-top: 100px; color: #fff">Welcome</h1>
 	<div class="container">
 		<div id="errorMsg">&nbsp;</div>
 			<div class="input-group">

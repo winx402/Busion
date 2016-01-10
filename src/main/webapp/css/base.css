@@ -63,7 +63,7 @@ body {
 
 .left-base .my-menu .menu-middle {
   width: 100%;
-  height: 35vw;
+  height: 66vh;
   background-color: #f5f5f5;
 }
 
@@ -74,12 +74,19 @@ body {
   border-style: solid;
   border-width:0px 0px 1.5px 0px;
   border-color: #ddd;
+  cursor: pointer;
 }
 
 .left-base .my-menu .menu-middle li img {
   float: left;
   width: 40px;
   height: 40px;
+}
+
+.left-base .my-menu .menu-middle li i{
+  float: left;
+  font-size: 40px;
+  color: #443;
 }
 
 .left-base .my-menu .menu-middle li .name-desc {
@@ -91,6 +98,13 @@ body {
   font-family: "微软雅黑";
   color: #333;
   font-size: 16px;
+}
+
+.left-base .my-menu .menu-middle li .talking-org-name{
+  font-family: "微软雅黑";
+  color: #333;
+  font-size: 16px;
+  padding-top: 10px;
 }
 
 .left-base .my-menu .menu-middle li .talking-desc {
@@ -182,6 +196,49 @@ body {
   display: none;
 }
 
+.left-base .my-menu .menu-middle .my-setting{
+  padding: 0px 5px;
+}
+
+.left-base .my-menu .menu-middle .my-setting li{
+  list-style-type: none;
+  border-style: solid;
+  border-width:1px;
+  border-color: #bbb;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 16px;
+  height: 44px;
+  color: #666;
+}
+
+.left-base .my-menu .menu-middle .my-setting button{
+  margin-top: 20px;
+  width: 100%;
+}
+
+.left-base .my-menu .menu-middle .my-setting li a{
+  float: right;
+  text-decoration:none;
+}
+
+.left-base .my-menu .menu-middle .my-setting li i{
+  float: right;
+  font-size: 26px;
+  color: #999;
+}
+
+.left-base .my-menu .menu-middle .my-setting .setting-attention i:hover{
+  cursor: pointer;
+  color: #333;
+}
+
+.left-base .my-menu .menu-middle .my-setting .setting-about:hover{
+  background-color: #ddd;
+  cursor: pointer;
+}
+
 .left-base .my-menu .menu-middle .my-selected{
   display: block;
   overflow-y: auto;
@@ -211,6 +268,15 @@ body {
   border-color: #999;
 }
 
+.left-base .my-menu .menu-bottom li:hover{
+  color: #aaa;
+}
+
+.left-base .my-menu .menu-bottom .selected:hover{
+  color: #5e5e5e;
+}
+
+
 .left-base .my-menu .menu-bottom .selected{
   color: #5e5e5e;
   background-color: #ccc;
@@ -224,6 +290,11 @@ body {
   float: right;
   margin-right: 10%;
   width: 54%;
+  display: none;
+}
+
+.right-selected {
+  display: block;
 }
 
 .right-base .right-top {
@@ -242,25 +313,27 @@ body {
 .right-base .right-body {
   width: 100%;
   background-color: #f5f5f5;
-  height: 33vw;
+  height: 62vh;
   border-style: solid;
   border-width:0px 0px 1px 0px;
   border-color: #bbb;
   clear: both;
+  padding: 5px 0px;
 }
 
 .right-base .right-body .talking-body{
   overflow-y: auto;
   width: 77%;
   float: left;
-  padding-left: 10px;
+  padding: 0px 10px;
   height: 100%;
+  overflow-x: hidden;
 }
 .right-base .right-body .talking-body li{
-  list-style: none;color: #666;font-size: 14px;width: 100%;margin-top: 3px;clear: both;
+  list-style: none;color: #666;font-size: 14px;width: 100%;margin-top: 10px;
 }
 .right-base .right-body .talking-body li .photo{width: 29px;height: 29px;border-radius: 50%;}
-.right-base .right-body .talking-body .li-left .photo{float: left}
+.right-base .right-body .talking-body .li-left .photo{float: left;margin-right: 5px}
 .right-base .right-body .talking-body .li-right .photo{float: right}
 .right-base .right-body .talking-body li .chat{background-color: #5bc0de;padding: 5px 10px;border-radius: 5px;display: block;
   max-width: 70%;word-break: break-all;}
@@ -272,7 +345,24 @@ body {
   word-break: break-all;font-weight: 700}
 .right-base .right-body .talking-body .li-time{font-size: 12px;color: #666;text-align: center}
 
-.clear{clear: both}
+.right-base .right-body .talking-body li .chatBox .chatCon{
+  background-color: #5bc0de;padding: 5px 10px;border-radius: 5px;
+  max-width: 70%;word-break: break-all;float: left;
+}
+.right-base .right-body .talking-body .li-left .chatBox{
+  margin-left: 5px;width: 100%}
+.right-base .right-body .talking-body .li-left .chatBox .chatName{
+  font-size: 12px;
+  float: left;
+}
+
+.right-base .right-body .talking-body li:after{
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
 
 .right-base .right-body .something-list{
   width: 22%;
@@ -318,7 +408,7 @@ body {
   width: 90%;
   background-color: #f5f5f5;
   padding-left: 10px;
-  height: 2vw;
+  height: 4vh;
 }
 
 .right-base .right-box i{
@@ -346,7 +436,7 @@ body {
   float: right;
   border-radius: 0px 0px 5px 0px;
   height: 0px;
-  padding-top: 2vw;
+  padding-top: 4vh;
   padding-bottom: 49px;
   background-color: #4e9bcd;
   cursor: pointer;

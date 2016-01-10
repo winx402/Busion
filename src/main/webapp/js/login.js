@@ -33,9 +33,9 @@ function loginCheck(){
         $("#password").focus();
         errorTimer("请输入密码");
     }else if(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(account)){
-        loginAjax(0,account,password);
+        loginAjax(account,password);
     }else if(/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(account)){
-        loginAjax(1,account,password);
+        loginAjax(account,password);
     }else {
         $("#account").focus();
         errorTimer("请输入正确的邮箱或者手机");
@@ -45,10 +45,9 @@ function loginCheck(){
 /**
  * ajax登陆
  */
-function loginAjax(loginType,account,password) {
+function loginAjax(account,password) {
     loginDisabled();
     var params = {
-        loginType : loginType,
         account : account,
         password : password
     }
@@ -60,7 +59,7 @@ function loginAjax(loginType,account,password) {
             var r = eval(data);
             var code = r.code;
             if (code == 1) { //登陆成功
-                location.href="../../";
+                location.href="../../main";
                 loginEnabled();
             }else {
                 errorTimer(r.msg);
