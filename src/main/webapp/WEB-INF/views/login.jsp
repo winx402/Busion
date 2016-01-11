@@ -45,8 +45,8 @@
 			</button>
 	</div>
 	<!-- /container -->
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/lib/jquery.min.js"></script>
+	<script src="../js/lib/bootstrap.min.js"></script>
 	<script src="../js/login.js"></script>
 </body>
 </html>

@@ -24,28 +24,32 @@
         <div class="menu-top">会话</div>
         <div class="menu-middle">
             <div class="my-talking menu my-selected">
-                <li _type="friend" _id="1">
+                <li _type="user" _id="1">
                     <img src="../img/custom.png">
                     <div class="name-desc">
                         <div class="talking-name">TOP</div>
                         <div class="talking-desc">我的心情</div>
                     </div>
+                    <i class="fa fa-circle-o"></i>
                 </li>
                 <li _type="org" _id="2">
                     <i class="fa fa-comments"></i>
                     <div class="name-desc">
-                        <div class="talking-org-name">技术</div>
+                        <div class="talking-content">技术</div>
                     </div>
+                    <i class="fa fa-dot-circle-o"></i>
                 </li>
                 <li _type="system">
-                    <img src="../img/custom.png">
+                    <i class="fa fa-bullhorn"></i>
                     <div class="name-desc">
-                        <div class="talking-name">TOP</div>
-                        <div class="talking-desc">我的心情</div>
+                        <div class="talking-name">系统消息</div>
+                        <div class="talking-desc">TOP&nbsp;请求添加你为好友</div>
                     </div>
+                    <i class="fa fa-circle-o"></i>
                 </li>
             </div>
             <div class="my-friend menu">
+                <input placeholder="搜索">
                 <li>
                     <img src="../img/photo.jpg">
                     <div class="name-desc">
@@ -106,18 +110,18 @@
                 </div>
             </div>
             <div class="my-setting menu">
-                <li class="setting-info">个人资料
+                <div class="setting-info">个人资料
                     <a href="#">修改</a>
-                </li>
-                <li class="setting-organization">我的组织
+                </div>
+                <div class="setting-organization">我的组织
                     <a href="#">设置</a>
-                </li>
-                <li class="setting-attention">消息声音
+                </div>
+                <div class="setting-attention">消息声音
                     <i class="fa fa-toggle-off"></i>
-                </li>
-                <li class="setting-about">关于
+                </div>
+                <div class="setting-about">关于
                     <i class="fa fa-chevron-right"></i>
-                </li>
+                </div>
                 <button type="button" class="btn btn-danger">退出当前账号</button>
             </div>
         </div>
@@ -269,6 +273,6 @@
 </div>
 <!-- 右边div -->
 
-<script data-main="js/main" src="../js/require.js"></script>
+<script data-main="js/main" src="../js/lib/require.js"></script>
 </body>
 </html>

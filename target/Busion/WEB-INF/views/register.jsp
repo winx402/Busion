@@ -106,8 +106,8 @@
      恭喜！你已经完成了注册<br>你的登陆账号是<font color="#dc143c" id="show-mail"> 123@qq.com</font><br>请<a href="loginPage">登陆</a>
 </div>
 
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="../js/lib/jquery.min.js"></script>
+<script src="../js/lib/bootstrap.min.js"></script>
 <script src="../js/register.js"></script>
 </body>
 </html>
