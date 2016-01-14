@@ -9,7 +9,7 @@ define(["jquery","view/menu_bottom_base"],function($,menu_bottom_base){
         var index = 3;
         if(menu_bottom_base.nowBottom != index){
             $(".menu-top").text("设置");
-            menu_bottom_base.changeBottom(index);
+            menu_bottom_base.changeBottom(index,3);
         }
     });
 });

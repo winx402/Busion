@@ -212,6 +212,16 @@ body {
   display: none;
 }
 
+.left-base .my-menu .menu-middle .my-loading{
+  text-align: center;
+  font-size: 14px;
+  padding-top: 50%;
+}
+
+.left-base .my-menu .menu-middle .my-loading i{
+  font-size: 30px;
+}
+
 .left-base .my-menu .menu-middle{
   padding: 10px 5px;
 }

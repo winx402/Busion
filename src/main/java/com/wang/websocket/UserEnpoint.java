@@ -13,18 +13,17 @@ import java.io.IOException;
 /**
  * Created by wangwenxiang on 15-12-7.
  */
-@ServerEndpoint(value = "/userEnpoint/{user_id}",configurator = GetHttpSessionConfigurator.class)
+@ServerEndpoint(value = "/userEnpoint",configurator = GetHttpSessionConfigurator.class)
 public class UserEnpoint {
 
-    @Autowired
-    private UserMap userMap;
+    private UserMap userMap = new UserMap();
 
     @OnMessage
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
         // Send the first message to the client
+        System.out.println(message);
         session.getBasicRemote().sendText(message);
-
     }
 
     /**
@@ -34,16 +33,16 @@ public class UserEnpoint {
      * 如果合法，添加进入Map，否则断开链接
      * @param session webSocket Session
      * @param config 获取HttpSession的config
-     * @param user_id 前端获取user_id
      * @throws IOException
      */
     @OnOpen
-    public void onOpen (Session session,EndpointConfig config, @PathParam("user_id") Integer user_id) throws IOException {
+    public void onOpen (Session session,EndpointConfig config) throws IOException {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
         if(httpSession != null){
             User user = (User)httpSession.getAttribute("user");
-            if(user != null && user.getUser_id() == user_id){
-                if(userMap.addUser(user_id,session))
+            if(user != null){
+                if(userMap.addUser(user.getUser_id(),session))
+                    System.out.println("Connection");
                     return;
             }
         }

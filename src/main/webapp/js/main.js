@@ -4,16 +4,19 @@
 require.config({
     baseUrl : 'js/lib',
     shim: {
-       'jquery.min': ['jquery']
+        'bootstrap': {
+            deps: ['jquery']
+        }
     },
     paths: {
         jquery: 'jquery.min',
         controller: '../controller',
         data: '../data',
         network: '../network',
-        view: '../view'
+        view: '../view',
+        util:'../util'
     }
 });
 
-require(["jquery.min","bootstrap.min","controller/talking","controller/friend",
+require(["controller/base","controller/talking","controller/friend",
     "controller/organization","controller/setting","controller/windows"]);

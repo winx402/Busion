@@ -75,9 +75,6 @@ function writeError(errorMsg){
     $(".box-current .error-msg").html(errorMsg);
 }
 
-$(document).ready(function(){
-})
-
 /**
  * 修改错误信息并定时恢复
  * @param errorMsg

@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by wangwenxiang on 15-12-9.
  */
-@Component
 public class UserMap {
     public static ConcurrentHashMap<Integer,Session> userConHashMap = new ConcurrentHashMap<Integer, Session>();
 

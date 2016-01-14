@@ -5,6 +5,9 @@ import com.wang.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by wangwenxiang on 15-12-7.
  */
@@ -43,5 +46,10 @@ public class UserService {
     public boolean updatePasswordByUserId(int userId,String oldPassword,String newPassword){
         return userDao.updatePasswordByUserId(userId,oldPassword,newPassword) == 1;
     }
+
+    public List<HashMap<String,Object>> getAllFriend(int userId){
+        return userDao.getAllFriend(userId);
+    }
+
 
 }

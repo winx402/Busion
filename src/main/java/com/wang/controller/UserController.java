@@ -210,4 +210,18 @@ public class UserController {
         }
     }
 
+    /**
+     * 获取自己的所有的好友
+     * @param session
+     * @return
+     */
+    @RequestMapping("getAllFriend")
+    @ResponseBody
+    public JSONObject getAllFriend(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        return AjaxReturn.Data2Ajax(1,null,userService.getAllFriend(user.getUser_id()));
+    }
 }

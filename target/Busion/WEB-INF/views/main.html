@@ -23,7 +23,7 @@
     <div class="my-menu">
         <div class="menu-top">会话</div>
         <div class="menu-middle">
-            <div class="my-talking menu my-selected">
+            <div class="my-talking menu">
                 <li _type="user" _id="1">
                     <img src="../img/custom.png">
                     <div class="name-desc">
@@ -50,21 +50,21 @@
             </div>
             <div class="my-friend menu">
                 <input placeholder="搜索">
-                <li>
+                <li _id="1">
                     <img src="../img/photo.jpg">
                     <div class="name-desc">
                         <div class="talking-name">TOP</div>
                         <div class="talking-desc">我的心情</div>
                     </div>
                 </li>
-                <li>
+                <li _id="2">
                     <img src="../img/photo.jpg">
                     <div class="name-desc">
                         <div class="talking-name">TOP</div>
                         <div class="talking-desc">我的心情</div>
                     </div>
                 </li>
-                <li>
+                <li _id="3">
                     <img src="../img/photo.jpg">
                     <div class="name-desc">
                         <div class="talking-name">TOP</div>
@@ -123,6 +123,10 @@
                     <i class="fa fa-chevron-right"></i>
                 </div>
                 <button type="button" class="btn btn-danger">退出当前账号</button>
+            </div>
+            <div class="my-loading menu my-selected">
+                <i class="fa fa-spinner fa-pulse"></i><br>
+                loading
             </div>
         </div>
         <div class="menu-bottom">
