@@ -7,17 +7,13 @@
 define(['network/ajax'],function(ajax){
     var params={
         /**
-         * 组织面板状态
+         * 会话面板状态
          * 0-未初始化，无数据
          * 1-正在获取数据
          * 2-数据已经获取，正在绘制面板
          * 3-绘制完成
          */
-        organizationState: 0,
-        /**
-         * 所有好友数据
-         */
-        organizationArray: []
+        talkingState: 0,
     }
 
     return{

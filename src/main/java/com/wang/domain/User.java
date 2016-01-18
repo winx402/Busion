@@ -10,6 +10,7 @@ public class User {
     private String user_phone;
     private String user_mail;
     private String user_name;
+    private String user_description;
     private String user_password;
     private String user_photo;
     private Date user_birthday;
@@ -17,6 +18,14 @@ public class User {
     private Date user_join_time;
     private int user_message_attention;
     private int user_state;
+
+    public String getUser_description() {
+        return user_description;
+    }
+
+    public void setUser_description(String user_description) {
+        this.user_description = user_description;
+    }
 
     public Date getUser_birthday() {
         return user_birthday;

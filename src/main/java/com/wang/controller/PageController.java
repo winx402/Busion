@@ -34,7 +34,7 @@ public class PageController {
     public String main(HttpSession session){
         Object o = session.getAttribute("user");
         if (o == null){
-            return "login.jsp";
+            return "redirect:login";
         }
         return "main.html";
     }

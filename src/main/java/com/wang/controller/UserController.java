@@ -224,4 +224,19 @@ public class UserController {
         }
         return AjaxReturn.Data2Ajax(1,null,userService.getAllFriend(user.getUser_id()));
     }
+
+    /**
+     * 通过session获取自己的基本信息
+     * @param session
+     * @return
+     */
+    @RequestMapping("getMyInfo")
+    @ResponseBody
+    public JSONObject getMyInfo(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        return AjaxReturn.Data2Ajax(1,null,user);
+    }
 }

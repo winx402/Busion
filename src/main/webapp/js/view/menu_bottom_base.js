@@ -10,8 +10,6 @@ define(["jquery"],function($){
         nowBottom : 0
     }
 
-
-
     /**
      * 根据index切换面板和按钮状态
      */
@@ -25,11 +23,21 @@ define(["jquery"],function($){
         }else {
             $(".menu").eq(index).addClass("my-selected");
         }
+    }
 
+    /**
+     * 面板绘制完成后，检测是否需要切换至绘制后的面板
+     */
+    var changePanel = function(index){
+        if (params.nowBottom == index){
+            $(".my-selected").removeClass("my-selected");
+            $(".menu").eq(index).addClass("my-selected");
+        }
     }
 
     return{
         params : params,
-        changeBottom : changeBottom
+        changeBottom : changeBottom,
+        changePanel: changePanel
     }
 });

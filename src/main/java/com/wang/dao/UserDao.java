@@ -38,7 +38,7 @@ public interface UserDao {
     @Update("update t_user set user_password=#{2} where user_id=#{0} and user_password=#{1}")
     int updatePasswordByUserId(int userId,String oldPassword,String newPassword);
 
-    @Select("select friend_mark,user_id,user_name,user_photo,user_sex,user_message_attention from t_friend " +
+    @Select("select friend_mark,user_id,user_description,user_name,user_photo,user_sex,user_message_attention from t_friend " +
             "inner join t_user on t_user.user_id = t_friend.friend_user2 " +
             "where friend_user1=#{0} and t_user.user_state=10")
     List<HashMap<String,Object>> getAllFriend(int userId);

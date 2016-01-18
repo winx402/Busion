@@ -1,19 +1,34 @@
 @charset "UTF-8";
 *{margin: 0px;padding: 0px}
 body {
+  font-family: "Microsoft YaHei","iconfont"  !important;
   background: url("../img/background.jpg");
   width: 100%;
   height: 100%;
+}
+
+.body-loading{
+  position: absolute;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 40vh;
+  left: 40%;
+  width: 20%;
+}
+
+.body-loading i{
+  font-size: 40px;
 }
 
 .left-base {
   float: left;
   margin-left: 10%;
   width: 24%;
+  display: none;
 }
 
 .left-base .my-info {
-    margin: 20px 0px 0px 20px;
+    margin: 0px 0px 120px 20px;
     width: 100%;
 }
 
@@ -45,7 +60,6 @@ body {
 
 .left-base .my-menu {
   clear: both;
-  margin-top: 80px;
   width: 100%;
 }
 
@@ -153,6 +167,7 @@ body {
   margin: 2px 0px;
   color: #666;
   padding-left: 10px;
+  display: none;
 }
 
 .left-base .my-menu .menu-middle .organization-guide .guide-point{
@@ -167,7 +182,7 @@ body {
 
 .left-base .my-menu .menu-middle .organization-body .organization-name{
   float: left;
-  width: 33%;
+  width: 32%;
   padding: 2px;
   color: #666;
   cursor: pointer;
@@ -176,7 +191,7 @@ body {
   border-style: solid;
   border-width:1px;
   border-color: #ddd;
-  margin: 0.5px;
+  margin: 0.66%;
 }
 
 .left-base .my-menu .menu-middle .organization-body .organization-name span:hover{
@@ -487,4 +502,17 @@ body {
 
 .right-base .right-send:hover{
   background-color: #44b2ff;
+}
+
+.error-msg{
+  position: absolute;
+  border-radius: 5px;
+  width: 30%;
+  margin-top: -50px;
+  color: #ac2925;
+  font-size: 14px;
+  background-color: #eee;
+  padding: 5px;
+  text-align: center;
+  left: 35%;
 }

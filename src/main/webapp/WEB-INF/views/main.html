@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,14 +8,20 @@
     <link href="../css/base.css" rel="stylesheet">
 </head>
 <body>
+
+<div class="body-loading">
+    <i class="fa fa-spinner fa-pulse"></i><br>
+    loading
+</div>
+
 <!-- 左边div -->
 <div class="left-base">
     <!-- 我的基本资料 -->
     <div class="my-info">
         <img src="../img/photo.jpg" class="img-thumbnail">
         <div class="name-desc">
-            <div class="my-name">TOP</div>
-            <div class="my-desc">我的心情</div>
+            <div class="my-name"></div>
+            <div class="my-desc">该用户没有说明</div>
         </div>
     </div>
     <!-- 我的基本资料 -->
@@ -23,6 +29,7 @@
     <div class="my-menu">
         <div class="menu-top">会话</div>
         <div class="menu-middle">
+            <!-- 我的会话 -->
             <div class="my-talking menu">
                 <li _type="user" _id="1">
                     <img src="../img/custom.png">
@@ -48,6 +55,9 @@
                     <i class="fa fa-circle-o"></i>
                 </li>
             </div>
+            <!-- 我的会话 -->
+
+            <!-- 我的好友 -->
             <div class="my-friend menu">
                 <input placeholder="搜索">
                 <li _id="1">
@@ -72,6 +82,9 @@
                     </div>
                 </li>
             </div>
+            <!-- 我的好友 -->
+
+            <!-- 我的组织 -->
             <div class="my-organized menu">
                 <div class="organization-top">
                     <div class="organization-menu organization-selected">
@@ -109,6 +122,9 @@
                     </div>
                 </div>
             </div>
+            <!-- 我的组织 -->
+
+            <!-- 我的设置 -->
             <div class="my-setting menu">
                 <div class="setting-info">个人资料
                     <a href="#">修改</a>
@@ -124,6 +140,7 @@
                 </div>
                 <button type="button" class="btn btn-danger">退出当前账号</button>
             </div>
+            <!-- 我的组织 -->
             <div class="my-loading menu my-selected">
                 <i class="fa fa-spinner fa-pulse"></i><br>
                 loading
@@ -149,7 +166,7 @@
 <!-- 左边div -->
 
 <!-- 右边div -->
-<div class="right-base right-selected">
+<div class="right-base">
     <div class="right-top">产品</div>
     <div class="right-body">
         <div class="talking-body">
@@ -276,6 +293,9 @@
     </div>
 </div>
 <!-- 右边div -->
+
+<span class="error-msg">
+</span>
 
 <script data-main="js/main" src="../js/lib/require.js"></script>
 </body>

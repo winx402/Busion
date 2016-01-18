@@ -7,7 +7,6 @@ define(['jquery'],function($){
         $.ajax({
             type : "POST",
             url: url,
-            async: false,
             data : params,
             success: successBack,
             error: errorBack
