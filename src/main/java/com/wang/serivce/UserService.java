@@ -52,4 +52,8 @@ public class UserService {
     }
 
 
+    public List<HashMap<String,Object>> find(String value){
+        System.out.print(value);
+        return userDao.find("%"+value+"%");
+    }
 }

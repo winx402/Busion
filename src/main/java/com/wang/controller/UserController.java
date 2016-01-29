@@ -239,4 +239,11 @@ public class UserController {
         }
         return AjaxReturn.Data2Ajax(1,null,user);
     }
+
+    @RequestMapping("find")
+    @ResponseBody
+    public JSONObject find(String value){
+        return  AjaxReturn.Data2Ajax(1,null,userService.find(value));
+
+    }
 }

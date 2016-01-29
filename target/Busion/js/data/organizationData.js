@@ -4,7 +4,7 @@
 /**
  * Created by wangwenxiang on 16-1-11.
  */
-define(['network/ajax'],function(ajax){
+define(['network/ajax','data/array/organizationArray'],function(ajax,orgArray){
     var params={
         /**
          * 组织面板状态
@@ -13,7 +13,7 @@ define(['network/ajax'],function(ajax){
          * 2-数据已经获取，正在绘制面板
          * 3-绘制完成
          */
-        organizationState: 0,
+        organizationState: 0
     }
 
     return{

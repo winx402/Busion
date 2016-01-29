@@ -42,4 +42,7 @@ public interface UserDao {
             "inner join t_user on t_user.user_id = t_friend.friend_user2 " +
             "where friend_user1=#{0} and t_user.user_state=10")
     List<HashMap<String,Object>> getAllFriend(int userId);
+
+    @Select("select * from t_user where userName like #{value}")
+    List<HashMap<String,Object>> find(String value);
 }

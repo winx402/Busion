@@ -10,8 +10,8 @@ define(["jquery","view/menu_bottom_base",'data/organizationData'],
         var index = 2;
         if(menu_bottom_base.params.nowBottom != index){
             $(".menu-top").text("组织");
-            //menu_bottom_base.changeBottom(index,orgData.params.organizationState);
-            menu_bottom_base.changeBottom(index,3);
+            menu_bottom_base.changeBottom(index,orgData.params.organizationState);
+            //menu_bottom_base.changeBottom(index,3);
         }
     });
 });
