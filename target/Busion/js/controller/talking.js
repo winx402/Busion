@@ -8,9 +8,9 @@ define(["jquery","view/menu_bottom_base",'data/talkingData'],
      */
     $(".menu-bottom li").eq(0).click(function(){
         var index = 0;
-        if(menu_bottom_base.params.nowBottom != index){
+        if(window.nowBottom != index){
             $(".menu-top").text("会话");
-            menu_bottom_base.changeBottom(index,talkingData.params.talkingState);
+            menu_bottom_base.changeBottom(index,window.talkingState);
         }
     });
 });

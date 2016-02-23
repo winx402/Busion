@@ -1,10 +1,7 @@
 /**
  * Created by wangwenxiang on 16-1-13.
  */
-/**
- * Created by wangwenxiang on 16-1-11.
- */
-define(['jquery','network/ajax'],function($,ajax){
+define(['jquery'],function($){
     /**
      * 所有好友数据
      */

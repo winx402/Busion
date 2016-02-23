@@ -5,14 +5,16 @@
  * Created by wangwenxiang on 16-1-11.
  */
 define(['network/ajax'],function(ajax){
-    var params={
         /**
-         * 所有好友数据
+         * 所有回话面板数据
          */
-        talkingArray: []
+        var talkingArray = [];
+
+    var getAll = function(){
+        return talkingArray;
     }
 
     return{
-        params: params
+        getAll:getAll
     }
 });

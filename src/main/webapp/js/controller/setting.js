@@ -7,9 +7,16 @@ define(["jquery","view/menu_bottom_base"],function($,menu_bottom_base){
      */
     $(".menu-bottom li").eq(3).click(function(){
         var index = 3;
-        if(menu_bottom_base.nowBottom != index){
+        if(window.nowBottom != index){
             $(".menu-top").text("设置");
             menu_bottom_base.changeBottom(index,3);
         }
+    });
+
+    /**
+     * 退出按钮
+     */
+    $('.btn-danger').click(function(){
+        window.location.href="signout";
     });
 });

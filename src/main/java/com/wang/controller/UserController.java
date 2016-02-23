@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by wangwenxiang on 15-12-7.
@@ -222,7 +224,8 @@ public class UserController {
         if(user == null){
             return AjaxReturn.Data2Ajax(0,"未登陆",null);
         }
-        return AjaxReturn.Data2Ajax(1,null,userService.getAllFriend(user.getUser_id()));
+        List<HashMap<String,Object>> list = userService.getAllFriend(user.getUser_id());
+        return AjaxReturn.Data2Ajax(1,null,list);
     }
 
     /**
@@ -240,10 +243,4 @@ public class UserController {
         return AjaxReturn.Data2Ajax(1,null,user);
     }
 
-    @RequestMapping("find")
-    @ResponseBody
-    public JSONObject find(String value){
-        return  AjaxReturn.Data2Ajax(1,null,userService.find(value));
-
-    }
 }

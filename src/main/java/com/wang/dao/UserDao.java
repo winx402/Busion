@@ -43,6 +43,4 @@ public interface UserDao {
             "where friend_user1=#{0} and t_user.user_state=10")
     List<HashMap<String,Object>> getAllFriend(int userId);
 
-    @Select("select * from t_user where userName like #{value}")
-    List<HashMap<String,Object>> find(String value);
 }

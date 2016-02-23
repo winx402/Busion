@@ -31,8 +31,8 @@ define(['jquery'],function($){
      * @param errorMsg
      */
     var setErrorTimer = function(errorMsg){
-        showErrorMsg(errorMsg);
         clearInterval(timer);
+        showErrorMsg(errorMsg);
         timer = setInterval(hideErrorMsg(),3000);
     }
 

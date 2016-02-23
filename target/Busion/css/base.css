@@ -167,7 +167,6 @@ body {
   margin: 2px 0px;
   color: #666;
   padding-left: 10px;
-  display: none;
 }
 
 .left-base .my-menu .menu-middle .organization-guide .guide-point{
@@ -192,6 +191,20 @@ body {
   border-width:1px;
   border-color: #ddd;
   margin: 0.66%;
+}
+
+.organization-option{
+  display: none;
+}
+
+.left-base .my-menu .menu-middle .organization-loading{
+  text-align: center;
+  padding-top: 50%;
+}
+
+.left-base .my-menu .menu-middle .organization-noOrg{
+  text-align: center;
+  padding-top: 50%;
 }
 
 .left-base .my-menu .menu-middle .organization-body .organization-name span:hover{
@@ -349,6 +362,10 @@ body {
 }
 
 .right-selected {
+  display: block;
+}
+
+.select{
   display: block;
 }
 
