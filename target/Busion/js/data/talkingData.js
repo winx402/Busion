@@ -37,9 +37,12 @@ define(['data/array/talkingArray','view/friendView','view/menu_bottom_base'],
             $.each(message.personalTalking,function(i,item){ //添加个人消息
                 talkingArray.addPersonalTalking(item);
             });
-            window.friendState = 2;
-            friendView.initFriendPanel(talkingArray.getAll());
-            window.friendState = 3;
+            $.each(message.orgTalking,function(i,item){ //添加个人消息
+                talkingArray.addOrgTalking(item);
+            });
+            window.talkingState = 2;
+            //friendView.initFriendPanel(talkingArray.getAll());
+            window.talkingState = 3;
             baseView.changePanel(0);
         }else{
             window.talkingState = 0;
@@ -53,5 +56,6 @@ define(['data/array/talkingArray','view/friendView','view/menu_bottom_base'],
     }
 
     return{
+        initTalking : initTalking
     }
 });
