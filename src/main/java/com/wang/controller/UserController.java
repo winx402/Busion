@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.wang.domain.User;
 import com.wang.model.Mail;
 import com.wang.model.PhoneMessage;
+import com.wang.serivce.MessageService;
+import com.wang.serivce.OrgMessageService;
 import com.wang.serivce.UserService;
 import com.wang.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageService messageService;
+
+    @Autowired
+    private OrgMessageService orgMessageService;
 
     /**
      * 用户登陆
@@ -243,4 +251,23 @@ public class UserController {
         return AjaxReturn.Data2Ajax(1,null,user);
     }
 
+    /**
+     * 获取我的未读消息-只获取未读消息的条数以及发送者的基本信息,不获取消息具体内容
+     * 个人消息-根据个人消息表的消息状态确定是否为未读
+     * 组织消息-根据用户-组织关系表确定哪些消息是未读的
+     */
+    @RequestMapping("getMyUnReadTalking")
+    @ResponseBody
+    public JSONObject getMyUnReadTalking(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if (user == null ){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        int userId = user.getUser_id();
+        JSONObject jo = new JSONObject();
+        //获取个人消息
+        jo.put("personalTalking",messageService.getMyUnReadTalking(userId));
+        jo.put("orgTalking",orgMessageService.getMyUnReadTalking(userId));
+        return AjaxReturn.Data2Ajax(1,null,jo);
+    }
 }

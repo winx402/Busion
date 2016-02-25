@@ -3,6 +3,7 @@
  */
 define(["jquery","view/menu_bottom_base",'data/talkingData'],
     function($,menu_bottom_base,talkingData){
+
     /**
      * 点击底部按钮切换面板
      */

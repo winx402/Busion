@@ -17,8 +17,8 @@ public interface OrganizationDao {
             " from t_organization where organization_state=10")
     ArrayList<HashMap<String,Object>> getAllOrganization();
 
-    @Select("select t_organization_user.organization_id,organization_user_manage,organization_name,organization_logo from t_organization_user " +
-            "inner join t_organization on t_organization_user.organization_id=t_organization.organization_id and t_organization.organization_state=10 " +
-            " where user_id=#{0}")
+    @Select("select t_organization_user.organization_user_organization,organization_user_manage,organization_name,organization_logo from t_organization_user " +
+            "inner join t_organization on t_organization_user.organization_user_organization=t_organization.organization_id and t_organization.organization_state=10 " +
+            " where organization_user_user=#{0}")
     List<HashMap<String,Object>> getMyOrganization(int userId);
 }

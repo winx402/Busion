@@ -41,11 +41,13 @@ define(['network/ajax','data/array/friendArray','view/friendView','view/menu_bot
                 window.friendState = 3;
                 baseView.changePanel(1);
             }else{
+                window.friendState = 0;
                 base.setErrorTimer(r.msg);
             }
         }
 
         function getError(data){
+            window.friendState = 0;
             base.setErrorTimer("获取好友信息出错");
         }
 

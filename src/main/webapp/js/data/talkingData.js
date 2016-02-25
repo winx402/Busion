@@ -4,7 +4,8 @@
 /**
  * Created by wangwenxiang on 16-1-11.
  */
-define(['network/ajax'],function(ajax){
+define(['data/array/talkingArray','view/friendView','view/menu_bottom_base'],
+    function(talkingArray,friendView,baseView){
         /**
          * 会话面板状态
          * 0-未初始化，无数据
@@ -13,6 +14,43 @@ define(['network/ajax'],function(ajax){
          * 3-绘制完成
          */
         window.talkingState = 0;
+
+    /**
+     * 当talkingState不等于3时，初始化talking面板
+     *
+     */
+    function initTalking(){
+        if (window.talkingState == 0){
+            getData();
+        }
+    }
+
+    function getData(){
+        window.talkingState = 1;
+        ajax.ajaxFunction('user/getMyUnReadTalking',null,getDataSuccess,getError)
+    }
+
+    function getDataSuccess(data){
+        var r = eval(data);
+        if(r.code == 1){
+            var message = r.data;
+            $.each(message.personalTalking,function(i,item){ //添加个人消息
+                talkingArray.addPersonalTalking(item);
+            });
+            window.friendState = 2;
+            friendView.initFriendPanel(talkingArray.getAll());
+            window.friendState = 3;
+            baseView.changePanel(0);
+        }else{
+            window.talkingState = 0;
+            base.setErrorTimer(r.msg);
+        }
+    }
+
+    function getError(data){
+        window.talkingState = 0;
+        base.setErrorTimer("获取好友信息出错");
+    }
 
     return{
     }
