@@ -3,6 +3,12 @@
  */
 
 define(['jquery'],function($){
+    /**
+     * 初始化talking面板
+     * 初始化时,所有数据从后台获取,都是未读取的聊天记录
+     * @param personalTalking
+     * @param orgTalking
+     */
     var initTalkingPanel = function(personalTalking,orgTalking){
         $(".my-talking").children("li").remove();
         var html = "";
@@ -31,7 +37,7 @@ define(['jquery'],function($){
     }
 
     /**
-     * 将未读消息取消掉
+     * 将talking面板的未读消息取消掉
      * @param type
      * @param id
      */

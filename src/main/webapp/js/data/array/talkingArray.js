@@ -16,6 +16,10 @@ define(['network/ajax'],function(ajax){
         return orgTalkingArray;
     }
 
+    /**
+     * 添加一条用户的talking
+     * @param item
+     */
     var addPersonalTalking = function(item){
         var talking = {
             user_id: item.user_id,
@@ -28,6 +32,10 @@ define(['network/ajax'],function(ajax){
         personalTalkingArray.push(talking);
     }
 
+    /**
+     * 添加一条组织的talking
+     * @param item
+     */
     var addOrgTalking = function(item){
         var talking = {
             organization_id: item.organization_user_organization,
@@ -39,6 +47,12 @@ define(['network/ajax'],function(ajax){
         orgTalkingArray.push(talking);
     }
 
+    /**
+     * 通过type和id获取talking
+     * @param type
+     * @param id
+     * @returns {*}
+     */
     var getTalkingByTypeId = function(type,id){
         var talking = null;
         if (type == "org"){
@@ -81,6 +95,10 @@ define(['network/ajax'],function(ajax){
         return user;
     }
 
+    /**
+     * 删除用户的未读消息条数
+     * @param id
+     */
     var removeUserCount = function (id) {
         $.each(personalTalkingArray,function(i,item){
             if(item.user_id == id){

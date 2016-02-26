@@ -17,6 +17,9 @@ define(['network/ajax','view/baseView'],function(ajax,baseView){
         user_message_attention: null
     }
 
+    /**
+     * ajax获取我的个人资料
+     */
     var initMyInfo = function(){
         myInfo.infoState = 1;
         ajax.ajaxFunction("user/getMyInfo",null,initMyInfoSuccess,initMyInfoError);

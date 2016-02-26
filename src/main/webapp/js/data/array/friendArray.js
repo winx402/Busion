@@ -7,6 +7,10 @@ define(['jquery'],function($){
      */
     var friendArray = [];
 
+    /**
+     * 添加一个一个好友信息
+     * @param item
+     */
     var addFriend = function(item){
         var user = {
             user_id: item.user_id,
