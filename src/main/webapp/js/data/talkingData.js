@@ -4,8 +4,8 @@
 /**
  * Created by wangwenxiang on 16-1-11.
  */
-define(['data/array/talkingArray','view/friendView','view/menu_bottom_base','view/baseView'],
-    function(talkingArray,friendView,baseView,base){
+define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_bottom_base','view/baseView'],
+    function(ajax,talkingArray,talkingView,baseView,base){
         /**
          * 会话面板状态
          * 0-未初始化，无数据
@@ -41,7 +41,7 @@ define(['data/array/talkingArray','view/friendView','view/menu_bottom_base','vie
                 talkingArray.addOrgTalking(item);
             });
             window.talkingState = 2;
-            //friendView.initFriendPanel(talkingArray.getAll());
+            talkingView.initTalkingPanel(talkingArray.getAllPersonalTalking(),talkingArray.getAllOrgTalking());
             window.talkingState = 3;
             baseView.changePanel(0);
         }else{
@@ -54,6 +54,15 @@ define(['data/array/talkingArray','view/friendView','view/menu_bottom_base','vie
         window.talkingState = 0;
         base.setErrorTimer("获取好友信息出错");
     }
+
+        /**
+         * 获取未读消息
+         * @param type
+         * @param id
+         */
+        var getUnreadMessage = function (type,id) {
+
+        }
 
     return{
         initTalking : initTalking

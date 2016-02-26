@@ -27,4 +27,19 @@ public class MessageService {
     public List<HashMap<String,Object>> getMyUnReadTalking(int userId){
         return messageDao.getMyUnReadTalking(userId);
     }
+
+    /**
+     * 获取用户的未读消息具体内容
+     * 设置为已读
+     * @param userId
+     * @param userId1
+     * @return
+     */
+    public List<HashMap<String,Object>> getUserUnReadTalking(int userId,int userId1){
+        List<HashMap<String,Object>> list = messageDao.getUserUnReadTalking(userId,userId1);
+        if (list != null){
+            messageDao.updateUserUnReadTalking(userId,userId1);
+        }
+        return list;
+    }
 }

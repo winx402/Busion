@@ -91,16 +91,11 @@ body {
   cursor: pointer;
 }
 
-.left-base .my-menu .menu-middle li .fa-dot-circle-o{
+.left-base .my-menu .menu-middle li .unread-count{
   float: right;
-  font-size: 20px;
-  margin: 10px;
-}
-
-.left-base .my-menu .menu-middle li .fa-circle-o{
-  float: right;
-  font-size: 20px;
-  margin: 10px;
+  font-size: 12px;
+  margin: 15px;
+  color: #ac2925;
 }
 
 .left-base .my-menu .menu-middle li:hover{
@@ -115,8 +110,9 @@ body {
 
 .left-base .my-menu .menu-middle li i{
   float: left;
-  font-size: 40px;
+  font-size: 46px;
   color: #443;
+  margin: 0px 10px;
 }
 
 .left-base .my-menu .menu-middle li .name-desc {

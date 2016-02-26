@@ -19,9 +19,11 @@ define(['network/ajax'],function(ajax){
     var addPersonalTalking = function(item){
         var talking = {
             user_id: item.user_id,
-            user_name: item.user_name,
+            name: item.user_name,
             user_photo: item.user_photo,
-            account: item.account //未读消息条数
+            user_description: item.user_description,
+            count: item.count, //未读消息条数
+            unread_message: []
         }
         personalTalkingArray.push(talking);
     }
@@ -29,17 +31,72 @@ define(['network/ajax'],function(ajax){
     var addOrgTalking = function(item){
         var talking = {
             organization_id: item.organization_user_organization,
-            organization_name: item.organization_name,
+            name: item.organization_name,
             organization_logo: item.organization_logo,
-            account: item.account //未读消息条数
+            count: item.count, //未读消息条数
+            unread_message: []
         }
         orgTalkingArray.push(talking);
+    }
+
+    var getTalkingByTypeId = function(type,id){
+        var talking = null;
+        if (type == "org"){
+            $.each(orgTalkingArray,function(i,item){
+                if(item.organization_id == id){
+                    talking = item;
+                    return;
+                }
+            })
+        }else {
+            $.each(personalTalkingArray,function(i,item){
+                if(item.user_id == id){
+                    talking = item;
+                    return;
+                }
+            })
+        }
+        return talking;
+    }
+
+    /**
+     * 通过id获取用户基本信息
+     * 返回一个基本信息对象
+     * @param id
+     * @returns {*}
+     */
+    var getUserById = function(id){
+        var user = null;
+        $.each(personalTalkingArray,function(i,item){
+            if(item.user_id == id){
+                var param = {
+                    user_id : item.user_id,
+                    user_name : item.user_name,
+                    user_photo : item.user_photo
+                }
+                user = param;
+                return;
+            }
+        })
+        return user;
+    }
+
+    var removeUserCount = function (id) {
+        $.each(personalTalkingArray,function(i,item){
+            if(item.user_id == id){
+                item.count = 0;
+                return;
+            }
+        })
     }
 
     return{
         getAllPersonalTalking:getAllPersonalTalking,
         getAllOrgTalking : getAllOrgTalking,
         addPersonalTalking : addPersonalTalking,
-        addOrgTalking : addOrgTalking
+        addOrgTalking : addOrgTalking,
+        getTalkingByTypeId : getTalkingByTypeId,
+        getUserById : getUserById,
+        removeUserCount : removeUserCount
     }
 });

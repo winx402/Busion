@@ -24,8 +24,26 @@ define(['jquery'],function($){
         return friendArray;
     }
 
+    /**
+     * 通过id获取用户基本信息
+     * 返回一个基本信息对象
+     * @param id
+     * @returns {*}
+     */
+    var getUserById = function(id){
+        var user = null;
+        $.each(friendArray,function(i,item){
+            if(item.user_id == id){
+                user = item;
+                return;
+            }
+        })
+        return user;
+    }
+
     return{
         addFriend: addFriend,
-        getAll: getAll
+        getAll: getAll,
+        getUserById : getUserById
     }
 });
