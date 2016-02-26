@@ -22,6 +22,10 @@ define(['network/ajax','view/baseView','view/windowView','data/array/talkingArra
             }
         }
 
+        /**
+         * ajax获取用户未读取消息内容成功
+         * @param data
+         */
         function getUserTalkingSuccess(data){
             var r = eval(data);
             if(r.code == 1){
@@ -34,10 +38,18 @@ define(['network/ajax','view/baseView','view/windowView','data/array/talkingArra
             }
         }
 
+        /**
+         * ajax获取组织未读取消息内容成功
+         * @param data
+         */
         function getOrgTalkingSuccess(data){
 
         }
 
+        /**
+         * ajax获取消息错误
+         * @param data
+         */
         function getTalkingError(data){
             base.setErrorTimer("获取消息出错");
         }

@@ -3,6 +3,10 @@
  */
 
 define(['jquery'],function($){
+    /**
+     * 初始化好友面板
+     * @param friendArray
+     */
     var initFriendPanel = function(friendArray){
         $(".my-friend").children("li").remove();
         $.each(friendArray,function(i,item){

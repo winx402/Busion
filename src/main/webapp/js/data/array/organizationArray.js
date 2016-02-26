@@ -51,7 +51,7 @@ define(['jquery'],function($){
     }
 
     /**
-     * 添加所有组织
+     * 添加一条组织信息
      * @param item
      */
     var addAllOrganization = function (item) {

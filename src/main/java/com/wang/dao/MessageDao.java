@@ -25,10 +25,22 @@ public interface MessageDao {
             "WHERE m.message_user2=#{0} and m.message_type=1 AND m.message_state=10 GROUP BY m.message_user1")
     List<HashMap<String,Object>> getMyUnReadTalking(int userId);
 
+    /**
+     * 获取用户的未读取消息
+     * 具体消息
+     * @param userId
+     * @param userId1
+     * @return
+     */
     @Select("select message_id,message_content,message_time from t_message where message_user1=#{1} and " +
             "message_user2=#{0} and message_type=1 and message_state=10 order by message_id asc")
     List<HashMap<String,Object>> getUserUnReadTalking(int userId,int userId1);
 
+    /**
+     * 将用户的未读消息设置为已读消息
+     * @param userId
+     * @param userId1
+     */
     @Update("update t_message set message_state=20 where message_user1=#{1} and " +
             "message_user2=#{0} and message_type=1 and message_state=10")
     void updateUserUnReadTalking(int userId,int userId1);
