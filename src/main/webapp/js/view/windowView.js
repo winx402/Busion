@@ -5,6 +5,7 @@
 
 define(['jquery','data/userData'],function($,userData){
     /**
+<<<<<<< HEAD
      * 存放每一个实例化窗口的基本信息
      * showTime : 聊天面板最后一次显示的时间
      * lastTime : 上一条消息的时间
@@ -17,6 +18,8 @@ define(['jquery','data/userData'],function($,userData){
      */
     window.TypeAndId = null;
     /**
+=======
+>>>>>>> ffb05f4aee01621b8eadaa091132e0efa1dc607e
      * 通过type,id,name将聊天面板展示出来
      * 如果面板已经存在,则设置为显示状态
      * 如果面板不存在,则通过initWindow来创建一个信息的面板
@@ -38,7 +41,11 @@ define(['jquery','data/userData'],function($,userData){
     }
 
     /**
+<<<<<<< HEAD
      * 创建一个聊天面板,然后添加进入windows,并返回这个窗口
+=======
+     * 创建一个聊天面板,并返回
+>>>>>>> ffb05f4aee01621b8eadaa091132e0efa1dc607e
      * @param type
      * @param id
      * @param name
