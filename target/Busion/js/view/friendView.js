@@ -3,10 +3,15 @@
  */
 
 define(['jquery'],function($){
+    /**
+     * 初始化好友面板
+     * @param friendArray
+     */
     var initFriendPanel = function(friendArray){
         $(".my-friend").children("li").remove();
+        var html = "";
         $.each(friendArray,function(i,item){
-            var html = "<li _id='"+item.user_id+"'>";
+            html = html+"<li class='friend-list' _id='"+item.user_id+"'>";
             if(item.user_photo == null || item.user_photo == ""){
                 html = html+"<img src='../img/photo.jpg'>";
             }else{
@@ -24,8 +29,9 @@ define(['jquery'],function($){
                 html = html+"<div class='talking-desc'>"+item.user_desc+"</div>";
             }
             html = html+"</div></li>";
-            $(".my-friend input").after(html);
+
         })
+        $(".my-friend input").after(html);
     }
 
     return{

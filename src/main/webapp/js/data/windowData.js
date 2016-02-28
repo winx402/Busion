@@ -6,6 +6,7 @@
  */
 define(['network/ajax','view/baseView','view/windowView','data/array/talkingArray','view/talkingView'],
     function(ajax,base,windowView,talkingArray,talkingView){
+
         /**
          * 获取未读消息
          * @param type
@@ -13,10 +14,10 @@ define(['network/ajax','view/baseView','view/windowView','data/array/talkingArra
          */
         var getUnreadMessage = function (type,id) {
             var params = {
-                userId : id
+                id : id
             }
             if (type == "org"){
-
+                ajax.ajaxFunction('orgMessage/getOrgUnReadTalking',params,getOrgTalkingSuccess,getTalkingError);
             }else if(type == "user"){
                 ajax.ajaxFunction('message/getUserUnReadTalking',params,getUserTalkingSuccess,getTalkingError);
             }
@@ -30,7 +31,7 @@ define(['network/ajax','view/baseView','view/windowView','data/array/talkingArra
             var r = eval(data);
             if(r.code == 1){
                 var d = r.data;
-                talkingArray.removeUserCount(d.userId); //将未读消息的条数设置为0
+                talkingArray.removeCount("user",d.userId); //将未读消息的条数设置为0
                 talkingView.removeUnreadCount("user",d.userId);
                 windowView.addUserUnreadTalking(d);
             }else{
@@ -43,7 +44,15 @@ define(['network/ajax','view/baseView','view/windowView','data/array/talkingArra
          * @param data
          */
         function getOrgTalkingSuccess(data){
-
+            var r = eval(data);
+            if(r.code == 1){
+                var d = r.data;
+                talkingArray.removeCount("org",d.orgId); //将未读消息的条数设置为0
+                talkingView.removeUnreadCount("org",d.orgId);
+                windowView.addOrgUnreadTalking(d)
+            }else{
+                base.setErrorTimer(r.msg);
+            }
         }
 
         /**

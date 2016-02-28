@@ -5,6 +5,8 @@ import com.wang.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,5 +53,8 @@ public class UserService {
         return userDao.getAllFriend(userId);
     }
 
+    public List<HashMap<String,Object>> getUsers(String ids){
+        return userDao.getUsers(ids.split(","));
+    }
 
 }

@@ -85,7 +85,7 @@ define(['network/ajax'],function(ajax){
             if(item.user_id == id){
                 var param = {
                     user_id : item.user_id,
-                    user_name : item.user_name,
+                    user_name : item.name,
                     user_photo : item.user_photo
                 }
                 user = param;
@@ -99,13 +99,22 @@ define(['network/ajax'],function(ajax){
      * 删除用户的未读消息条数
      * @param id
      */
-    var removeUserCount = function (id) {
-        $.each(personalTalkingArray,function(i,item){
-            if(item.user_id == id){
-                item.count = 0;
-                return;
-            }
-        })
+    var removeCount = function (type,id) {
+        if (type == "user"){
+            $.each(personalTalkingArray,function(i,item){
+                if(item.user_id == id){
+                    item.count = 0;
+                    return;
+                }
+            })
+        }else if(type == "org"){
+            $.each(orgTalkingArray,function(i,item){
+                if(item.organization_id == id){
+                    item.count = 0;
+                    return;
+                }
+            })
+        }
     }
 
     return{
@@ -115,6 +124,6 @@ define(['network/ajax'],function(ajax){
         addOrgTalking : addOrgTalking,
         getTalkingByTypeId : getTalkingByTypeId,
         getUserById : getUserById,
-        removeUserCount : removeUserCount
+        removeCount : removeCount
     }
 });

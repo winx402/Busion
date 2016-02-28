@@ -270,4 +270,14 @@ public class UserController {
         jo.put("orgTalking",orgMessageService.getMyUnReadTalking(userId));
         return AjaxReturn.Data2Ajax(1,null,jo);
     }
+
+    /**
+     * 批量获取用户的基本信息
+     * @param ids 用户Id集合
+     * @return
+     */
+    @RequestMapping("getUsers")
+    @ResponseBody
+    public JSONObject getUsers(String ids){
+        return AjaxReturn.Data2Ajax(1,null,userService.getUsers(ids));    }
 }

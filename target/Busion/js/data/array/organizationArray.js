@@ -26,7 +26,7 @@ define(['jquery'],function($){
      */
     var addMyOrganization = function(item){
         var myOrganization = {
-            organization_id: item.organization_id,
+            organization_id: item.organization_user_organization,
             organization_name: item.organization_name,
             organization_logo: item.organization_logo,
             organization_user_manage: item.organization_user_manage,
@@ -51,7 +51,7 @@ define(['jquery'],function($){
     }
 
     /**
-     * 添加所有组织
+     * 添加一条组织信息
      * @param item
      */
     var addAllOrganization = function (item) {
@@ -65,10 +65,22 @@ define(['jquery'],function($){
         allOrganizationArray.push(org);
     }
 
+    var getOrgById = function (id) {
+        var org = null;
+        $.each(myOrganizationArray,function(i,item){
+            if(item.organization_id==id){
+                org = item;
+                return;
+            }
+        });
+        return org;
+    }
+
     return{
         getAll : getAll,
         addMyOrganization : addMyOrganization,
         getAllOrg : getAllOrg,
-        addAllOrganization :addAllOrganization
+        addAllOrganization :addAllOrganization,
+        getOrgById:getOrgById
     }
 });

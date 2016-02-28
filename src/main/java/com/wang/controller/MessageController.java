@@ -23,20 +23,20 @@ public class MessageController {
 
     /**
      * 获取用户的未读消息
-     * @param userId
+     * @param id
      * @param session
      * @return
      */
     @RequestMapping("getUserUnReadTalking")
     @ResponseBody
-    public JSONObject getUserUnReadTalking(int userId, HttpSession session){
+    public JSONObject getUserUnReadTalking(int id, HttpSession session){
         User user = (User)session.getAttribute("user");
         if (user == null){
             return AjaxReturn.Data2Ajax(0,"未登陆",null);
         }
         JSONObject js = new JSONObject();
-        js.put("userId",userId);
-        js.put("rows",messageService.getUserUnReadTalking(user.getUser_id(),userId));
+        js.put("userId",id);
+        js.put("rows",messageService.getUserUnReadTalking(user.getUser_id(),id));
         return AjaxReturn.Data2Ajax(1,null,js);
     }
 }

@@ -2,6 +2,7 @@ package com.wang.dao;
 
 import com.wang.domain.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
@@ -43,5 +44,14 @@ public interface UserDao {
             "where friend_user1=#{0} and t_user.user_state=10")
     List<HashMap<String,Object>> getAllFriend(int userId);
 
-
+    @Select({"<script>",
+            "SELECT user_id,user_name,user_photo ",
+            "FROM t_user",
+            "WHERE user_id IN",
+            "<foreach item='item' index='index' collection='ids'",
+            "open='(' separator=',' close=')'>",
+            "#{item}",
+            "</foreach>",
+            "</script>"})
+    List<HashMap<String,Object>> getUsers(@Param("ids")String[] ids);
 }

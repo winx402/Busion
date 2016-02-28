@@ -25,11 +25,18 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
         }
     }
 
+        /**
+         * ajax获取会话面板数据
+         */
     function getData(){
         window.talkingState = 1;
         ajax.ajaxFunction('user/getMyUnReadTalking',null,getDataSuccess,getError)
     }
 
+        /**
+         * 获取资料成功
+         * @param data
+         */
     function getDataSuccess(data){
         var r = eval(data);
         if(r.code == 1){
@@ -37,7 +44,7 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
             $.each(message.personalTalking,function(i,item){ //添加个人消息
                 talkingArray.addPersonalTalking(item);
             });
-            $.each(message.orgTalking,function(i,item){ //添加个人消息
+            $.each(message.orgTalking,function(i,item){ //添加组织消息
                 talkingArray.addOrgTalking(item);
             });
             window.talkingState = 2;
@@ -50,9 +57,13 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
         }
     }
 
+        /**
+         * 获取好友信息错误
+         * @param data
+         */
     function getError(data){
         window.talkingState = 0;
-        base.setErrorTimer("获取好友信息出错");
+        base.setErrorTimer("获取会话信息出错");
     }
 
         /**

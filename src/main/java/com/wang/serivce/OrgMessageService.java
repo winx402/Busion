@@ -1,6 +1,7 @@
 package com.wang.serivce;
 
 import com.wang.dao.OrgMessageDao;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,13 @@ public class OrgMessageService {
      */
     public List<HashMap<String,Object>> getMyUnReadTalking(int userId){
         return orgMessageDao.getMyUnReadTalking(userId);
+    }
+
+    public List<HashMap<String,Object>> getOrgUnReadTalking(int userId,int orgId){
+        List<HashMap<String,Object>> list = orgMessageDao.getOrgUnReadTalking(userId,orgId);
+        if (list != null){
+//            orgMessageDao.updateOrgUnReadTalking(userId,orgId,Integer.parseInt(list.get(list.size()-1).get("org_message_id").toString()));
+        }
+        return list;
     }
 }

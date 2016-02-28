@@ -1,8 +1,8 @@
 /**
  * Created by wangwenxiang on 16-1-8.
  */
-define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizationView','data/array/organizationArray'],
-    function($,menu_bottom_base,orgData,orgView,orgArray){
+define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizationView','data/array/organizationArray','data/array/talkingArray','data/windowData','view/windowView'],
+    function($,menu_bottom_base,orgData,orgView,orgArray,talkingArray,windowData,windowView){
 
         /**
          * 面板状态
@@ -63,6 +63,19 @@ define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizat
             var id = $(this).attr("_index");
             orgView.delOrganizationGuide($(this));
             orgView.initAllOrganizationPanel(orgArray.getAllOrg(id));
+        });
+
+        /**
+         * 点击我的组织进行聊天
+         */
+        $(document).on('click','.org-talking',function(){
+            var id = $(this).attr("_id");
+            var org = orgArray.getOrgById(id);
+            var w = windowView.showWindow("org",id,org.organization_name);
+            var talking = talkingArray.getTalkingByTypeId("org",id);
+            if(talking!=null && talking.count > 0){ //如果有未读消息
+                windowData.getUnreadMessage("org",id);
+            }
         });
 
         /**

@@ -21,7 +21,7 @@ define(['jquery'],function($){
             user_name: item.user_name,
             user_photo: item.user_photo,
         }
-        userArray.push(user)
+        userArray.push(user);
     }
 
     /**
