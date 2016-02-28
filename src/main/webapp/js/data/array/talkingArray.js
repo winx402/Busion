@@ -99,7 +99,6 @@ define(['network/ajax'],function(ajax){
      * 删除用户的未读消息条数
      * @param id
      */
-<<<<<<< HEAD
     var removeCount = function (type,id) {
         if (type == "user"){
             $.each(personalTalkingArray,function(i,item){
@@ -116,15 +115,6 @@ define(['network/ajax'],function(ajax){
                 }
             })
         }
-=======
-    var removeUserCount = function (id) {
-        $.each(personalTalkingArray,function(i,item){
-            if(item.user_id == id){
-                item.count = 0;
-                return;
-            }
-        })
->>>>>>> ffb05f4aee01621b8eadaa091132e0efa1dc607e
     }
 
     return{
