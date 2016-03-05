@@ -1,7 +1,4 @@
 /**
- * Created by wangwenxiang on 16-1-13.
- */
-/**
  * Created by wangwenxiang on 16-1-11.
  */
 define(['jquery'],function($){
@@ -30,7 +27,6 @@ define(['jquery'],function($){
             organization_name: item.organization_name,
             organization_logo: item.organization_logo,
             organization_user_manage: item.organization_user_manage,
-            organization_user_list: []
         }
         myOrganizationArray.push(myOrganization);
     }
@@ -60,7 +56,9 @@ define(['jquery'],function($){
             organization_name: item.organization_name,
             organization_logo: item.organization_logo,
             organization_floor : item.organization_floor,
-            organization_parent : item.organization_parent
+            organization_parent : item.organization_parent,
+            organization_load_user : 1,
+            organization_user_list: []
         }
         allOrganizationArray.push(org);
     }
@@ -76,11 +74,22 @@ define(['jquery'],function($){
         return org;
     }
 
+    var setAllOrgUserList = function (orgId,ids) {
+        $.each(allOrganizationArray,function(i,item){
+            if(item.organization_id==orgId){
+                item.organization_user_list = ids;
+                item.organization_load_user = 2;
+                return;
+            }
+        });
+    }
+
     return{
         getAll : getAll,
         addMyOrganization : addMyOrganization,
         getAllOrg : getAllOrg,
         addAllOrganization :addAllOrganization,
-        getOrgById:getOrgById
+        getOrgById:getOrgById,
+        setAllOrgUserList : setAllOrgUserList
     }
 });

@@ -201,6 +201,14 @@ body {
 .left-base .my-menu .menu-middle .organization-noOrg{
   text-align: center;
   padding-top: 50%;
+  color: #999;
+}
+
+.left-base .my-menu .menu-middle .talking-noTalking{
+  text-align: center;
+  padding-top: 60%;
+  color: #999;
+  font-size: 16px;
 }
 
 .left-base .my-menu .menu-middle .organization-body .organization-name span:hover{

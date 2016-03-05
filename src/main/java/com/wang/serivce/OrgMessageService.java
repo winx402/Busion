@@ -30,7 +30,7 @@ public class OrgMessageService {
     public List<HashMap<String,Object>> getOrgUnReadTalking(int userId,int orgId){
         List<HashMap<String,Object>> list = orgMessageDao.getOrgUnReadTalking(userId,orgId);
         if (list != null){
-//            orgMessageDao.updateOrgUnReadTalking(userId,orgId,Integer.parseInt(list.get(list.size()-1).get("org_message_id").toString()));
+            orgMessageDao.updateOrgUnReadTalking(userId,orgId,Integer.parseInt(list.get(list.size()-1).get("org_message_id").toString()));
         }
         return list;
     }

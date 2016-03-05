@@ -1,8 +1,8 @@
 /**
  * Created by wangwenxiang on 16-1-8.
  */
-define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowView','data/windowData'],
-    function($,menu_bottom_base,talkingArray,windowView,windowData){
+define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowView','data/windowData','view/talkingView'],
+    function($,menu_bottom_base,talkingArray,windowView,windowData,talkingView){
 
     /**
      * 点击底部按钮切换面板
@@ -24,6 +24,7 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
             var id = $(this).attr("_id");
             var talking = talkingArray.getTalkingByTypeId(type,id);
             var w = windowView.showWindow(type,id,talking.name);
+            talkingView.upTalkingPanel(type,id);
             var count = talking.count;
             if(count > 0){ //如果有未读消息
                 windowData.getUnreadMessage(type,id);

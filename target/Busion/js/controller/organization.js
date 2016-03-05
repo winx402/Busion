@@ -1,8 +1,9 @@
 /**
  * Created by wangwenxiang on 16-1-8.
  */
-define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizationView','data/array/organizationArray','data/array/talkingArray','data/windowData','view/windowView'],
-    function($,menu_bottom_base,orgData,orgView,orgArray,talkingArray,windowData,windowView){
+define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizationView','data/array/organizationArray','data/array/talkingArray','data/windowData',
+        'view/windowView','view/talkingView'],
+    function($,menu_bottom_base,orgData,orgView,orgArray,talkingArray,windowData,windowView,talkingView){
 
         /**
          * 面板状态
@@ -53,7 +54,11 @@ define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizat
             var id = $(this).attr("_index");
             var name = $(this).attr("_name");
             orgView.addOrganizationGuide(id,name);
-            orgView.initAllOrganizationPanel(orgArray.getAllOrg(id));
+            var org = orgArray.getAllOrg(id);
+            orgView.initAllOrganizationPanel(org);
+            if(org.organization_load_user == 1){
+
+            }
         });
 
         /**
@@ -75,6 +80,19 @@ define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizat
             var talking = talkingArray.getTalkingByTypeId("org",id);
             if(talking!=null && talking.count > 0){ //如果有未读消息
                 windowData.getUnreadMessage("org",id);
+            }else {
+                if (talking == null){
+                    var o = {
+                        organization_user_organization: id,
+                        organization_name: org.organization_name,
+                        organization_logo: org.organization_logo,
+                        count: 0, //未读消息条数
+                    }
+                    talkingArray.addOrgTalking(o);
+                    talkingView.addTalkingPanel("org",o);
+                }else {
+                    talkingView.upTalkingPanel("org",id);
+                }
             }
         });
 

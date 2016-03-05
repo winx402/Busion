@@ -271,6 +271,15 @@ public class UserController {
         return AjaxReturn.Data2Ajax(1,null,jo);
     }
 
+    @RequestMapping("getOrgUserList")
+    @ResponseBody
+    public JSONObject getOrgUserList(int id){
+        JSONObject js = new JSONObject();
+        js.put("orgId",id);
+        js.put("rows",userService.getOrgUserList(id));
+        return AjaxReturn.Data2Ajax(1,null,js);
+    }
+
     /**
      * 批量获取用户的基本信息
      * @param ids 用户Id集合

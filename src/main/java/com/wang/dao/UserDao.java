@@ -54,4 +54,7 @@ public interface UserDao {
             "</foreach>",
             "</script>"})
     List<HashMap<String,Object>> getUsers(@Param("ids")String[] ids);
+
+    @Select("select organization_user_user from t_organization_user where organization_user_organization=#{0}")
+    List<HashMap<String,Integer>> getOrgUserList(int id);
 }

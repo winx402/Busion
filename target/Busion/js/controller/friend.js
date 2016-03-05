@@ -1,8 +1,9 @@
 /**
  * Created by wangwenxiang on 16-1-8.
  */
-define(['jquery','view/menu_bottom_base','data/friendData','data/array/friendArray','data/windowData','view/windowView','data/array/talkingArray'],
-    function($,menu_bottom_base,friendData,friendArray,windowData,windowView,talkingArray){
+define(['jquery','view/menu_bottom_base','data/friendData','data/array/friendArray','data/windowData','view/windowView','data/array/talkingArray',
+        'view/talkingView'],
+    function($,menu_bottom_base,friendData,friendArray,windowData,windowView,talkingArray,talkingView){
         /**
         * 点击底部按钮切换面板
         */
@@ -27,6 +28,20 @@ define(['jquery','view/menu_bottom_base','data/friendData','data/array/friendArr
             var talking = talkingArray.getTalkingByTypeId("user",id);
             if( talking!=null && talking.count > 0){ //如果有未读消息
                 windowData.getUnreadMessage("user",id);
+            }else {
+                if (talking == null){
+                    var u = {
+                        user_id: id,
+                        user_name: user.user_name,
+                        user_photo: user.user_photo,
+                        user_description: user.user_description,
+                        count: 0 //未读消息条数
+                    }
+                    talkingArray.addPersonalTalking(u);
+                    talkingView.addTalkingPanel("user",u);
+                }else {
+                    talkingView.upTalkingPanel("user",id);
+                }
             }
         });
 });

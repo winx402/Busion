@@ -45,14 +45,34 @@ define(['jquery','data/userData'],function($,userData){
      * @returns {*|jQuery|HTMLElement}
      */
     function initWindow(type,id,name){
+        var w = null;
         var html = "<div class='right-base' id='window-"+type+"-"+id+"'>";
         html = html+"<div class='right-top'>"+name+"</div><div class='right-body'><div class='talking-body'>";
+        //html = html+"<li class='li-right'><img src='../img/photo.jpg' alt='头像' class='photo'><div class='chat'>hello</div></li>";
         html = html+" </div>";
         if(type == "org"){
+            w = {  //新建一个窗口的基本信息,然后添加进入windows数组
+                type : "org",
+                id : id,
+                showTime : null,
+                lastTime : null,
+                isLoadUser : 1,
+                userList : [],
+                isLoadFile : 1,
+                fileList : []
+            }
             html = html+"<div class='something-list'><div>用户列表</div><div>共享文件</div>";
             html = html+"<ul class='user-list list-selected'></ul>";
             html = html+"<ul class='file-list'></ul></div>";
         }else if(type == "user"){
+            w = {  //新建一个窗口的基本信息,然后添加进入windows数组
+                type : "user",
+                id : id,
+                showTime : null,
+                lastTime : null,
+                isLoadFile : 1,
+                fileList : []
+            }
             html = html+"<div class='something-list'><div>文件列表</div>";
             html = html+"<ul class='file-list list-selected'></ul></div>";
         }
@@ -65,13 +85,10 @@ define(['jquery','data/userData'],function($,userData){
         html = html+"</div><textarea class='right-input' type='text' placeholder='请输入...'></textarea>";
         html = html+"</div></div>";
         $(".error-msg").before(html);
-        var w = {  //新建一个窗口的基本信息,然后添加进入windows数组
-            type : type,
-            id : id,
-            showTime : null,
-            lastTime : null
-        }
         windows.push(w);
+        if(type == "org"){
+            userData.getOrgUserList(w);
+        }
         return $("#window-"+type+"-"+id);
     }
 
@@ -165,10 +182,49 @@ define(['jquery','data/userData'],function($,userData){
         }
     }
 
+    /**
+     * 将页面上未显示的用户信息用正确信息替换上去
+     * @param user
+     */
     var addUnGetUserInfo = function (user){
         $(".unget-userName-"+user.user_id).text(user.user_name);
         if(user.user_photo != null && user.user_photo != ""){
             $(".unget-userPhoto-"+user.user_id).attr('src','../'+user.user_photo);
+        }
+    }
+
+    /**
+     * 通过type和id获取相应窗口的数据
+     * @param id
+     */
+    var getWindowData = function (type,id) {
+        $.each(windows, function(i,item){
+            if(item.type == type && item.id == id){
+                return item;
+            }
+        });
+        return null;
+    }
+
+    var addOrgUserList = function(orgId,items){
+        var orgWindow = $("#window-org-"+orgId);
+        if(orgWindow.length > 0){
+            var html = "";
+            var userIds = [];
+            $.each(items, function(i,item){
+                var user = userData.getUser(item.organization_user_user);
+                if(user == null){
+                    userIds.push(item.organization_user_user);
+                    html = html+"<li><i class='fa fa-user'></i>&nbsp;<span class='unget-userName-"+item.organization_user_user+"'>null</span></li>";
+                }else{
+                    html = html+"<li><i class='fa fa-user'></i>&nbsp;"+user.user_name+"</li>";
+                }
+            });
+        }
+
+        orgWindow.find(".user-list").html(html);
+        if(userIds.length > 0){
+            userData.ajaxGetUser(userIds.join(","));
         }
     }
 
@@ -177,6 +233,8 @@ define(['jquery','data/userData'],function($,userData){
         showWindow : showWindow,
         readingMessage : readingMessage,
         addUserUnreadTalking : addUserUnreadTalking,
-        addOrgUnreadTalking : addOrgUnreadTalking
+        addOrgUnreadTalking : addOrgUnreadTalking,
+        getWindowData : getWindowData,
+        addOrgUserList : addOrgUserList
     }
 })

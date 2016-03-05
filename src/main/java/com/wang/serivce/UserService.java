@@ -57,4 +57,7 @@ public class UserService {
         return userDao.getUsers(ids.split(","));
     }
 
+    public List<HashMap<String,Integer>> getOrgUserList(int id){
+        return userDao.getOrgUserList(id);
+    }
 }
