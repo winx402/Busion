@@ -14,9 +14,10 @@ require.config({
         data: '../data',
         network: '../network',
         view: '../view',
-        util:'../util'
+        util:'../util',
+        bootstrap:'bootstrap.min'
     }
 });
 
 require(["controller/base","controller/talking","controller/friend",
-    "controller/organization","controller/setting","controller/windows"]);
+    "controller/organization","controller/setting","controller/windows","controller/user"]);

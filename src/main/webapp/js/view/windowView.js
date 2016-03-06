@@ -116,7 +116,7 @@ define(['jquery','data/userData'],function($,userData){
         if(user == null){
             $.each(rows,function(i,item){
                 html = html+"<li class='li-left'>";
-                html = html + "<img src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
+                html = html + "<img class='user-click' _id='"+id+"' src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
                 html = html + "<div class='chat'>"+item.message_content+"</div></li>"
             })
         }else {
@@ -125,7 +125,7 @@ define(['jquery','data/userData'],function($,userData){
                 photo = "img/photo.jpg";
             $.each(rows,function(i,item){
                 html = html+"<li class='li-left'>";
-                html = html + "<img src='"+photo+"' alt='头像' class='photo'>";
+                html = html + "<img class='user-click' _id='"+user.user_id+"' src='"+photo+"' alt='头像' class='photo'>";
                 html = html + "<div class='chat'>"+item.message_content+"</div></li>"
             })
         }
@@ -150,7 +150,7 @@ define(['jquery','data/userData'],function($,userData){
             if(user == null){
                 noLoadId.push(item.org_message_user);
                 html = html+"<li class='li-left'>";
-                html = html+"<img src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
+                html = html+"<img class='user-click' _id='"+item.org_message_user+"' src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
                 html = html+"<div class='chatBox'>";
                 html = html+"<div class='chatName unget-userName-"+item.org_message_user+"'>null</div>";
                 html = html+"<br><div class='chatCon'>"+item.org_message_content+"</div>";
@@ -158,9 +158,9 @@ define(['jquery','data/userData'],function($,userData){
             }else {
                 html = html+"<li class='li-left'>";
                 if(user.user_photo == null || user.user_photo == ""){
-                    html = html+"<img src='../img/photo.jpg' alt='头像' class='photo'>";
+                    html = html+"<img class='user-click' _id='"+user.user_id+"' src='../img/photo.jpg' alt='头像' class='photo'>";
                 }else{
-                    html = html+"<img src='../"+user.user_photo+"' alt='头像' class='photo'>";
+                    html = html+"<img class='user-click' _id='"+user.user_id+"' src='../"+user.user_photo+"' alt='头像' class='photo'>";
                 }
                 html = html+"<div class='chatBox'>";
                 html = html+"<div class='chatName'>"+user.user_name+"</div>";

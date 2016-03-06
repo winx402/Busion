@@ -548,3 +548,39 @@ body {
   text-align: center;
   left: 35%;
 }
+
+.user-info-modal .modal-header img{
+  width: 32px;
+  height: 32px;
+  float: left;
+  border-radius: 5px;
+}
+
+.user-info-modal .modal-header .user-name{
+  float: left;
+  margin-left: 6px;
+  color: #666;
+  font-size: 16px;
+}
+
+.user-info-modal .modal-header{
+  padding: 8px 18px;
+  overflow:hidden;
+}
+
+.user-info-modal .modal-body table td{
+  padding: 2px;
+  word-break: break-all;
+  min-width: 40px;
+}
+
+.user-info-modal .modal-body ul{
+  padding-left: 20px;
+  padding-top: 10px;
+  margin-bottom: 0px;
+}
+
+.user-info-modal .modal-footer {
+  padding: 8px 18px;
+  text-align: center;
+}

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -45,5 +46,45 @@ public class AllOrganization {
         }finally {
             lock.writeLock().unlock();
         }
+    }
+
+    /**
+     * 获取所有的组织信息
+     * @return
+     */
+    public List<String> parserOrgId(List<Integer> orgIds){
+        try {
+            if (allOrg == null){
+                setAllOrg();
+            }
+            lock.readLock().lock();
+            List<String> orgPath = new ArrayList<String>();
+            for (Integer i : orgIds){
+                StringBuilder sb = new StringBuilder();
+                Integer nowFind = i;
+                HashMap<String,Object> h;
+                do {
+                    h = getOrgById(nowFind);
+                    if (h == null){
+                        break;
+                    }
+                    sb.insert(0,"/"+h.get("organization_name"));
+                    nowFind = Integer.parseInt(h.get("organization_parent").toString());
+                }while (nowFind != 1);
+                orgPath.add(sb.toString());
+            }
+            return orgPath;
+        }finally {
+            lock.readLock().unlock();
+        }
+    }
+
+    public HashMap<String,Object> getOrgById(Integer orgId){
+        for (HashMap<String,Object> h : allOrg){
+            if (orgId == Integer.parseInt(h.get("organization_id").toString())){
+                return h;
+            }
+        }
+        return null;
     }
 }

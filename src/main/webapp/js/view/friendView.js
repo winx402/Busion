@@ -13,9 +13,9 @@ define(['jquery'],function($){
         $.each(friendArray,function(i,item){
             html = html+"<li class='friend-list' _id='"+item.user_id+"'>";
             if(item.user_photo == null || item.user_photo == ""){
-                html = html+"<img src='../img/photo.jpg'>";
+                html = html+"<img class='user-click' _id='"+item.user_id+"' src='../img/photo.jpg'>";
             }else{
-                html = html+"<img src='"+item.user_photo+"'>";
+                html = html+"<img class='user-click' _id='"+item.user_id+"' src='"+item.user_photo+"'>";
             }
             html = html+"<div class='name-desc'>";
             if(item.friend_mark == null || item.friend_mark == ""){

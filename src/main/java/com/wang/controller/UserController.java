@@ -1,11 +1,14 @@
 package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wang.domain.AllOrganization;
+import com.wang.domain.Organization;
 import com.wang.domain.User;
 import com.wang.model.Mail;
 import com.wang.model.PhoneMessage;
 import com.wang.serivce.MessageService;
 import com.wang.serivce.OrgMessageService;
+import com.wang.serivce.OrganizationService;
 import com.wang.serivce.UserService;
 import com.wang.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,11 @@ public class UserController {
     @Autowired
     private OrgMessageService orgMessageService;
 
+    @Autowired
+    private OrganizationService organizationService;
+
+    @Autowired
+    private AllOrganization allOrganization;
     /**
      * 用户登陆
      * 验证用户是否存在
@@ -289,4 +297,18 @@ public class UserController {
     @ResponseBody
     public JSONObject getUsers(String ids){
         return AjaxReturn.Data2Ajax(1,null,userService.getUsers(ids));    }
+
+    @RequestMapping("getUserInfo")
+    @ResponseBody
+    public JSONObject getUserInfo(HttpSession session,int userId){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        HashMap<String,Object> u = userService.getUserInfo(user.getUser_id(),userId);
+        List<Integer> orgs = organizationService.getMyOrganizationId(userId);
+        List<String> orgPath = allOrganization.parserOrgId(orgs);
+        u.put("orgPath",orgPath);
+        return AjaxReturn.Data2Ajax(1,null,u);
+    }
 }

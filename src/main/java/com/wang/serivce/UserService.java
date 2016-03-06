@@ -60,4 +60,8 @@ public class UserService {
     public List<HashMap<String,Integer>> getOrgUserList(int id){
         return userDao.getOrgUserList(id);
     }
+
+    public HashMap<String,Object> getUserInfo(int user1,int user2){
+        return userDao.getUserInfo(user1,user2);
+    }
 }

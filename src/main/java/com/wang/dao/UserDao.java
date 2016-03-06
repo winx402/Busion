@@ -57,4 +57,9 @@ public interface UserDao {
 
     @Select("select organization_user_user from t_organization_user where organization_user_organization=#{0}")
     List<HashMap<String,Integer>> getOrgUserList(int id);
+
+    @Select("SELECT user_id,user_phone,user_mail,user_description,COUNT(friend_user2) as isFriend FROM t_user u LEFT JOIN " +
+            "t_friend f ON f.friend_user1=#{0} and f.friend_user2=#{1} "+
+            "WHERE u.user_id=#{1}")
+    HashMap<String,Object> getUserInfo(int user1,int user2);
 }

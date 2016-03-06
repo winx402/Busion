@@ -1,7 +1,7 @@
 /**
  * Created by wangwenxiang on 16-1-8.
  */
-define(["jquery","view/menu_bottom_base"],function($,menu_bottom_base){
+define(["jquery","view/menu_bottom_base"],function($,menu_bottom_base,bootstrap){
     /**
      * 点击底部按钮切换面板
      */

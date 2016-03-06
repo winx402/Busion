@@ -64,13 +64,13 @@ define(['jquery','require'],function($,require){
                     if(user == null){
                         noUser.push(item);
                         html = html+"<div class='organization-name all-org-user' _index='"+user.user_id+"'>";
-                        html = html+"<span><img class='photo unget-userPhoto-"+item+"' src='../img/photo.jpg'><br><span class='unget-userName-"+item+"'>null</span></span></div>";
+                        html = html+"<span><img class='photo user-click unget-userPhoto-"+item+"' _id='"+user.user_id+"' src='../img/photo.jpg'><br><span class='unget-userName-"+item+"'>null</span></span></div>";
                     }else {
                         html = html+"<div class='organization-name all-org-user' _index='"+user.user_id+"'>";
                         if (user.user_photo == null){
-                            html = html+"<span><img src='../img/photo.jpg'><br>"+user.user_name+"</span></div>";
+                            html = html+"<span><img  class='user-click' _id='"+user.user_id+"' src='../img/photo.jpg'><br>"+user.user_name+"</span></div>";
                         }else{
-                            html = html+"<span><img src='../"+user.user_photo+"'><br>"+user.user_name+"</span></div>";
+                            html = html+"<span><img  class='user-click' _id='"+user.user_id+"' src='../"+user.user_photo+"'><br>"+user.user_name+"</span></div>";
                         }
                     }
                 });
@@ -89,13 +89,13 @@ define(['jquery','require'],function($,require){
             $.each(userList,function(i,item){
                 if(item.load == false){
                     html = html+"<div class='organization-name all-org-user' _index='"+item.user_id+"'>";
-                    html = html+"<span><img class='photo unget-userPhoto-"+id+"' src='../img/photo.jpg'><br><span class='unget-userName-"+item.user_id+"'>null</span></span></div>";
+                    html = html+"<span><img class='photo user-click unget-userPhoto-"+id+"' _id='"+item.user_id+"' src='../img/photo.jpg'><br><span class='unget-userName-"+item.user_id+"'>null</span></span></div>";
                 }else {
                     html = html+"<div class='organization-name all-org-user' _index='"+item.user_id+"'>";
                     if (item.user_photo == null){
-                        html = html+"<span><img src='../img/photo.jpg'><br>"+item.user_name+"</span></div>";
+                        html = html+"<span><img class='user-click' _id='"+item.user_id+"' src='../img/photo.jpg'><br>"+item.user_name+"</span></div>";
                     }else{
-                        html = html+"<span><img src='../"+item.user_photo+"'><br>"+item.user_name+"</span></div>";
+                        html = html+"<span><img class='user-click' _id='"+item.user_id+"' src='../"+item.user_photo+"'><br>"+item.user_name+"</span></div>";
                     }
                 }
             });
