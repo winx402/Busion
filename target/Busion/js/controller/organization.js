@@ -2,8 +2,8 @@
  * Created by wangwenxiang on 16-1-8.
  */
 define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizationView','data/array/organizationArray','data/array/talkingArray','data/windowData',
-        'view/windowView','view/talkingView'],
-    function($,menu_bottom_base,orgData,orgView,orgArray,talkingArray,windowData,windowView,talkingView){
+        'view/windowView','view/talkingView','data/userData'],
+    function($,menu_bottom_base,orgData,orgView,orgArray,talkingArray,windowData,windowView,talkingView,userData){
 
         /**
          * 面板状态
@@ -56,8 +56,8 @@ define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizat
             orgView.addOrganizationGuide(id,name);
             var org = orgArray.getAllOrg(id);
             orgView.initAllOrganizationPanel(org);
-            if(org.organization_load_user == 1){
-
+            if(id!=1 && org.load == 1){
+                userData.getAllOrgUserList(id);
             }
         });
 
@@ -67,7 +67,11 @@ define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizat
         $(document).on('click','.guide-point',function(){
             var id = $(this).attr("_index");
             orgView.delOrganizationGuide($(this));
-            orgView.initAllOrganizationPanel(orgArray.getAllOrg(id));
+            var org = orgArray.getAllOrg(id);
+            orgView.initAllOrganizationPanel(org);
+            if(id!=1 && org.load == 1){
+                userData.getAllOrgUserList(id);
+            }
         });
 
         /**

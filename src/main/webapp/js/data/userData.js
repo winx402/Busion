@@ -3,8 +3,8 @@
  */
 
 define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/array/userArray','require','view/baseView',
-        'data/array/organizationArray'],
-    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray){
+        'data/array/organizationArray','view/organizationView'],
+    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray,organizationView){
 
     /**
      * 通过id获取用户的基本信息
@@ -77,10 +77,28 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
             var r = eval(data);
             if(r.code == 1){
                 var ordIds = [];
+                var userList = [];
+                var noUser = [];
                 $.each(r.data.rows,function(i,item){
-                    ordIds.push(item.organization_user_user);
+                    var id = item.organization_user_user;
+                    ordIds.push(id);
+                    var user = getUser(id);
+                    if(user == null){
+                        user = {
+                            user_id : id,
+                            user_name : "null",
+                            user_photo : null,
+                            load : false
+                        }
+                        noUser.push(id);
+                    }
+                    userList.push(user);
                 });
-                organizationArray.setAllOrgUserList(ordIds); //将用户数据添加到
+                organizationArray.setAllOrgUserList(r.data.orgId,ordIds); //将用户数据添加到
+                organizationView.addOrgUserList(r.data.orgId,userList);
+                if (noUser.length != 0){
+                    ajaxGetUser(noUser.join(","));
+                }
             }else{
                 baseView.setErrorTimer("获取用户数据失败");
             }
@@ -102,6 +120,7 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
     return{
         getUser: getUser,
         ajaxGetUser : ajaxGetUser,
-        getOrgUserList : getOrgUserList
+        getOrgUserList : getOrgUserList,
+        getAllOrgUserList : getAllOrgUserList
     }
 });

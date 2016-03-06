@@ -38,12 +38,24 @@ define(['jquery'],function($){
      */
     var getAllOrg = function(parent){
         var org = [];
+        var organization_load_user = 0;
+        var organization_user_list = [];
         $.each(allOrganizationArray,function(i,item){
             if(item.organization_parent==parent){
                 org.push(item);
+            }else if(item.organization_id == parent){
+                if(parent != 1){
+                    organization_load_user = item.organization_load_user;
+                    organization_user_list = item.organization_user_list;
+                }
             }
-        })
-        return org;
+        });
+        var pamars = {
+            org : org,
+            load : organization_load_user,
+            list : organization_user_list
+        }
+        return pamars;
     }
 
     /**

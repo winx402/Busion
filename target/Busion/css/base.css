@@ -222,6 +222,17 @@ body {
   font-size: 400%;
 }
 
+.left-base .my-menu .menu-middle .organization-body .organization-name .fa-spinner{
+  margin-top: 22%;
+  margin-bottom: 22%;
+  font-size: 200%;
+}
+.left-base .my-menu .menu-middle .organization-body .all-org-user img{
+  width: 90%;
+  height: 90%;
+  margin: 5% 0px;
+}
+
 .left-base .my-menu .menu-middle .organization-body .organization-name div{
   width: 100%;display: block;z-index: 12;bottom: 0px;
   background-color: #666;text-align: center;padding-top: 2px;
