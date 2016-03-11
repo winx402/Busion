@@ -215,9 +215,9 @@ define(['jquery','data/userData'],function($,userData){
                 var user = userData.getUser(item.organization_user_user);
                 if(user == null){
                     userIds.push(item.organization_user_user);
-                    html = html+"<li><i class='fa fa-user'></i>&nbsp;<span class='unget-userName-"+item.organization_user_user+"'>null</span></li>";
+                    html = html+"<li class='user-click' _id='"+item.organization_user_user+"'><i class='fa fa-user'></i>&nbsp;<span class='unget-userName-"+item.organization_user_user+"'>null</span></li>";
                 }else{
-                    html = html+"<li><i class='fa fa-user'></i>&nbsp;"+user.user_name+"</li>";
+                    html = html+"<li class='user-click' _id='"+item.organization_user_user+"'><i class='fa fa-user'></i>&nbsp;"+user.user_name+"</li>";
                 }
             });
         }

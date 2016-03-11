@@ -4,6 +4,7 @@
 # IntelliJ project files
 .idea
 *.iml
+target
 out
 gen
 # Created by .ignore support plugin (hsz.mobi)
