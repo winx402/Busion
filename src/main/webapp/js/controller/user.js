@@ -14,13 +14,12 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
         if (modalView.initFriendModal(user)){
             userData.getUserInfo(user_id);
         }
-
     });
 
     /**
      * 点击所有好友面板的好友进行聊天
      */
-    $(document).on('click','.creat-talking',function(){
+    $(document).on('click','.creat-user-talking',function(){
         $(".user-info-modal").modal('hide');
         var id = $(this).attr("_id");
         var user = userData.getUser(id);
@@ -45,6 +44,13 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
         }
     });
 
+        /**
+         * 点击添加好友
+         */
+        $(document).on('click','.add-friend',function(){
+            var user_id = $(this).attr("_id");
+
+        });
     return{
 
     }

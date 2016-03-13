@@ -17,9 +17,9 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             $(".user-info-modal .modal-footer .creat-talking").attr('_id',user.user_id);
             var me = myData.getMyInfo();
             if (me.user_id == user.user_id){
-                $(".user-info-modal .modal-footer .creat-talking").attr('disabled',true);
+                $(".user-info-modal .modal-footer .creat-user-talking").attr('disabled',true);
             }else {
-                $(".user-info-modal .modal-footer .creat-talking").attr('disabled',false);
+                $(".user-info-modal .modal-footer .creat-user-talking").attr('disabled',false);
 
             }
             $(".user-info-modal").modal('show');
@@ -27,7 +27,7 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
         }
         return false;
     }
-    
+
     var addFriendInfo = function (user) {
         var html = "<table>";
         if(user.user_phone != null){
@@ -52,8 +52,41 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             $(".user-info-modal .modal-footer .add-friend").attr('_id',user.user_id).attr("disabled",false);
         }
     }
+
+    var initOrgModal = function (org) {
+        if (org != null){
+            $(".org-info-modal .org-logo").empty();
+            $(".org-info-modal .org-logo").prepend("<i class='fa "+org.organization_logo+"'></i>");
+            $(".org-info-modal .org-name").text(org.organization_name);
+            $(".org-info-modal .modal-body").empty();
+            $(".org-info-modal .org-manage").attr('_id',org.organization_id).attr('disabled',true);
+            $(".org-info-modal .creat-org-talking").attr('_id',org.organization_id);
+            $(".org-info-modal").modal('show');
+            return true;
+        }
+        return false;
+    }
+
+    var addOrgInfo = function (org){
+        var html = "<table><tr><td valign='top'>简介:</td>";
+        if(org.organization_desc == null){
+            html = html+"<td>该部门没有说明</td>";
+        }else{
+            html = html+"<td>"+org.organization_desc+"</td>";
+        }
+        html = html+"</tr><tr><td valign='top'>公告:</td>";
+        if(org.organization_notice == null){
+            html = html+"<td>无公告</td>";
+        }else {
+            html = html+"<td>"+org.organization_notice+"</td>";
+        }
+        html = html+"</tr></table>";
+        $(".org-info-modal .modal-body").append(html);
+    }
     return{
         initFriendModal : initFriendModal,
-        addFriendInfo : addFriendInfo
+        addFriendInfo : addFriendInfo,
+        initOrgModal : initOrgModal,
+        addOrgInfo : addOrgInfo
     }
 })

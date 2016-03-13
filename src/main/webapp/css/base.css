@@ -570,12 +570,12 @@ body {
   font-size: 16px;
 }
 
-.user-info-modal .modal-header{
+.modal .modal-header{
   padding: 8px 18px;
   overflow:hidden;
 }
 
-.user-info-modal .modal-body table td{
+.modal .modal-body table td{
   padding: 2px;
   word-break: break-all;
   min-width: 40px;
@@ -587,7 +587,22 @@ body {
   margin-bottom: 0px;
 }
 
-.user-info-modal .modal-footer {
+.modal .modal-footer {
   padding: 8px 18px;
   text-align: center;
+}
+
+.org-info-modal .modal-header .org-logo{
+  float: left;
+}
+
+.org-info-modal .modal-header .org-logo i{
+  font-size: 38px;
+}
+
+.org-info-modal .modal-header .org-name{
+  float: left;
+  margin-left: 6px;
+  color: #666;
+  font-size: 16px;
 }

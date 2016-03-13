@@ -314,4 +314,13 @@ public class UserController {
         }
         return AjaxReturn.Data2Ajax(1,null,u);
     }
+
+//    @RequestMapping("addFriend")
+//    public JSONObject addFriend(HttpSession session,int userId){
+//        User user = (User)session.getAttribute("user");
+//        if (user == null){
+//            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+//        }
+//
+//    }
 }

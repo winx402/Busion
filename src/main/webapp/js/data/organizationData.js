@@ -1,8 +1,8 @@
 /**
  * Created by wangwenxiang on 16-1-11.
  */
-define(['network/ajax','data/array/organizationArray','view/organizationView','view/baseView'],
-    function(ajax,orgArray,orgView,baseView){
+define(['network/ajax','data/array/organizationArray','view/organizationView','view/baseView','view/modalView'],
+    function(ajax,orgArray,orgView,baseView,modalView){
         /**
          * 组织面板状态
          * 0-未初始化，无数据
@@ -101,7 +101,28 @@ define(['network/ajax','data/array/organizationArray','view/organizationView','v
             baseView.setErrorTimer("获取所有组织信息出错");
         }
 
+        /**
+         * ajax获取数据
+         * @param org
+         */
+        function getOrgInfo(orgId){
+            var params = {
+                orgId : orgId
+            }
+            ajax.ajaxFunction('organization/getOrgInfo',params,getOrgInfoSuccess,getAllError);
+        }
+
+        function getOrgInfoSuccess(data){
+            var r = eval(data);
+            if(r.code == 1){
+                modalView.addOrgInfo(r.data);
+            }else{
+                baseView.setErrorTimer("获取所有组织信息出错");
+            }
+        }
+
     return{
-        init : init
+        init : init,
+        getOrgInfo : getOrgInfo
     }
 });

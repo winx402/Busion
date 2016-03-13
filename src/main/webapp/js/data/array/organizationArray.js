@@ -32,7 +32,7 @@ define(['jquery'],function($){
     }
 
     /**
-     * 根据parent和floor获取组织集合
+     * 根据parent获取组织集合
      * @param parent
      * @param floor
      */
@@ -56,6 +56,26 @@ define(['jquery'],function($){
             list : organization_user_list
         }
         return pamars;
+    }
+
+    /**
+     * 获取的组织信息
+     */
+    var getMyOrg = function(orgId){
+        var org;
+        $.each(myOrganizationArray,function(i,item){
+            if(item.organization_id==orgId) {
+                org = item;
+            }
+        });
+        if(org == null){
+            $.each(allOrganizationArray,function(i,item){
+                if(item.organization_id==orgId) {
+                    org = item;
+                }
+            });
+        }
+        return org;
     }
 
     /**
@@ -102,6 +122,7 @@ define(['jquery'],function($){
         getAllOrg : getAllOrg,
         addAllOrganization :addAllOrganization,
         getOrgById:getOrgById,
-        setAllOrgUserList : setAllOrgUserList
+        setAllOrgUserList : setAllOrgUserList,
+        getMyOrg : getMyOrg
     }
 });

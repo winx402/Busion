@@ -56,4 +56,10 @@ public class OrganizationController {
         }
         return AjaxReturn.Data2Ajax(1,null,arrayList);
     }
+
+    @RequestMapping("getOrgInfo")
+    @ResponseBody
+    public JSONObject getOrgInfo(int orgId){
+        return AjaxReturn.Data2Ajax(1,null,organizationService.getOrgInfo(orgId));
+    }
 }

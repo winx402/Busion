@@ -33,7 +33,7 @@ define(['jquery'],function($){
     var setErrorTimer = function(errorMsg){
         clearInterval(timer);
         showErrorMsg(errorMsg);
-        timer = setInterval(hideErrorMsg(),3000);
+        timer = setTimeout(hideErrorMsg,3000);
     }
 
     /**

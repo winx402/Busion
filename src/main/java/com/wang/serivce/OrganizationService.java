@@ -43,4 +43,8 @@ public class OrganizationService {
     public List<Integer> getMyOrganizationId(int userId){
         return organizationDao.getMyOrganizationId(userId);
     }
+
+    public HashMap<String,Object> getOrgInfo(int orgId){
+        return organizationDao.getOrgInfo(orgId);
+    }
 }
