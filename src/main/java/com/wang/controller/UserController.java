@@ -109,8 +109,8 @@ public class UserController {
         HttpSession session = request.getSession();
         String code = StringUtil.getRandomCode(4);
         if (registerType == 0){
-            String content = "你好，验证码为："+code;
-            Mail mail = new Mail("注册验证",account,content);
+            String content = "hello，MailCode："+code;
+            Mail mail = new Mail("registerCode",account,content);
             try {
                 MailSender.send(mail);
             }catch (MessagingException me){
@@ -309,6 +309,9 @@ public class UserController {
         List<Integer> orgs = organizationService.getMyOrganizationId(userId);
         List<String> orgPath = allOrganization.parserOrgId(orgs);
         u.put("orgPath",orgPath);
+        if (user.getUser_id() == userId){
+            u.put("isFriend",1);
+        }
         return AjaxReturn.Data2Ajax(1,null,u);
     }
 }

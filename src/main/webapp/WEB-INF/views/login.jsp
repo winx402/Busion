@@ -39,7 +39,7 @@
 					<input type="checkbox" value="remember-me">
 					Remember me
 				</label>
-				<a href="registerPage" style="float: right">Sign up</a>
+				<a href="register" style="float: right">Sign up</a>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" onclick="loginCheck()" id="loginButton">Login
 			</button>

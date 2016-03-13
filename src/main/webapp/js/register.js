@@ -123,7 +123,7 @@ function submitMailorPhoneAjax(value) {
  * 设置60秒不可按
  */
 function checkTimeOut(){
-    errorTimer("验证码已发送，请注意查看"+(registerType==0?"邮箱":"手机"));
+    errorTimer("正在发送");
     count = 60;
     $("#register-button").attr("disabled","disabled");
     codeTimer = setInterval(function(){
@@ -173,6 +173,7 @@ function checkCodeAjax(){
             var r = eval(data);
             var code = r.code;
             if (code == 1) { //验证码通过
+                errorTimer("正在发送，请注意查看"+(registerType==0?"邮箱":"手机"));
                 step = 2;
                 nextStep();
             }else {

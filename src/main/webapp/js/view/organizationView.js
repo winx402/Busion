@@ -89,7 +89,7 @@ define(['jquery','require'],function($,require){
             $.each(userList,function(i,item){
                 if(item.load == false){
                     html = html+"<div class='organization-name all-org-user' _index='"+item.user_id+"'>";
-                    html = html+"<span><img class='photo user-click unget-userPhoto-"+id+"' _id='"+item.user_id+"' src='../img/photo.jpg'><br><span class='unget-userName-"+item.user_id+"'>null</span></span></div>";
+                    html = html+"<span><img class='photo user-click unget-userPhoto-"+item.user_id+"' _id='"+item.user_id+"' src='../img/photo.jpg'><br><span class='unget-userName-"+item.user_id+"'>null</span></span></div>";
                 }else {
                     html = html+"<div class='organization-name all-org-user' _index='"+item.user_id+"'>";
                     if (item.user_photo == null){

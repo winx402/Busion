@@ -3,8 +3,8 @@
  */
 
 define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/array/userArray','require','view/baseView',
-        'data/array/organizationArray','view/organizationView'],
-    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray,organizationView){
+        'data/array/organizationArray','view/organizationView','view/modalView'],
+    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray,organizationView,modalView){
 
     /**
      * 通过id获取用户的基本信息
@@ -117,10 +117,32 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
             baseView.setErrorTimer("获取用户数据失败");
         }
 
+        /**
+         * 获取用户详细信息
+         * @param orgId
+         */
+        var getUserInfo = function(user_id){
+            var params = {
+                userId : user_id
+            }
+            ajax.ajaxFunction('user/getUserInfo',params,getUserInfoSuccess,getUserError);
+        }
+
+        function getUserInfoSuccess(data){
+            var r = eval(data);
+            if(r.code == 1){
+                modalView.addFriendInfo(r.data);
+            }else{
+                baseView.setErrorTimer("获取用户数据失败");
+            }
+        }
+
+
     return{
         getUser: getUser,
         ajaxGetUser : ajaxGetUser,
         getOrgUserList : getOrgUserList,
-        getAllOrgUserList : getAllOrgUserList
+        getAllOrgUserList : getAllOrgUserList,
+        getUserInfo : getUserInfo
     }
 });

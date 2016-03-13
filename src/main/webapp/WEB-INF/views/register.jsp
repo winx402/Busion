@@ -103,7 +103,7 @@
     </button>
 </div>
 <div class="box">
-     恭喜！你已经完成了注册<br>你的登陆账号是<font color="#dc143c" id="show-mail"> 123@qq.com</font><br>请<a href="loginPage">登陆</a>
+     恭喜！你已经完成了注册<br>你的登陆账号是<font color="#dc143c" id="show-mail"> 123@qq.com</font><br>请<a href="login">登陆</a>
 </div>
 
 <script src="../js/lib/jquery.min.js"></script>

@@ -131,6 +131,11 @@
       <artifactId>spring-webmvc</artifactId>
       <version>4.0.2.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>com.taobao</groupId>
+      <artifactId>java-sdk</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>Busion</finalName>

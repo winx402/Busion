@@ -22,6 +22,7 @@ public interface OrganizationDao {
             " where organization_user_user=#{0}")
     List<HashMap<String,Object>> getMyOrganization(int userId);
 
-    @Select("select organization_user_organization from t_organization_user where organization_user_user=#{0} and organization_state=10")
+    @Select("select organization_user_organization from t_organization_user INNER JOIN t_organization ON t_organization_user.organization_user_organization=t_organization.organization_id\n" +
+            " AND t_organization.organization_state=10 where organization_user_user=#{0} and organization_state=10")
     List<Integer> getMyOrganizationId(int userId);
 }

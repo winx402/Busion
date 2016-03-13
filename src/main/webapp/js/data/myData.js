@@ -48,7 +48,12 @@ define(['network/ajax','view/baseView'],function(ajax,baseView){
         baseView.showErrorMsg("系统错误");
     }
 
+    var getMyInfo = function(){
+        return myInfo;
+    }
+
     return{
-        initMyInfo: initMyInfo
+        initMyInfo: initMyInfo,
+        getMyInfo : getMyInfo
     }
 });

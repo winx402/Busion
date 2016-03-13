@@ -84,7 +84,7 @@ define(['jquery','data/userData'],function($,userData){
         html = html+"<i class='fa fa-file-o'></i>";
         html = html+"</div><textarea class='right-input' type='text' placeholder='请输入...'></textarea>";
         html = html+"</div></div>";
-        $(".error-msg").before(html);
+        $(".base").append(html);
         windows.push(w);
         if(type == "org"){
             userData.getOrgUserList(w);
