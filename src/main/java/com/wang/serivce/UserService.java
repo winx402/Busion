@@ -64,4 +64,8 @@ public class UserService {
     public HashMap<String,Object> getUserInfo(int user1,int user2){
         return userDao.getUserInfo(user1,user2);
     }
+
+    public int updateUserDesc(int userId,String userDesc){
+        return userDao.updateUserDesc(userId,userDesc);
+    }
 }

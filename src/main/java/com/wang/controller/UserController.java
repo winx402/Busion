@@ -315,6 +315,19 @@ public class UserController {
         return AjaxReturn.Data2Ajax(1,null,u);
     }
 
+    @RequestMapping("updateUserDesc")
+    @ResponseBody
+    public JSONObject updateUserDesc(HttpSession session,String userDesc){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        if (userService.updateUserDesc(user.getUser_id(),userDesc) == 1){
+            return AjaxReturn.Data2Ajax(1,null,userDesc);
+        }
+        return AjaxReturn.Data2Ajax(0,"更新失败",null);
+    }
+
 //    @RequestMapping("addFriend")
 //    public JSONObject addFriend(HttpSession session,int userId){
 //        User user = (User)session.getAttribute("user");

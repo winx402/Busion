@@ -3,8 +3,8 @@
  */
 
 define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/array/userArray','require','view/baseView',
-        'data/array/organizationArray','view/organizationView','view/modalView'],
-    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray,organizationView,modalView){
+        'data/array/organizationArray','view/organizationView','view/modalView','data/myData'],
+    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray,organizationView,modalView,myData){
 
     /**
      * 通过id获取用户的基本信息
@@ -137,12 +137,34 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
             }
         }
 
+        /**
+         * 获取用户详细信息
+         * @param orgId
+         */
+        var updateUserDesc = function(params){
+            ajax.ajaxFunction('user/updateUserDesc',params,updateUserDescSuccess,updateUserDescError);
+        }
+
+        function updateUserDescSuccess(data){
+            var r = eval(data);
+            if(r.code == 1){
+                baseView.setErrorTimer("个人资料更新成功");
+                myData.updateUserDescInfo(r.data);
+            }else{
+                baseView.setErrorTimer(r.msg);
+            }
+        }
+
+        function updateUserDescError(data){
+            baseView.setErrorTimer("系统错误");
+        }
 
     return{
         getUser: getUser,
         ajaxGetUser : ajaxGetUser,
         getOrgUserList : getOrgUserList,
         getAllOrgUserList : getAllOrgUserList,
-        getUserInfo : getUserInfo
+        getUserInfo : getUserInfo,
+        updateUserDesc : updateUserDesc
     }
 });

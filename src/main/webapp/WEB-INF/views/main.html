@@ -100,7 +100,7 @@
                 <!-- 我的设置 -->
                 <div class="my-setting menu">
                     <div class="setting-info">个人资料
-                        <a href="#">修改</a>
+                        <a href="#" class="change-my-info">修改</a>
                     </div>
                     <div class="setting-organization">我的组织
                         <a href="#">设置</a>
@@ -289,7 +289,7 @@
             <div class="modal-footer">
                 <div class="btn-group" role="group">
                     <button type="button" data-toggle="modal" data-target=".user-info-modal" class="btn btn-default close-friend-modal">关闭窗口</button>
-                    <button type="button" class="btn btn-default add-friend" _id="0">添加好友</button>
+                    <button type="button" class="btn btn-default myself-friend" _id="0">添加好友</button>
                     <button type="button" class="btn btn-default creat-user-talking" _id="0">发起聊天</button>
                 </div>
             </div>
@@ -322,6 +322,32 @@
                     <button type="button" data-toggle="modal" data-target=".org-info-modal" class="btn btn-default close-friend-modal">关闭窗口</button>
                     <button type="button" class="btn btn-default org-manage" _id="0">管理部门</button>
                     <button type="button" class="btn btn-default creat-org-talking" _id="0">发起聊天</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm user-info-change-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <img class="user_photo" src="../img/photo.jpg">
+                <div class="user-name">Test</div>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td valign="top">个人说明:</td>
+                        <td><textarea class="my-desc-input"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group">
+                    <button type="button" data-toggle="modal" data-target=".user-info-change-modal" class="btn btn-default">关闭窗口</button>
+                    <button type="button" class="btn btn-default update-user-info" _id="0">保存修改</button>
                 </div>
             </div>
         </div>

@@ -50,12 +50,17 @@ define(['jquery'],function($){
         }
         $(".body-loading").css("display","none");
         $(".left-base").css("display","block");
-        $(".my-info").animate({'margin-top':'20px','margin-bottom':'80px'},1000);
+        $(".my-info").animate({'margin': '20px 0px 85px 20px'},1000);
+    }
+
+    var updateMyDesc = function(userDesc){
+        $(".my-desc").text(userDesc);
     }
 
     return{
         showErrorMsg: showErrorMsg,
         setErrorTimer: setErrorTimer,
-        initMainPanel: initMainPanel
+        initMainPanel: initMainPanel,
+        updateMyDesc : updateMyDesc
     }
 })

@@ -52,8 +52,14 @@ define(['network/ajax','view/baseView'],function(ajax,baseView){
         return myInfo;
     }
 
+    var updateUserDescInfo = function (userDesc) {
+        myInfo.user_desc = userDesc;
+        baseView.updateMyDesc(userDesc);
+    }
+
     return{
         initMyInfo: initMyInfo,
-        getMyInfo : getMyInfo
+        getMyInfo : getMyInfo,
+        updateUserDescInfo : updateUserDescInfo
     }
 });

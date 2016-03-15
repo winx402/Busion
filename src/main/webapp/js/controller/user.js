@@ -51,6 +51,15 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
             var user_id = $(this).attr("_id");
 
         });
+
+        $(".update-user-info").click(function(){
+            var newValue = $(".my-desc-input").val();
+            var params = {
+                userDesc : newValue
+            }
+            userData.updateUserDesc(params);
+            $(".user-info-change-modal").modal('hide');
+        });
     return{
 
     }

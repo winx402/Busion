@@ -62,4 +62,7 @@ public interface UserDao {
             "t_friend f ON f.friend_user1=#{0} and f.friend_user2=#{1} "+
             "WHERE u.user_id=#{1}")
     HashMap<String,Object> getUserInfo(int user1,int user2);
+
+    @Update("update t_user set user_description=#{1} where user_id=#{0}")
+    int updateUserDesc(int userId,String usrDesc);
 }

@@ -14,12 +14,12 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             $(".user-info-modal .user-name").text(user.user_name);
             $(".user-info-modal .modal-body").empty();
             $(".user-info-modal .modal-footer .add-friend").attr('_id',user.user_id).attr("disabled",true);
-            $(".user-info-modal .modal-footer .creat-talking").attr('_id',user.user_id);
+            $(".user-info-modal .modal-footer .creat-user-talking").attr('_id',user.user_id);
             var me = myData.getMyInfo();
             if (me.user_id == user.user_id){
-                $(".user-info-modal .modal-footer .creat-user-talking").attr('disabled',true);
+                $(".user-info-modal .modal-footer .myself-friend").addClass("change-my-info").removeClass("creat-user-talking").text("修改资料");
             }else {
-                $(".user-info-modal .modal-footer .creat-user-talking").attr('disabled',false);
+                $(".user-info-modal .modal-footer .myself-friend").addClass("creat-user-talking").removeClass("change-my-info").attr('disabled',false);
 
             }
             $(".user-info-modal").modal('show');
@@ -59,7 +59,12 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             $(".org-info-modal .org-logo").prepend("<i class='fa "+org.organization_logo+"'></i>");
             $(".org-info-modal .org-name").text(org.organization_name);
             $(".org-info-modal .modal-body").empty();
-            $(".org-info-modal .org-manage").attr('_id',org.organization_id).attr('disabled',true);
+            $(".org-info-modal .org-manage").attr('_id',org.organization_id);
+            if(org.organization_user_manage == 1){
+                $(".org-info-modal .org-manage").attr('disabled',false);
+            }else{
+                $(".org-info-modal .org-manage").attr('disabled',true);
+            }
             $(".org-info-modal .creat-org-talking").attr('_id',org.organization_id);
             $(".org-info-modal").modal('show');
             return true;
@@ -83,10 +88,32 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
         html = html+"</tr></table>";
         $(".org-info-modal .modal-body").append(html);
     }
+
+    var initMyInfoModal = function (user) {
+        if (user != null){
+            if(user.user_photo == null){
+                $(".user-info-change-modal .user_photo").attr('src','../img/photo.jpg');
+            }else {
+                $(".user-info-change-modal .user_photo").attr('src','../'+user.user_photo);
+            }
+            $(".user-info-change-modal .user-name").text(user.user_name);
+            if (user.user_desc != null){
+                $(".user-info-change-modal .my-desc-input").text(user.user_desc);
+            }else {
+                $(".user-info-change-modal .my-desc-input").text();
+            }
+            $(".user-info-change-modal .modal-footer .update-user-info").attr('disabled',true);
+            $(".user-info-change-modal").modal('show');
+            return true;
+        }
+        return false;
+    }
+
     return{
         initFriendModal : initFriendModal,
         addFriendInfo : addFriendInfo,
         initOrgModal : initOrgModal,
-        addOrgInfo : addOrgInfo
+        addOrgInfo : addOrgInfo,
+        initMyInfoModal : initMyInfoModal
     }
 })

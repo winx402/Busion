@@ -29,7 +29,7 @@ define(['jquery','require'],function($,require){
             html = html+"<div class='organization-name my-org' _index='"+item.organization_id+"'>";
             html = html+"<span><i class='fa "+item.organization_logo+"'></i><br>"+item.organization_name+"</span>";
             html = html+"<div class='org-talking' _id="+item.organization_id+">发送消息</div></div>";
-        })
+        });
         $(".organization-myOrg .organization-body").append(html);
     }
 
