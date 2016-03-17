@@ -64,7 +64,7 @@ define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizat
         /**
          * 点击我的组织下的具体组织
          */
-        $(document).on('click','.my-org',function(){
+        $(document).on('click','.my-org-click',function(){
             var id = $(this).attr("_index");
             var org = orgArray.getMyOrg(id);
             if(modalView.initOrgModal(org)){

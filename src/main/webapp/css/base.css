@@ -615,3 +615,10 @@ body {
   outline: none;color: #333;
 }
 
+#manage-org-modal .modal-content{
+  padding: 5px 5px;
+}
+
+#manage-org-modal .modal-content .tab-pane{
+  padding: 5px 10px;
+}

@@ -13,14 +13,19 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             }
             $(".user-info-modal .user-name").text(user.user_name);
             $(".user-info-modal .modal-body").empty();
-            $(".user-info-modal .modal-footer .add-friend").attr('_id',user.user_id).attr("disabled",true);
+            $(".user-info-modal .modal-footer .myself-friend").attr('_id',user.user_id).attr("disabled",true);
             $(".user-info-modal .modal-footer .creat-user-talking").attr('_id',user.user_id);
             var me = myData.getMyInfo();
+            var myself_friend = $(".user-info-modal .modal-footer .myself-friend");
             if (me.user_id == user.user_id){
-                $(".user-info-modal .modal-footer .myself-friend").addClass("change-my-info").removeClass("creat-user-talking").text("修改资料");
+                myself_friend.addClass("change-my-info").removeClass("add-friend").text("修改资料").attr('disabled',false);
+                $(".user-info-modal .modal-footer .creat-user-talking").attr('disabled',true);
             }else {
-                $(".user-info-modal .modal-footer .myself-friend").addClass("creat-user-talking").removeClass("change-my-info").attr('disabled',false);
-
+                myself_friend.addClass("add-friend");
+                myself_friend.removeClass("change-my-info");
+                myself_friend.text("添加好友");
+                myself_friend.attr('disabled',true);
+                $(".user-info-modal .modal-footer .creat-user-talking").attr('disabled',false);
             }
             $(".user-info-modal").modal('show');
             return true;

@@ -50,7 +50,7 @@ define(['jquery'],function($){
         }
         $(".body-loading").css("display","none");
         $(".left-base").css("display","block");
-        $(".my-info").animate({'margin': '20px 0px 85px 20px'},1000);
+        $(".my-info").animate({'margin': '15px 0px 80px 20px'},1000);
     }
 
     var updateMyDesc = function(userDesc){

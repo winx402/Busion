@@ -49,6 +49,13 @@ define(["jquery","view/menu_bottom_base",'data/myData','view/modalView'],functio
                 $(".update-user-info").attr("disabled",true);
             }
         }
+    });
+
+    /**
+     * 修改个人资料按钮
+     */
+    $(document).on('click','#change-org-list',function(){
+        $("#manage-org-modal").modal('show');
 
     });
 
