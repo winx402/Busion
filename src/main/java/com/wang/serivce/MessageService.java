@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by wangwenxiang on 15-12-7.
+ * Created on 15-12-7.
  */
 @Service
 public class MessageService {
@@ -31,9 +31,9 @@ public class MessageService {
     /**
      * 获取用户的未读消息具体内容
      * 设置为已读
-     * @param userId
-     * @param userId1
-     * @return
+     * @param userId 用户id
+     * @param userId1 用户id2
+     * @return json
      */
     public List<HashMap<String,Object>> getUserUnReadTalking(int userId,int userId1){
         List<HashMap<String,Object>> list = messageDao.getUserUnReadTalking(userId,userId1);
@@ -41,5 +41,9 @@ public class MessageService {
             messageDao.updateUserUnReadTalking(userId,userId1);
         }
         return list;
+    }
+
+    public List<HashMap<String,Object>> getSysUnreadTalking(int userId){
+        return messageDao.getSysUnreadTalking(userId);
     }
 }

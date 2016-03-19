@@ -2,7 +2,6 @@ package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wang.domain.AllOrganization;
-import com.wang.domain.Organization;
 import com.wang.domain.User;
 import com.wang.model.Mail;
 import com.wang.model.PhoneMessage;
@@ -10,24 +9,24 @@ import com.wang.serivce.MessageService;
 import com.wang.serivce.OrgMessageService;
 import com.wang.serivce.OrganizationService;
 import com.wang.serivce.UserService;
-import com.wang.util.*;
+import com.wang.util.AjaxReturn;
+import com.wang.util.MailSender;
+import com.wang.util.PhoneSender;
+import com.wang.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.mail.MessagingException;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by wangwenxiang on 15-12-7.
+ * Created on 15-12-7.
  */
 @Controller
 @RequestMapping("user")
@@ -54,7 +53,7 @@ public class UserController {
      * 验证用户密码
      * @param account 用户账号
      * @param password 用户密码
-     * @return
+     * @return json
      */
     @RequestMapping("userLogin")
     @ResponseBody
@@ -117,7 +116,7 @@ public class UserController {
                 return AjaxReturn.Data2Ajax(0,"服务器异常",null);
             }
 
-        }else if (registerType == 1){
+        } else {
             PhoneMessage phoneMessage = new PhoneMessage(account,code,"注册验证");
             PhoneSender.send(phoneMessage);
         }
@@ -187,7 +186,7 @@ public class UserController {
         }
         if (registerType == 0){
             user.setUser_mail(account.toString());
-        }else if (registerType == 1){
+        } else {
             user.setUser_phone(account.toString());
         }
         user.setUser_name(user_name);
@@ -230,8 +229,8 @@ public class UserController {
 
     /**
      * 获取自己的所有的好友
-     * @param session
-     * @return
+     * @param session session
+     * @return json
      */
     @RequestMapping("getAllFriend")
     @ResponseBody
@@ -246,8 +245,8 @@ public class UserController {
 
     /**
      * 通过session获取自己的基本信息
-     * @param session
-     * @return
+     * @param session session
+     * @return json
      */
     @RequestMapping("getMyInfo")
     @ResponseBody
@@ -275,7 +274,11 @@ public class UserController {
         JSONObject jo = new JSONObject();
         //获取个人消息
         jo.put("personalTalking",messageService.getMyUnReadTalking(userId));
+        //获取组织消息
         jo.put("orgTalking",orgMessageService.getMyUnReadTalking(userId));
+        //获取系统消息
+        jo.put("sysTalking", messageService.getSysUnreadTalking(userId));
+
         return AjaxReturn.Data2Ajax(1,null,jo);
     }
 
@@ -291,7 +294,7 @@ public class UserController {
     /**
      * 批量获取用户的基本信息
      * @param ids 用户Id集合
-     * @return
+     * @return json
      */
     @RequestMapping("getUsers")
     @ResponseBody
