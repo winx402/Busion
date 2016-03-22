@@ -35,7 +35,8 @@ define(['jquery','view/menu_bottom_base','data/friendData','data/array/friendArr
                         user_name: user.user_name,
                         user_photo: user.user_photo,
                         user_description: user.user_description,
-                        count: 0 //未读消息条数
+                        count: 0, //未读消息条数
+                        unread_message: []
                     }
                     talkingArray.addPersonalTalking(u);
                     talkingView.addTalkingPanel("user",u);

@@ -129,6 +129,7 @@ define(["jquery","view/menu_bottom_base",'data/organizationData','view/organizat
                         organization_name: org.organization_name,
                         organization_logo: org.organization_logo,
                         count: 0, //未读消息条数
+                        unread_message: []
                     }
                     talkingArray.addOrgTalking(o);
                     talkingView.addTalkingPanel("org",o);

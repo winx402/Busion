@@ -23,11 +23,16 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
             var type = $(this).attr("_type");
             var id = $(this).attr("_id");
             var talking = talkingArray.getTalkingByTypeId(type,id);
-            var w = windowView.showWindow(type,id,talking.name);
-            talkingView.upTalkingPanel(type,id);
-            var count = talking.count;
-            if(count > 0){ //如果有未读消息
-                windowData.getUnreadMessage(type,id);
+            if (type != "sys"){
+                var w = windowView.showWindow(type,id,talking.name);
+                talkingView.upTalkingPanel(type,id);
+                var count = talking.count;
+                if(count > 0){ //如果有未读消息
+                    windowData.getUnreadMessage(type,id);
+                }
+            }else {
+
             }
+
         });
 });

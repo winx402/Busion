@@ -7,14 +7,19 @@ define(['network/ajax'],function(ajax){
      */
     var personalTalkingArray = []; //个人talking数据
     var orgTalkingArray = []; //组织talking数据
+    var sysTalkingArray = []; //系统talking数据
 
     var getAllPersonalTalking = function(){
         return personalTalkingArray;
-    }
+    };
 
     var getAllOrgTalking = function(){
         return orgTalkingArray;
-    }
+    };
+
+    var getAllSysTalking = function(){
+        return sysTalkingArray;
+    };
 
     /**
      * 添加一条用户的talking
@@ -28,9 +33,9 @@ define(['network/ajax'],function(ajax){
             user_description: item.user_description,
             count: item.count, //未读消息条数
             unread_message: []
-        }
+        };
         personalTalkingArray.push(talking);
-    }
+    };
 
     /**
      * 添加一条组织的talking
@@ -43,9 +48,26 @@ define(['network/ajax'],function(ajax){
             organization_logo: item.organization_logo,
             count: item.count, //未读消息条数
             unread_message: []
-        }
+        };
         orgTalkingArray.push(talking);
-    }
+    };
+
+    /**
+     * 添加一条系统的talking
+     * @param item
+     */
+    var addSysTalking = function(item){
+        var talking = {
+            message_id: item.message_id,
+            message_type: item.message_type,
+            user_id: item.user_id,
+            user_name: item.user_name, //未读消息条数
+            message_time: item.message_time,
+            message_content : item.message_content,
+            message_isRead : false
+        };
+        sysTalkingArray.push(talking);
+    };
 
     /**
      * 通过type和id获取talking
@@ -62,16 +84,23 @@ define(['network/ajax'],function(ajax){
                     return;
                 }
             })
-        }else {
+        }else if(type == "user"){
             $.each(personalTalkingArray,function(i,item){
                 if(item.user_id == id){
                     talking = item;
                     return;
                 }
             })
+        }else if(type == "sys"){
+            $.each(sysTalkingArray,function(i,item){
+                if(item.message_id == id){
+                    talking = item;
+                    return;
+                }
+            })
         }
         return talking;
-    }
+    };
 
     /**
      * 通过id获取用户基本信息
@@ -83,17 +112,15 @@ define(['network/ajax'],function(ajax){
         var user = null;
         $.each(personalTalkingArray,function(i,item){
             if(item.user_id == id){
-                var param = {
+                return {
                     user_id : item.user_id,
                     user_name : item.name,
                     user_photo : item.user_photo
-                }
-                user = param;
-                return;
+                };
             }
-        })
+        });
         return user;
-    }
+    };
 
     /**
      * 删除用户的未读消息条数
@@ -115,7 +142,7 @@ define(['network/ajax'],function(ajax){
                 }
             })
         }
-    }
+    };
 
     return{
         getAllPersonalTalking:getAllPersonalTalking,
@@ -124,6 +151,8 @@ define(['network/ajax'],function(ajax){
         addOrgTalking : addOrgTalking,
         getTalkingByTypeId : getTalkingByTypeId,
         getUserById : getUserById,
-        removeCount : removeCount
+        removeCount : removeCount,
+        addSysTalking : addSysTalking,
+        getAllSysTalking : getAllSysTalking
     }
 });

@@ -11,7 +11,7 @@ define(['jquery'],function($){
      * @param personalTalking
      * @param orgTalking
      */
-    var initTalkingPanel = function(personalTalking,orgTalking){
+    var initTalkingPanel = function(personalTalking,orgTalking,sysTalking){
         $(".my-talking").children("li").remove();
         var html = "";
         $.each(personalTalking,function(i,item){
@@ -34,6 +34,17 @@ define(['jquery'],function($){
             html = html+"<i class='fa "+item.organization_logo+"'></i><div class='name-desc'>";
             html = html+"<div class='talking-content'>"+item.name+"</div></div>";
             html = html+"<span class='unread-count'>"+item.count+"</span></li>";
+        });
+        $.each(sysTalking,function(i,item){
+            html = html+"<li class='talking-li' _type='sys' _id='"+item.message_id+"' id='sys_"+item.message_id+"'>";
+            if(item.message_type == 3){
+                html = html+"<div class='name-desc'>";
+                html = html+"<div class='talking-content'>"+item.user_name+"&nbsp;请求添加你为好友</div></div>";
+            }else{
+                html = html+"<div class='name-desc'>";
+                html = html+"<div class='talking-content'>系统消息</div></div>";
+            }
+            html = html+"<span class='unread-count'>1</span></li>";
         });
         if(html == ""){
             html = "<div class='talking-noTalking'>没有未读消息</div>";

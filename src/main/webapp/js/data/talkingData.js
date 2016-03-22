@@ -47,8 +47,11 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
             $.each(message.orgTalking,function(i,item){ //添加组织消息
                 talkingArray.addOrgTalking(item);
             });
+            $.each(message.sysTalking,function(i,item){ //添加组织消息
+                talkingArray.addSysTalking(item);
+            });
             window.talkingState = 2;
-            talkingView.initTalkingPanel(talkingArray.getAllPersonalTalking(),talkingArray.getAllOrgTalking());
+            talkingView.initTalkingPanel(talkingArray.getAllPersonalTalking(),talkingArray.getAllOrgTalking(),talkingArray.getAllSysTalking());
             window.talkingState = 3;
             baseView.changePanel(0);
         }else{
