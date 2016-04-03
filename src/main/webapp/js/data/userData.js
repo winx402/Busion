@@ -89,7 +89,7 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
                             user_name : "null",
                             user_photo : null,
                             load : false
-                        }
+                        };
                         noUser.push(id);
                     }
                     userList.push(user);
@@ -143,7 +143,7 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
          */
         var updateUserDesc = function(params){
             ajax.ajaxFunction('user/updateUserDesc',params,updateUserDescSuccess,updateUserDescError);
-        }
+        };
 
         function updateUserDescSuccess(data){
             var r = eval(data);
@@ -159,12 +159,24 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
             baseView.setErrorTimer("系统错误");
         }
 
+        /**
+         * 拒绝好友请求
+         * @param id 用户id
+         */
+        var rejectFriendRequest = function (id) {
+            var params = {
+                userId : id
+            };
+            ajax.ajaxFunction('message/rejectFriendRequest',params);
+        };
+
     return{
         getUser: getUser,
         ajaxGetUser : ajaxGetUser,
         getOrgUserList : getOrgUserList,
         getAllOrgUserList : getAllOrgUserList,
         getUserInfo : getUserInfo,
-        updateUserDesc : updateUserDesc
+        updateUserDesc : updateUserDesc,
+        rejectFriendRequest : rejectFriendRequest
     }
 });

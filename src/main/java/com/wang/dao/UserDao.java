@@ -65,4 +65,7 @@ public interface UserDao {
 
     @Update("update t_user set user_description=#{1} where user_id=#{0}")
     int updateUserDesc(int userId,String usrDesc);
+
+    @Insert("insert into t_friend values(#{0},#{1},null),(#{1},#(0),null)")
+    int agreeFriendRequest(int userId,int userId1);
 }

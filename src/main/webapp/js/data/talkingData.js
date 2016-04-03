@@ -69,16 +69,16 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
         base.setErrorTimer("获取会话信息出错");
     }
 
-        /**
-         * 获取未读消息
-         * @param type
-         * @param id
-         */
-        var getUnreadMessage = function (type,id) {
-
-        }
+        var readMessage = function (message_id) {
+            var param = {
+                messageId : message_id
+            };
+            ajax.ajaxFunction('message/readMessage',param);
+        };
 
     return{
-        initTalking : initTalking
+        initTalking : initTalking,
+        readMessage : readMessage
+
     }
 });

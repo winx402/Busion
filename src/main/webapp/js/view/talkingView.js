@@ -4,7 +4,6 @@
 
 define(['jquery'],function($){
 
-    var isNull = false;
     /**
      * 初始化talking面板
      * 初始化时,所有数据从后台获取,都是未读取的聊天记录
@@ -50,7 +49,7 @@ define(['jquery'],function($){
             html = "<div class='talking-noTalking'>没有未读消息</div>";
         }
         $(".my-talking").append(html);
-    }
+    };
 
     var addTalkingPanel = function(type,talking){
         var html = "";
@@ -79,7 +78,7 @@ define(['jquery'],function($){
         }
         $(".talking-noTalking").remove();
         $(".my-talking").prepend(html);
-    }
+    };
 
     /**
      * 将talking面板的未读消息取消掉
@@ -88,7 +87,7 @@ define(['jquery'],function($){
      */
     var removeUnreadCount = function (type,id) {
         $("#"+type+"_"+id).find(".unread-count").text("");
-    }
+    };
 
     var upTalkingPanel = function(type,id){
         var talking = $("#"+type+"_"+id);
@@ -97,12 +96,17 @@ define(['jquery'],function($){
             talking.remove();
             $(".my-talking").prepend(html);
         }
-    }
+    };
+
+    var removeMessageCount = function (element) {
+        element.find(".unread-count").text("");
+    };
 
     return{
         initTalkingPanel: initTalkingPanel,
         removeUnreadCount : removeUnreadCount,
         addTalkingPanel : addTalkingPanel,
-        upTalkingPanel : upTalkingPanel
+        upTalkingPanel : upTalkingPanel,
+        removeMessageCount : removeMessageCount
     }
-})
+});

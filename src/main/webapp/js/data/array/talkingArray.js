@@ -64,7 +64,7 @@ define(['network/ajax'],function(ajax){
             user_name: item.user_name, //未读消息条数
             message_time: item.message_time,
             message_content : item.message_content,
-            message_isRead : false
+            message_isRead : 0
         };
         sysTalkingArray.push(talking);
     };

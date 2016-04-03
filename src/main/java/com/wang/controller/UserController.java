@@ -331,6 +331,8 @@ public class UserController {
         return AjaxReturn.Data2Ajax(0,"更新失败",null);
     }
 
+
+
 //    @RequestMapping("addFriend")
 //    public JSONObject addFriend(HttpSession session,int userId){
 //        User user = (User)session.getAttribute("user");

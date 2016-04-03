@@ -1,5 +1,6 @@
 package com.wang.websocket;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wang.domain.User;
 import com.wang.model.UserMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class UserEnpoint {
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
         // Send the first message to the client
-        System.out.println(message);
+        JSONObject jsonObject = JSONObject.parseObject(message);
+        jsonObject.get("type");
+        System.out.println(jsonObject.toJSONString());
         session.getBasicRemote().sendText(message);
     }
 

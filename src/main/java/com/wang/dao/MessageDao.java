@@ -1,11 +1,15 @@
 package com.wang.dao;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 15-12-7.
@@ -46,4 +50,11 @@ public interface MessageDao {
             + "LEFT JOIN t_user u ON m.message_user1=u.user_id WHERE m.message_user2=#{0} AND "
             + "m.message_type IN (2,3) AND m.message_state=10")
     List<HashMap<String,Object>> getSysUnreadTalking(int userId);
+
+    @Update("update t_message set message_state=20 where message_id=#{0}")
+    void readMessage(int messageId);
+
+    @Insert("insert into t_message values (null,#{user1},#{user2},#{messageType},#{messageContent},#{messageTime},#{messageState})")
+    @Options(useGeneratedKeys = true,keyColumn = "message_id",keyProperty = "messageId")
+    int addMessage(Map<String,Object> map);
 }

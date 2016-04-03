@@ -68,4 +68,8 @@ public class UserService {
     public int updateUserDesc(int userId,String userDesc){
         return userDao.updateUserDesc(userId,userDesc);
     }
+
+    public int agreeFriendRequest(int userId,int userId1){
+        return userDao.agreeFriendRequest(userId,userId1);
+    }
 }

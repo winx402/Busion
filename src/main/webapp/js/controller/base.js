@@ -6,13 +6,12 @@ require(['jquery','network/webSocket','data/myData','data/talkingData'],function
      * 页面载入时所做的事情
      */
     $(document).ready(function(){
-        //socket.connectSocket(messageHandle);
+        socket.connectSocket(messageHandle);
         myData.initMyInfo(); //ajax初始化我的基本数据
         talkingData.initTalking(); //页面载入时获取我的未读消息
     })
 
     function messageHandle(event){
-        var json = JSON.parse(event.data);
-        alert(json);
+        alert(event.data);
     }
 });

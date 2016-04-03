@@ -2,8 +2,9 @@
  * Created by wangwenxiang on 16-1-11.
  */
 
-define(['jquery','data/userData','view/modalView','view/windowView','data/array/talkingArray','data/windowData','view/talkingView','bootstrap'],
-    function($,userData,modalView,windowView,talkingArray,windowData,talkingView,bootstrap){
+define(['jquery','data/userData','view/modalView','view/windowView','data/array/talkingArray','data/windowData','view/talkingView','bootstrap',
+        'network/webSocket'],
+    function($,userData,modalView,windowView,talkingArray,windowData,talkingView,bootstrap,webSocket){
 
     /**
      * 点击talking面板下用户头像查看用户信息
@@ -35,7 +36,7 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
                     user_photo: user.user_photo,
                     user_description: user.user_description,
                     count: 0 //未读消息条数
-                }
+                };
                 talkingArray.addPersonalTalking(u);
                 talkingView.addTalkingPanel("user",u);
             }else {
@@ -59,6 +60,14 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
             }
             userData.updateUserDesc(params);
             $(".user-info-change-modal").modal('hide');
+        });
+
+        /**
+         * 拒绝添加好友
+         */
+        $(document).on('click','.reject-friend-request',function(){
+            var user_id = $(this).attr("_id");
+            userData.rejectFriendRequest(user_id);
         });
     return{
 

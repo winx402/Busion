@@ -31,7 +31,7 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             return true;
         }
         return false;
-    }
+    };
 
     var addFriendInfo = function (user) {
         var html = "<table>";
@@ -56,7 +56,7 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
         if(user.isFriend == 0){
             $(".user-info-modal .modal-footer .add-friend").attr('_id',user.user_id).attr("disabled",false);
         }
-    }
+    };
 
     var initOrgModal = function (org) {
         if (org != null){
@@ -75,7 +75,7 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             return true;
         }
         return false;
-    }
+    };
 
     var addOrgInfo = function (org){
         var html = "<table><tr><td valign='top'>简介:</td>";
@@ -92,7 +92,7 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
         }
         html = html+"</tr></table>";
         $(".org-info-modal .modal-body").append(html);
-    }
+    };
 
     var initMyInfoModal = function (user) {
         if (user != null){
@@ -112,13 +112,47 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             return true;
         }
         return false;
-    }
+    };
+
+    var initAddFriendModal = function (user) {
+        if (user != null){
+            if(user.user_photo == null){
+                $(".add-friend-request .user_photo").attr('src','../img/photo.jpg');
+            }else {
+                $(".add-friend-request .user_photo").attr('src','../'+user.user_photo);
+            }
+            $(".add-friend-request .user-name").text(user.user_name);
+            if (user.message_isRead == 0){
+                $(".add-friend-request .modal-body").text("请求添加你为好友!");
+                $(".add-friend-request .reject-friend-request").attr('_id',user.user_id).attr('disabled',false);;
+                $(".add-friend-request .agree-friend-request").attr('_id',user.user_id).attr('disabled',false);
+            }else if(user.message_isRead == 1){
+                $(".add-friend-request .modal-body").text("已拒绝好友请求");
+                $(".add-friend-request .reject-friend-request").attr('disabled',true);
+                $(".add-friend-request .agree-friend-request").attr('disabled',true);
+            }else if(user.message_isRead == 2){
+                $(".add-friend-request .modal-body").text("已同意好友请求");
+                $(".add-friend-request .reject-friend-request").attr('disabled',true);
+                $(".add-friend-request .agree-friend-request").attr('disabled',true);
+            }
+            $(".add-friend-request").modal('show');
+        }
+    };
+
+    var initSysMessageModal = function (message) {
+        if (message != null){
+            $(".sys-message .modal-body").text(message.message_content);
+            $(".sys-message").modal('show');
+        }
+    };
 
     return{
         initFriendModal : initFriendModal,
         addFriendInfo : addFriendInfo,
         initOrgModal : initOrgModal,
         addOrgInfo : addOrgInfo,
-        initMyInfoModal : initMyInfoModal
+        initMyInfoModal : initMyInfoModal,
+        initAddFriendModal : initAddFriendModal,
+        initSysMessageModal : initSysMessageModal
     }
 })

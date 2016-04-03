@@ -3,13 +3,16 @@ package com.wang.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.wang.domain.User;
 import com.wang.serivce.MessageService;
+import com.wang.serivce.UserService;
 import com.wang.util.AjaxReturn;
+import com.wang.util.MessageCreater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * Created by wangwenxiang on 15-12-7.
@@ -20,6 +23,9 @@ public class MessageController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 获取用户的未读消息
@@ -38,5 +44,51 @@ public class MessageController {
         js.put("userId",id);
         js.put("rows",messageService.getUserUnReadTalking(user.getUser_id(),id));
         return AjaxReturn.Data2Ajax(1,null,js);
+    }
+
+    /**
+     * 设置系统消息已读
+     * @param messageId 系统消息id
+     * @return json
+     */
+    @RequestMapping("readMessage")
+    @ResponseBody
+    public JSONObject readMessage(int messageId){
+        messageService.readMessage(messageId);
+        return AjaxReturn.Data2Ajax(1,null,null);
+    }
+
+    /**
+     * 同意好友请求
+     */
+    @RequestMapping("agreeFriendRequest")
+    @ResponseBody
+    public JSONObject agreeFriendRequest(HttpSession session,int userId){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        userService.agreeFriendRequest(user.getUser_id(),userId);
+        int messageId = messageService.addMessage(user.getUser_id(),userId,2, MessageCreater.creatAgreeFriendMessage(user.getUser_name()),
+                new Date(),10);
+        if (messageId == 0){
+            return AjaxReturn.Data2AjaxForError("消息发送失败");
+        }
+        return AjaxReturn.Data2AjaxForSuccess(null);
+    }
+
+    @RequestMapping("rejectFriendRequest")
+    @ResponseBody
+    public JSONObject rejectFriend(HttpSession session,int userId){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2AjaxForError("未登陆");
+        }
+        int messageId = messageService.addMessage(user.getUser_id(),userId,2, MessageCreater.creatRejectFriendMessage(user.getUser_name()),
+                new Date(),10);
+        if (messageId == 0){
+            return AjaxReturn.Data2AjaxForError("消息发送失败");
+        }
+        return AjaxReturn.Data2AjaxForSuccess(null);
     }
 }
