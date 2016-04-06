@@ -167,8 +167,37 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
             var params = {
                 userId : id
             };
-            ajax.ajaxFunction('message/rejectFriendRequest',params);
+            ajax.ajaxFunction('message/rejectFriendRequest',params,rejectFriendRequestSuccess,updateUserDescError);
         };
+
+        /**
+         * 同意好友请求
+         * @param id 用户id
+         */
+        var agreeFriendRequest = function (id) {
+            var params = {
+                userId : id
+            };
+            ajax.ajaxFunction('message/agreeFriendRequest',params,agreeFriendRequestSuccess,updateUserDescError);
+        };
+
+        function rejectFriendRequestSuccess(data){
+            var r = eval(data);
+            if(r.code == 1){
+                baseView.setErrorTimer("消息发送成功");
+            }else{
+                baseView.setErrorTimer(r.msg);
+            }
+        }
+
+        function agreeFriendRequestSuccess(data){
+            var r = eval(data);
+            if(r.code == 1){
+                baseView.setErrorTimer("消息发送成功");
+            }else{
+                baseView.setErrorTimer(r.msg);
+            }
+        }
 
     return{
         getUser: getUser,
@@ -177,6 +206,7 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
         getAllOrgUserList : getAllOrgUserList,
         getUserInfo : getUserInfo,
         updateUserDesc : updateUserDesc,
-        rejectFriendRequest : rejectFriendRequest
+        rejectFriendRequest : rejectFriendRequest,
+        agreeFriendRequest : agreeFriendRequest
     }
 });

@@ -26,4 +26,15 @@ public class UserMap {
         userConHashMap.put(user_id,session);
         return true;
     }
+
+    public Session getUserSession(int userId){
+        if (haveUserKey(userId)){
+            return userConHashMap.get(userId);
+        }
+        return null;
+    }
+
+    public void removeUser(int userId){
+        userConHashMap.remove(userId);
+    }
 }

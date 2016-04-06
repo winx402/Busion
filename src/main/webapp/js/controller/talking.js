@@ -33,12 +33,14 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
             }else {
                 if(talking.message_type == 3){
                     modalView.initAddFriendModal(talking);
-
                 }else if(talking.message_type == 2){
                     modalView.initSysMessageModal(talking);
                 }
                 talkingView.removeMessageCount($(this));
-                talkingData.readMessage(talking.message_id);
+                if(talking.message_isRead == 0){
+                    talkingData.readMessage(talking.message_id);
+                    talking.message_isRead = 1;
+                }
             }
         });
 });

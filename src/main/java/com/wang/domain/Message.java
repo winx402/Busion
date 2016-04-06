@@ -6,67 +6,76 @@ import java.util.Date;
  * Created by wangwenxiang on 16-1-7.
  */
 public class Message {
-    private int message_id;
-    private int message_user1;
-    private int message_user2;
-    private int message_type;
-    private String message_content;
-    private Date message_time;
-    private int message_state;
+    private MessageCode messageCode;
+    private int messageId;
+    private int messageUser1;
+    private int messageUser2;
+    private int messageType;
+    private String messageContent;
+    private Date messageTime;
+    private int messageState;
 
-    public int getMessage_id() {
-        return message_id;
+    public MessageCode getMessageCode() {
+        return messageCode;
     }
 
-    public void setMessage_id(int message_id) {
-        this.message_id = message_id;
+    public void setMessageCode(MessageCode messageCode) {
+        this.messageCode = messageCode;
     }
 
-    public int getMessage_user1() {
-        return message_user1;
+    public int getMessageId() {
+        return messageId;
     }
 
-    public void setMessage_user1(int message_user1) {
-        this.message_user1 = message_user1;
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
     }
 
-    public int getMessage_user2() {
-        return message_user2;
+    public int getMessageUser1() {
+        return messageUser1;
     }
 
-    public void setMessage_user2(int message_user2) {
-        this.message_user2 = message_user2;
+    public void setMessageUser1(int messageUser1) {
+        this.messageUser1 = messageUser1;
     }
 
-    public int getMessage_type() {
-        return message_type;
+    public int getMessageUser2() {
+        return messageUser2;
     }
 
-    public void setMessage_type(int message_type) {
-        this.message_type = message_type;
+    public void setMessageUser2(int messageUser2) {
+        this.messageUser2 = messageUser2;
     }
 
-    public String getMessage_content() {
-        return message_content;
+    public int getMessageType() {
+        return messageType;
     }
 
-    public void setMessage_content(String message_content) {
-        this.message_content = message_content;
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
     }
 
-    public Date getMessage_time() {
-        return message_time;
+    public String getMessageContent() {
+        return messageContent;
     }
 
-    public void setMessage_time(Date message_time) {
-        this.message_time = message_time;
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
     }
 
-    public int getMessage_state() {
-        return message_state;
+    public Date getMessageTime() {
+        return messageTime;
     }
 
-    public void setMessage_state(int message_state) {
-        this.message_state = message_state;
+    public void setMessageTime(Date messageTime) {
+        this.messageTime = messageTime;
+    }
+
+    public int getMessageState() {
+        return messageState;
+    }
+
+    public void setMessageState(int messageState) {
+        this.messageState = messageState;
     }
 }

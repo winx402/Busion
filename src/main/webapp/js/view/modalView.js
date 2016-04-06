@@ -124,13 +124,13 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
             $(".add-friend-request .user-name").text(user.user_name);
             if (user.message_isRead == 0){
                 $(".add-friend-request .modal-body").text("请求添加你为好友!");
-                $(".add-friend-request .reject-friend-request").attr('_id',user.user_id).attr('disabled',false);;
-                $(".add-friend-request .agree-friend-request").attr('_id',user.user_id).attr('disabled',false);
-            }else if(user.message_isRead == 1){
+                $(".add-friend-request .reject-friend-request").attr('_id',user.message_id).attr('disabled',false);;
+                $(".add-friend-request .agree-friend-request").attr('_id',user.message_id).attr('disabled',false);
+            }else if(user.message_isRead == 2){
                 $(".add-friend-request .modal-body").text("已拒绝好友请求");
                 $(".add-friend-request .reject-friend-request").attr('disabled',true);
                 $(".add-friend-request .agree-friend-request").attr('disabled',true);
-            }else if(user.message_isRead == 2){
+            }else if(user.message_isRead == 3){
                 $(".add-friend-request .modal-body").text("已同意好友请求");
                 $(".add-friend-request .reject-friend-request").attr('disabled',true);
                 $(".add-friend-request .agree-friend-request").attr('disabled',true);

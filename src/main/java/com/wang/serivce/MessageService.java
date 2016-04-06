@@ -1,13 +1,15 @@
 package com.wang.serivce;
 
 import com.wang.dao.MessageDao;
+import com.wang.domain.Message;
+import com.wang.domain.MessageCode;
+import com.wang.websocket.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created on 15-12-7.
@@ -63,18 +65,19 @@ public class MessageService {
      * @param messageState 消息状态
      * @return
      */
-    public int addMessage(int user1,int user2,int messageType,String messageContent,Date messageTime,int messageState){
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("user1",user1);
-        map.put("user2",user2);
-        map.put("messageType",messageType);
-        map.put("messageContent",messageContent);
-        map.put("messageTime",messageTime);
-        map.put("messageState",messageState);
-        if (messageDao.addMessage(map) == 1){
-            System.out.println(map.get("messageId"));
-            return Integer.parseInt(map.get("messageId").toString());
+    public Message addMessage(int user1,int user2,int messageType,String messageContent,Date messageTime,int messageState){
+        Message message = MessageUtil.creatMessage()
+                .setMessageCode(MessageCode.SYS)
+                .setMessageUser1(user1)
+                .setMessageUser2(user2)
+                .setMessageType(messageType)
+                .setMessageContent(messageContent)
+                .setMessageTime(messageTime)
+                .setMessageSate(messageState)
+                .builder().getMessage();
+        if (messageDao.addMessage(message) == 1){
+            return message;
         }
-        return 0;
+        return null;
     }
 }

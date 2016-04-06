@@ -1,5 +1,6 @@
 package com.wang.dao;
 
+import com.wang.domain.Message;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
@@ -54,7 +55,7 @@ public interface MessageDao {
     @Update("update t_message set message_state=20 where message_id=#{0}")
     void readMessage(int messageId);
 
-    @Insert("insert into t_message values (null,#{user1},#{user2},#{messageType},#{messageContent},#{messageTime},#{messageState})")
+    @Insert("insert into t_message values (null,#{messageUser1},#{messageUser2},#{messageType},#{messageContent},#{messageTime},#{messageState})")
     @Options(useGeneratedKeys = true,keyColumn = "message_id",keyProperty = "messageId")
-    int addMessage(Map<String,Object> map);
+    int addMessage(Message message);
 }

@@ -60,6 +60,8 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
         }
     }
 
+
+
         /**
          * 获取好友信息错误
          * @param data

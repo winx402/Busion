@@ -2,9 +2,8 @@
  * Created by wangwenxiang on 16-1-11.
  */
 
-define(['jquery','data/userData','view/modalView','view/windowView','data/array/talkingArray','data/windowData','view/talkingView','bootstrap',
-        'network/webSocket'],
-    function($,userData,modalView,windowView,talkingArray,windowData,talkingView,bootstrap,webSocket){
+define(['jquery','data/userData','view/modalView','view/windowView','data/array/talkingArray','data/windowData','view/talkingView','bootstrap'],
+    function($,userData,modalView,windowView,talkingArray,windowData,talkingView,bootstrap){
 
     /**
      * 点击talking面板下用户头像查看用户信息
@@ -57,7 +56,7 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
             var newValue = $(".my-desc-input").val();
             var params = {
                 userDesc : newValue
-            }
+            };
             userData.updateUserDesc(params);
             $(".user-info-change-modal").modal('hide');
         });
@@ -66,8 +65,26 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
          * 拒绝添加好友
          */
         $(document).on('click','.reject-friend-request',function(){
-            var user_id = $(this).attr("_id");
-            userData.rejectFriendRequest(user_id);
+            var message_id = $(this).attr("_id");
+            var talking = talkingArray.getTalkingByTypeId('sys',message_id);
+            if(talking != null){
+                talking.message_isRead = 2;
+                userData.rejectFriendRequest(talking.user_id);
+            }
+            $(".add-friend-request").modal('hide');
+        });
+
+        /**
+         * 同意添加好友
+         */
+        $(document).on('click','.agree-friend-request',function(){
+            var message_id = $(this).attr("_id");
+            var talking = talkingArray.getTalkingByTypeId('sys',message_id);
+            if(talking != null){
+                talking.message_isRead = 3;
+                userData.agreeFriendRequest(talking.user_id);
+            }
+            $(".add-friend-request").modal('hide');
         });
     return{
 

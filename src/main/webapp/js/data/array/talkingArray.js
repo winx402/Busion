@@ -61,7 +61,7 @@ define(['network/ajax'],function(ajax){
             message_id: item.message_id,
             message_type: item.message_type,
             user_id: item.user_id,
-            user_name: item.user_name, //未读消息条数
+            user_name: item.user_name,
             message_time: item.message_time,
             message_content : item.message_content,
             message_isRead : 0

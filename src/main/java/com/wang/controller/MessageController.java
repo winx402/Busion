@@ -1,11 +1,14 @@
 package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wang.domain.Message;
 import com.wang.domain.User;
 import com.wang.serivce.MessageService;
 import com.wang.serivce.UserService;
 import com.wang.util.AjaxReturn;
 import com.wang.util.MessageCreater;
+import com.wang.websocket.MessageSender;
+import com.wang.websocket.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,12 +71,14 @@ public class MessageController {
         if (user == null){
             return AjaxReturn.Data2Ajax(0,"未登陆",null);
         }
+        String messageContent = MessageCreater.creatAgreeFriendMessage(user.getUser_name());
         userService.agreeFriendRequest(user.getUser_id(),userId);
-        int messageId = messageService.addMessage(user.getUser_id(),userId,2, MessageCreater.creatAgreeFriendMessage(user.getUser_name()),
+        Message message = messageService.addMessage(0,userId,2,messageContent ,
                 new Date(),10);
-        if (messageId == 0){
+        if (message == null){
             return AjaxReturn.Data2AjaxForError("消息发送失败");
         }
+        MessageSender.sendMessage(userId,MessageUtil.getMessageJson(message).toString());
         return AjaxReturn.Data2AjaxForSuccess(null);
     }
 
@@ -84,11 +89,13 @@ public class MessageController {
         if (user == null){
             return AjaxReturn.Data2AjaxForError("未登陆");
         }
-        int messageId = messageService.addMessage(user.getUser_id(),userId,2, MessageCreater.creatRejectFriendMessage(user.getUser_name()),
+        String messageContent = MessageCreater.creatRejectFriendMessage(user.getUser_name());
+        Message message = messageService.addMessage(0,userId,2,messageContent ,
                 new Date(),10);
-        if (messageId == 0){
+        if (message == null){
             return AjaxReturn.Data2AjaxForError("消息发送失败");
         }
+        MessageSender.sendMessage(userId, MessageUtil.getMessageJson(message).toString());
         return AjaxReturn.Data2AjaxForSuccess(null);
     }
 }

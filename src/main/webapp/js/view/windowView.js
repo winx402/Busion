@@ -150,7 +150,7 @@ define(['jquery','data/userData'],function($,userData){
             if(user == null){
                 noLoadId.push(item.org_message_user);
                 html = html+"<li class='li-left'>";
-                html = html+"<img class='user-click' _id='"+item.org_message_user+"' src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
+                html = html+"<img class='photo user-click' _id='"+item.org_message_user+"' src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
                 html = html+"<div class='chatBox'>";
                 html = html+"<div class='chatName unget-userName-"+item.org_message_user+"'>null</div>";
                 html = html+"<br><div class='chatCon'>"+item.org_message_content+"</div>";

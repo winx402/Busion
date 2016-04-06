@@ -7,7 +7,7 @@ define(['jquery'],function($){
     var webSocket;
     var onmessage;
 
-    function init(onme){
+    function connectSocket(onme){
         onmessage = onme;
         initWebSocket();
     }
@@ -19,8 +19,10 @@ define(['jquery'],function($){
             webSocket.onopen = function(event) {
             };
             webSocket.onclose = function(event) {
+                initWebSocket();
             };
             webSocket.onerror = function(event) {
+                initWebSocket();
             };
         } else {
             alert("Your browser does not support Web Socket.");
@@ -28,21 +30,21 @@ define(['jquery'],function($){
     }
     function sendMessage(type,id,msg) {
         var params = messageForm(type,id,msg).toString();
-        var data = function() {
-            alert(params);
-            webSocket.send(params);
-        };
         if (webSocket.readyState !== 1) {
             webSocket.close();
             initWebSocket();
             setTimeout(function() {
-                data();
+                sendMessage(type,id,msg);
             }, 250);
         } else {
-            data();
+            data(params);
         }
     }
 
+    var data = function(params) {
+        alert(params);
+        webSocket.send(params);
+    };
     /**
      * 消息类型和消息内容
      * @param type 1-好友聊天,2-组织消息
@@ -59,6 +61,6 @@ define(['jquery'],function($){
 
     return{
         sendMessage: sendMessage,
-        connectSocket: init
+        connectSocket: connectSocket
     }
 });
