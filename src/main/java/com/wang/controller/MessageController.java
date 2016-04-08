@@ -1,6 +1,7 @@
 package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.wang.domain.Message;
 import com.wang.domain.User;
 import com.wang.serivce.MessageService;
@@ -50,7 +51,7 @@ public class MessageController {
     }
 
     /**
-     * 设置系统消息已读
+     * 设置好友请求消息已读
      * @param messageId 系统消息id
      * @return json
      */
@@ -58,6 +59,21 @@ public class MessageController {
     @ResponseBody
     public JSONObject readMessage(int messageId){
         messageService.readMessage(messageId);
+        return AjaxReturn.Data2Ajax(1,null,null);
+    }
+
+    /**
+     * 设置系统消息已读
+     * @return json
+     */
+    @RequestMapping("readSysMessage")
+    @ResponseBody
+    public JSONObject readSysMessage(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+//        messageService.readSysMessage(user.getUser_id());
         return AjaxReturn.Data2Ajax(1,null,null);
     }
 
@@ -72,13 +88,17 @@ public class MessageController {
             return AjaxReturn.Data2Ajax(0,"未登陆",null);
         }
         String messageContent = MessageCreater.creatAgreeFriendMessage(user.getUser_name());
-        userService.agreeFriendRequest(user.getUser_id(),userId);
+        try {
+            userService.agreeFriendRequest(user.getUser_id(),userId);
+        }catch (Exception e){
+            return AjaxReturn.Data2AjaxForError("不能重复添加好友");
+        }
         Message message = messageService.addMessage(0,userId,2,messageContent ,
                 new Date(),10);
         if (message == null){
             return AjaxReturn.Data2AjaxForError("消息发送失败");
         }
-        MessageSender.sendMessage(userId,MessageUtil.getMessageJson(message).toString());
+        MessageSender.sendMessage(userId,message.toJsonString());
         return AjaxReturn.Data2AjaxForSuccess(null);
     }
 
@@ -95,7 +115,7 @@ public class MessageController {
         if (message == null){
             return AjaxReturn.Data2AjaxForError("消息发送失败");
         }
-        MessageSender.sendMessage(userId, MessageUtil.getMessageJson(message).toString());
+        MessageSender.sendMessage(userId, message.toJsonString());
         return AjaxReturn.Data2AjaxForSuccess(null);
     }
 }

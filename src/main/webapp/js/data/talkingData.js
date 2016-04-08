@@ -47,11 +47,16 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
             $.each(message.orgTalking,function(i,item){ //添加组织消息
                 talkingArray.addOrgTalking(item);
             });
-            $.each(message.sysTalking,function(i,item){ //添加组织消息
+            $.each(message.sysTalking,function(i,item){ //添加系统消息
                 talkingArray.addSysTalking(item);
             });
             window.talkingState = 2;
-            talkingView.initTalkingPanel(talkingArray.getAllPersonalTalking(),talkingArray.getAllOrgTalking(),talkingArray.getAllSysTalking());
+            talkingView.initTalkingPanel(
+                talkingArray.getAllPersonalTalking(),
+                talkingArray.getAllOrgTalking(),
+                talkingArray.getAllSysTalking(),
+                talkingArray.getAllFriendTalking()
+            );
             window.talkingState = 3;
             baseView.changePanel(0);
         }else{
@@ -66,10 +71,10 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
          * 获取好友信息错误
          * @param data
          */
-    function getError(data){
-        window.talkingState = 0;
-        base.setErrorTimer("获取会话信息出错");
-    }
+        function getError(data){
+            window.talkingState = 0;
+            base.setErrorTimer("获取会话信息出错");
+        }
 
         var readMessage = function (message_id) {
             var param = {
@@ -78,9 +83,14 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
             ajax.ajaxFunction('message/readMessage',param);
         };
 
+        var readSysMessage = function () {
+            ajax.ajaxFunction('message/readSysMessage');
+        };
+
     return{
         initTalking : initTalking,
-        readMessage : readMessage
+        readMessage : readMessage,
+        readSysMessage : readSysMessage
 
     }
 });

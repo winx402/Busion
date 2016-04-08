@@ -66,18 +66,14 @@ public class MessageService {
      * @return
      */
     public Message addMessage(int user1,int user2,int messageType,String messageContent,Date messageTime,int messageState){
-        Message message = MessageUtil.creatMessage()
-                .setMessageCode(MessageCode.SYS)
-                .setMessageUser1(user1)
-                .setMessageUser2(user2)
-                .setMessageType(messageType)
-                .setMessageContent(messageContent)
-                .setMessageTime(messageTime)
-                .setMessageSate(messageState)
-                .builder().getMessage();
+        Message message = MessageUtil.newSysMessage(user2,messageContent,messageTime,messageState);
         if (messageDao.addMessage(message) == 1){
             return message;
         }
         return null;
+    }
+
+    public int readSysMessage(int userId){
+        return messageDao.readSysMessage(userId);
     }
 }

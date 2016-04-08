@@ -2,7 +2,7 @@
  * Created by wangwenxiang on 16-1-11.
  */
 
-define(['jquery'],function($){
+define(['jquery','view/windowView'],function($,windowView){
 
     /**
      * 初始化talking面板
@@ -10,7 +10,7 @@ define(['jquery'],function($){
      * @param personalTalking
      * @param orgTalking
      */
-    var initTalkingPanel = function(personalTalking,orgTalking,sysTalking){
+    var initTalkingPanel = function(personalTalking,orgTalking,sysTalking,friendTalking){
         $(".my-talking").children("li").remove();
         var html = "";
         $.each(personalTalking,function(i,item){
@@ -34,15 +34,17 @@ define(['jquery'],function($){
             html = html+"<div class='talking-content'>"+item.name+"</div></div>";
             html = html+"<span class='unread-count'>"+item.count+"</span></li>";
         });
-        $.each(sysTalking,function(i,item){
+        if(sysTalking.unReadNum > 0){
+            html = html+"<li class='talking-li' _type='sys' _id='0' id='sys_0'>";
+            html = html+"<div class='name-desc'>";
+            html = html+"<div class='talking-content'>系统消息</div></div>";
+            html = html+"<span class='unread-count'>"+sysTalking.unReadNum+"</span></li>";
+            windowView.addSysUnreadTalking(sysTalking.message);
+        }
+        $.each(friendTalking,function(i,item){
             html = html+"<li class='talking-li' _type='sys' _id='"+item.message_id+"' id='sys_"+item.message_id+"'>";
-            if(item.message_type == 3){
-                html = html+"<div class='name-desc'>";
-                html = html+"<div class='talking-content'>"+item.user_name+"&nbsp;请求添加你为好友</div></div>";
-            }else{
-                html = html+"<div class='name-desc'>";
-                html = html+"<div class='talking-content'>系统消息</div></div>";
-            }
+            html = html+"<div class='name-desc'>";
+            html = html+"<div class='talking-content'>"+item.user_name+"&nbsp;请求添加你为好友</div></div>";
             html = html+"<span class='unread-count'>1</span></li>";
         });
         if(html == ""){

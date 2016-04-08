@@ -58,4 +58,7 @@ public interface MessageDao {
     @Insert("insert into t_message values (null,#{messageUser1},#{messageUser2},#{messageType},#{messageContent},#{messageTime},#{messageState})")
     @Options(useGeneratedKeys = true,keyColumn = "message_id",keyProperty = "messageId")
     int addMessage(Message message);
+
+    @Update("update t_message set message_state=20 where message_user2=#{0} and message_type=2")
+    int readSysMessage(int userId);
 }

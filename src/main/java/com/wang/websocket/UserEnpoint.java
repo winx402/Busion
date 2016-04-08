@@ -1,6 +1,7 @@
 package com.wang.websocket;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.wang.domain.User;
 import com.wang.model.UserMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.io.IOException;
 @ServerEndpoint(value = "/userEnpoint",configurator = GetHttpSessionConfigurator.class)
 public class UserEnpoint {
 
-    private UserMap userMap = new UserMap();
+    private static final UserMap userMap = new UserMap();
 
     @OnMessage
     public void onMessage(String message, Session session)
@@ -49,11 +50,26 @@ public class UserEnpoint {
                     return;
             }
         }
-       session.close();
+        if (session.isOpen()){
+            session.getBasicRemote().sendText(MessageUtil.newSocketExcepter().toJsonString());
+        }
     }
 
     @OnClose
-    public void onClose () {
-        System.out.println("Connection closed");
+    public void onClose (Session session) {
+        userMap.removeValue(session);
+        System.out.println("Connection Closed");
+    }
+
+    @OnError
+    public void onError(Throwable e, Session session){
+        userMap.removeValue(session);
+        if (session.isOpen()){
+            try {
+                session.close();
+            }catch (Exception ioe){
+                System.out.println("Connection error");
+            }
+        }
     }
 }

@@ -7,22 +7,31 @@ define(['jquery'],function($){
     var webSocket;
     var onmessage;
 
+    var num = 0;
+
     function connectSocket(onme){
         onmessage = onme;
         initWebSocket();
     }
+
+    var closeSocket = function(){
+        webSocket.close();
+    };
 
     function initWebSocket() {
         if (window.WebSocket) {
             webSocket = new WebSocket("ws://localhost:8080/userEnpoint");
             webSocket.onmessage = onmessage;
             webSocket.onopen = function(event) {
+                num = 0;
             };
             webSocket.onclose = function(event) {
-                initWebSocket();
             };
             webSocket.onerror = function(event) {
-                initWebSocket();
+                if(num < 2){
+                    initWebSocket();
+                    num++;
+                }
             };
         } else {
             alert("Your browser does not support Web Socket.");
@@ -61,6 +70,7 @@ define(['jquery'],function($){
 
     return{
         sendMessage: sendMessage,
-        connectSocket: connectSocket
+        connectSocket: connectSocket,
+        closeSocket : closeSocket
     }
 });

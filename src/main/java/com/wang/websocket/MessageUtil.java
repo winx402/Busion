@@ -24,15 +24,21 @@ public class MessageUtil {
         return message;
     }
 
-    public static JSONObject getMessageJson(Message message){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("message_code",message.getMessageCode());
-        jsonObject.put("user_id",message.getMessageUser1());
-        jsonObject.put("message_id",message.getMessageId());
-        jsonObject.put("message_content",message.getMessageContent());
-        jsonObject.put("message_time",message.getMessageTime());
-        jsonObject.put("message_type",message.getMessageType());
-        return jsonObject;
+    public static Message newSocketExcepter(){
+        return creatMessage().setMessageCode(MessageCode.ERROR)
+                .setMessageType(401)
+                .setMessageContent("连接服务器失败,请刷新浏览器").builder().getMessage();
+    }
+
+    public static Message newSysMessage(int user2,String messageContent,Date messageTime,int messageState){
+        return creatMessage().setMessageCode(MessageCode.SYS)
+                .setMessageType(2)
+                .setMessageUser1(0)
+                .setMessageUser2(user2)
+                .setMessageContent(messageContent)
+                .setMessageTime(messageTime)
+                .setMessageSate(messageState)
+                .builder().getMessage();
     }
 
     public static class Builder{

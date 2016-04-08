@@ -35,7 +35,7 @@ define(['jquery','data/userData'],function($,userData){
         w.addClass("right-selected");
         window.TypeAndId = type+id;
         return w;
-    }
+    };
 
     /**
      * 创建一个聊天面板,然后添加进入windows,并返回这个窗口
@@ -99,7 +99,7 @@ define(['jquery','data/userData'],function($,userData){
      */
     var readingMessage = function(w,message){
         w.find(".talking-body").append("<li class='notice'>"+message+"</li>");
-    }
+    };
 
     /**
      * 将用户的未读消息绘制到聊天窗口上
@@ -131,7 +131,20 @@ define(['jquery','data/userData'],function($,userData){
         }
         $("#window-user-"+id).find(".talking-body").append(html);
 
-    }
+    };
+
+    /**
+     * 添加系统消息
+     * @param data
+     */
+    var addSysUnreadTalking = function (sysMessages) {
+        var html = "";
+        $.each(sysMessages,function(i,item){
+            html = html + "<div class='chat-box'><div class='chat'>"+item.message_content+"</div></div>"
+        });
+        $("#window-sys-0").find(".right-body-sys").append(html);
+
+    };
 
     /**
      * 将组织的未读消息绘制到聊天窗口上
@@ -235,6 +248,7 @@ define(['jquery','data/userData'],function($,userData){
         addUserUnreadTalking : addUserUnreadTalking,
         addOrgUnreadTalking : addOrgUnreadTalking,
         getWindowData : getWindowData,
-        addOrgUserList : addOrgUserList
+        addOrgUserList : addOrgUserList,
+        addSysUnreadTalking : addSysUnreadTalking
     }
 })

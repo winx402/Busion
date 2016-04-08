@@ -7,7 +7,11 @@ define(['network/ajax'],function(ajax){
      */
     var personalTalkingArray = []; //个人talking数据
     var orgTalkingArray = []; //组织talking数据
-    var sysTalkingArray = []; //系统talking数据
+    var sysTalkingArray = {
+        unReadNum : 0,
+        message : []
+    }; //系统talking数据
+    var friendTalkingArray = []; //系统talking数据
 
     var getAllPersonalTalking = function(){
         return personalTalkingArray;
@@ -19,6 +23,10 @@ define(['network/ajax'],function(ajax){
 
     var getAllSysTalking = function(){
         return sysTalkingArray;
+    };
+
+    var getAllFriendTalking = function(){
+        return friendTalkingArray;
     };
 
     /**
@@ -57,16 +65,27 @@ define(['network/ajax'],function(ajax){
      * @param item
      */
     var addSysTalking = function(item){
-        var talking = {
-            message_id: item.message_id,
-            message_type: item.message_type,
-            user_id: item.user_id,
-            user_name: item.user_name,
-            message_time: item.message_time,
-            message_content : item.message_content,
-            message_isRead : 0
-        };
-        sysTalkingArray.push(talking);
+        if(item.message_type == 2){
+            var talking = {
+                message_id: item.message_id,
+                message_time: item.message_time,
+                message_content : item.message_content
+            };
+            sysTalkingArray.message.push(talking);
+            sysTalkingArray.unReadNum++;
+        }else if(item.message_type == 3){
+            var talking = {
+                message_id: item.message_id,
+                message_type: item.message_type,
+                user_id: item.user_id,
+                user_name: item.user_name,
+                message_time: item.message_time,
+                message_content : item.message_content,
+                message_isRead : 0
+            };
+            friendTalkingArray.push(talking);
+        }
+
     };
 
     /**
@@ -92,7 +111,7 @@ define(['network/ajax'],function(ajax){
                 }
             })
         }else if(type == "sys"){
-            $.each(sysTalkingArray,function(i,item){
+            $.each(friendTalkingArray,function(i,item){
                 if(item.message_id == id){
                     talking = item;
                     return;
@@ -153,6 +172,7 @@ define(['network/ajax'],function(ajax){
         getUserById : getUserById,
         removeCount : removeCount,
         addSysTalking : addSysTalking,
-        getAllSysTalking : getAllSysTalking
+        getAllSysTalking : getAllSysTalking,
+        getAllFriendTalking : getAllFriendTalking
     }
 });

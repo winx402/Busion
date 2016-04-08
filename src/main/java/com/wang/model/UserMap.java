@@ -3,6 +3,8 @@ package com.wang.model;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.Session;
+import javax.xml.registry.infomodel.User;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -20,9 +22,6 @@ public class UserMap {
     }
 
     public boolean addUser(int user_id,Session session){
-        if (haveUserKey(user_id)){
-            return false;
-        }
         userConHashMap.put(user_id,session);
         return true;
     }
@@ -32,6 +31,16 @@ public class UserMap {
             return userConHashMap.get(userId);
         }
         return null;
+    }
+
+    public boolean removeValue(Session session){
+        for (Map.Entry<Integer,Session> entry : userConHashMap.entrySet()){
+            if (entry.getValue() == session){
+                removeUser(entry.getKey());
+                return true;
+            }
+        }
+        return false;
     }
 
     public void removeUser(int userId){

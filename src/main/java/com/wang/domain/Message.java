@@ -1,5 +1,7 @@
 package com.wang.domain;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -77,5 +79,16 @@ public class Message {
 
     public void setMessageState(int messageState) {
         this.messageState = messageState;
+    }
+
+    public String toJsonString(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message_code",messageCode.getMessageTypeCode());
+        jsonObject.put("user_id",messageUser1);
+        jsonObject.put("message_id",messageId);
+        jsonObject.put("message_content",messageContent);
+        jsonObject.put("message_time",messageTime);
+        jsonObject.put("message_type",messageType);
+        return jsonObject.toString();
     }
 }

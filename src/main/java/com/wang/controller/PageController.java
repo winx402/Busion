@@ -33,11 +33,15 @@ public class PageController {
      * 主页面跳转
      */
     @RequestMapping("main")
-    public String main(HttpSession session){
+    public String main(HttpSession session,HttpServletResponse response){
         Object o = session.getAttribute("user");
         if (o == null){
             return "redirect:login";
         }
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
         return "main.html";
     }
 

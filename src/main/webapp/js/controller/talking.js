@@ -22,6 +22,11 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
         $(document).on('click','.talking-li',function(){
             var type = $(this).attr("_type");
             var id = $(this).attr("_id");
+            if (type == 'sys' && id == 0){
+                windowView.showWindow('sys',0);
+                talkingData.readSysMessage();
+                return;
+            }
             var talking = talkingArray.getTalkingByTypeId(type,id);
             if (type != "sys"){
                 var w = windowView.showWindow(type,id,talking.name);
@@ -33,8 +38,6 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
             }else {
                 if(talking.message_type == 3){
                     modalView.initAddFriendModal(talking);
-                }else if(talking.message_type == 2){
-                    modalView.initSysMessageModal(talking);
                 }
                 talkingView.removeMessageCount($(this));
                 if(talking.message_isRead == 0){
