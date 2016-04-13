@@ -163,6 +163,10 @@ define(['network/ajax'],function(ajax){
         }
     };
 
+    var setReadSysMessage = function (num) {
+        sysTalkingArray.unReadNum = num;
+    };
+
     return{
         getAllPersonalTalking:getAllPersonalTalking,
         getAllOrgTalking : getAllOrgTalking,
@@ -173,6 +177,7 @@ define(['network/ajax'],function(ajax){
         removeCount : removeCount,
         addSysTalking : addSysTalking,
         getAllSysTalking : getAllSysTalking,
-        getAllFriendTalking : getAllFriendTalking
+        getAllFriendTalking : getAllFriendTalking,
+        setReadSysMessage : setReadSysMessage
     }
 });

@@ -25,6 +25,7 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
             if (type == 'sys' && id == 0){
                 windowView.showWindow('sys',0);
                 talkingData.readSysMessage();
+                talkingView.removeMessageCount($(this));
                 return;
             }
             var talking = talkingArray.getTalkingByTypeId(type,id);

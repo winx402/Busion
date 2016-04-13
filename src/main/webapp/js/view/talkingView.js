@@ -88,7 +88,7 @@ define(['jquery','view/windowView'],function($,windowView){
      * @param id
      */
     var removeUnreadCount = function (type,id) {
-        $("#"+type+"_"+id).find(".unread-count").text("");
+        removeMessageCount($("#"+type+"_"+id).find(".unread-count"));
     };
 
     var upTalkingPanel = function(type,id){
@@ -104,11 +104,39 @@ define(['jquery','view/windowView'],function($,windowView){
         element.find(".unread-count").text("");
     };
 
+    var addSysMessage = function(message){
+        if(!windowView.addSysUnreadTalking(message)){
+            var sys = $("#sys_0");
+            if (sys.length == 0){
+                sys = initSysTalking();
+            }
+            var count = sys.find(".unread-count").text();
+            if(count == undefined){
+                count = 0;
+            }
+            var intCount = Number(count);
+            sys.find(".unread-count").text(intCount+1);
+            return false;
+        }
+        return true;
+    };
+
+    function initSysTalking(){
+        var html = "";
+        html = html+"<li class='talking-li' _type='sys' _id='0' id='sys_0'>";
+        html = html+"<div class='name-desc'>";
+        html = html+"<div class='talking-content'>系统消息</div></div>";
+        html = html+"<span class='unread-count'></span></li>";
+        $(".my-talking").prepend(html);
+        return $("#sys_0");
+    }
+
     return{
-        initTalkingPanel: initTalkingPanel,
+        initTalkingPanel : initTalkingPanel,
         removeUnreadCount : removeUnreadCount,
         addTalkingPanel : addTalkingPanel,
         upTalkingPanel : upTalkingPanel,
-        removeMessageCount : removeMessageCount
+        removeMessageCount : removeMessageCount,
+        addSysMessage : addSysMessage
     }
 });

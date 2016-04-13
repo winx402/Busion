@@ -84,6 +84,7 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
         };
 
         var readSysMessage = function () {
+            talkingArray.setReadSysMessage(0);
             ajax.ajaxFunction('message/readSysMessage');
         };
 

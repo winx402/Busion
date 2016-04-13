@@ -421,6 +421,7 @@ body {
   background-color: #f5f5f5;
   clear: both;
   padding: 1px 0px;
+  overflow-y: auto;
 }
 
 .right-base .right-body-sys .chat-box{

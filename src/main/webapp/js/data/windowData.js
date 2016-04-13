@@ -15,13 +15,13 @@ define(['network/ajax','view/baseView','view/windowView','data/array/talkingArra
         var getUnreadMessage = function (type,id) {
             var params = {
                 id : id
-            }
+            };
             if (type == "org"){
                 ajax.ajaxFunction('orgMessage/getOrgUnReadTalking',params,getOrgTalkingSuccess,getTalkingError);
             }else if(type == "user"){
                 ajax.ajaxFunction('message/getUserUnReadTalking',params,getUserTalkingSuccess,getTalkingError);
             }
-        }
+        };
 
         /**
          * ajax获取用户未读取消息内容成功

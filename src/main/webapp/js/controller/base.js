@@ -1,8 +1,8 @@
 /**
  * Created by wangwenxiang on 16-1-12.
  */
-require(['jquery','network/webSocket','data/myData','data/talkingData','view/baseView','data/array/talkingArray'],
-    function($,socket,myData,talkingData,baseView,talkingArray){
+require(['jquery','network/webSocket','data/myData','data/talkingData','view/baseView','data/array/talkingArray','view/talkingView'],
+    function($,socket,myData,talkingData,baseView,talkingArray,talkingView){
     /**
      * 页面载入时所做的事情
      */
@@ -21,7 +21,11 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
             case 20:  //组织消息
                 break;
             case 30:  //系统消息
+                if(message.message_type == 2){
+                    sysMessage(message);
+                }else if (message.message_type == 3){
 
+                }
                 break;
             case 40: //错误信息
                 errorMessage(message);
@@ -37,4 +41,11 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
         }
         baseView.setErrorTimer(message.message_content);
     }
+
+        function sysMessage(message){
+            talkingArray.addSysTalking(message);
+            if (talkingView.addSysMessage(message)){ //如果消息直接展示,则设置为已读消息
+                talkingData.readMessage(message.message_id);
+            }
+        }
 });

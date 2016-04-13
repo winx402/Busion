@@ -73,7 +73,7 @@ public class MessageController {
         if (user == null){
             return AjaxReturn.Data2Ajax(0,"未登陆",null);
         }
-//        messageService.readSysMessage(user.getUser_id());
+        messageService.readSysMessage(user.getUser_id());
         return AjaxReturn.Data2Ajax(1,null,null);
     }
 

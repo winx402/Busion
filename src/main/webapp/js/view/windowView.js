@@ -49,7 +49,7 @@ define(['jquery','data/userData'],function($,userData){
         var html = "<div class='right-base' id='window-"+type+"-"+id+"'>";
         html = html+"<div class='right-top'>"+name+"</div><div class='right-body'><div class='talking-body'>";
         //html = html+"<li class='li-right'><img src='../img/photo.jpg' alt='头像' class='photo'><div class='chat'>hello</div></li>";
-        html = html+" </div>";
+        html = html+"</div>";
         if(type == "org"){
             w = {  //新建一个窗口的基本信息,然后添加进入windows数组
                 type : "org",
@@ -60,7 +60,7 @@ define(['jquery','data/userData'],function($,userData){
                 userList : [],
                 isLoadFile : 1,
                 fileList : []
-            }
+            };
             html = html+"<div class='something-list'><div>用户列表</div><div>共享文件</div>";
             html = html+"<ul class='user-list list-selected'></ul>";
             html = html+"<ul class='file-list'></ul></div>";
@@ -139,12 +139,20 @@ define(['jquery','data/userData'],function($,userData){
      */
     var addSysUnreadTalking = function (sysMessages) {
         var html = "";
-        $.each(sysMessages,function(i,item){
-            html = html + "<div class='chat-box'><div class='chat'>"+item.message_content+"</div></div>"
-        });
+        if(sysMessages instanceof Array){
+            $.each(sysMessages,function(i,item){
+                html = html + "<div class='chat-box'><div class='chat'>"+item.message_content+"</div></div>"
+            });
+        }else {
+            html = html + "<div class='chat-box'><div class='chat'>"+sysMessages.message_content+"</div></div>"
+        }
         $("#window-sys-0").find(".right-body-sys").append(html);
-
+        return isShow($("#window-sys-0"));
     };
+
+    function isShow (element){
+        return element.hasClass("right-selected");
+    }
 
     /**
      * 将组织的未读消息绘制到聊天窗口上
@@ -204,7 +212,7 @@ define(['jquery','data/userData'],function($,userData){
         if(user.user_photo != null && user.user_photo != ""){
             $(".unget-userPhoto-"+user.user_id).attr('src','../'+user.user_photo);
         }
-    }
+    };
 
     /**
      * 通过type和id获取相应窗口的数据
@@ -217,7 +225,7 @@ define(['jquery','data/userData'],function($,userData){
             }
         });
         return null;
-    }
+    };
 
     var addOrgUserList = function(orgId,items){
         var orgWindow = $("#window-org-"+orgId);
@@ -239,7 +247,7 @@ define(['jquery','data/userData'],function($,userData){
         if(userIds.length > 0){
             userData.ajaxGetUser(userIds.join(","));
         }
-    }
+    };
 
     return{
         addUnGetUserInfo : addUnGetUserInfo,
@@ -251,4 +259,4 @@ define(['jquery','data/userData'],function($,userData){
         addOrgUserList : addOrgUserList,
         addSysUnreadTalking : addSysUnreadTalking
     }
-})
+});
