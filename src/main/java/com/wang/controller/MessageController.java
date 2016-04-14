@@ -93,13 +93,13 @@ public class MessageController {
         }catch (Exception e){
             return AjaxReturn.Data2AjaxForError("不能重复添加好友");
         }
-        Message message = messageService.addMessage(0,userId,2,messageContent ,
+        Message message = messageService.addMessage(user.getUser_id(),userId,2,messageContent ,
                 new Date(),10);
         if (message == null){
             return AjaxReturn.Data2AjaxForError("消息发送失败");
         }
         MessageSender.sendMessage(userId,message.toJsonString());
-        return AjaxReturn.Data2AjaxForSuccess(null);
+        return AjaxReturn.Data2AjaxForSuccess(userService.getUserAsFriend(user.getUser_id(),userId));
     }
 
     @RequestMapping("rejectFriendRequest")

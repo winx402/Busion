@@ -20,13 +20,13 @@ define(['jquery'],function($){
             user_photo: item.user_photo,
             user_sex: item.user_sex,
             user_message_attention: item.user_message_attention
-        }
+        };
         friendArray.push(user)
-    }
+    };
 
     var getAll = function(){
         return friendArray;
-    }
+    };
 
     /**
      * 通过id获取用户基本信息
@@ -35,15 +35,15 @@ define(['jquery'],function($){
      * @returns {*}
      */
     var getUserById = function(id){
-        var user = null;
         $.each(friendArray,function(i,item){
             if(item.user_id == id){
-                user = item;
-                return;
+                return item;
+
             }
-        })
-        return user;
-    }
+        });
+        return null;
+    };
+
 
     return{
         addFriend: addFriend,

@@ -1,7 +1,13 @@
 package com.wang.serivce;
 
+import com.alibaba.fastjson.JSONObject;
+import com.wang.dao.MessageDao;
 import com.wang.dao.UserDao;
+import com.wang.domain.Message;
 import com.wang.domain.User;
+import com.wang.util.AjaxReturn;
+import com.wang.websocket.MessageSender;
+import com.wang.websocket.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +15,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wangwenxiang on 15-12-7.
@@ -18,6 +25,9 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private MessageDao messageDao;
 
     public User getUserByAccount(Integer loginType,String account){
         if(loginType == 0){
@@ -71,5 +81,22 @@ public class UserService {
 
     public int agreeFriendRequest(int userId,int userId1){
         return userDao.agreeFriendRequest(userId,userId1);
+    }
+
+    public JSONObject addFriend(int userId1,int userId2,String userName){
+        if (userDao.isFriend(userId1,userId2) > 0){
+            return AjaxReturn.Data2AjaxForError("不能重复添加好友");
+        }
+        if (userDao.haveAddFriendMessage(userId1,userId2) > 0){
+            return AjaxReturn.Data2AjaxForSuccess(null);
+        }
+        Message message = MessageUtil.newAddFriendMessage(userId1,userId2,userName);
+        messageDao.addMessage(message);
+        MessageSender.sendMessage(userId2,message.toJsonString());
+        return AjaxReturn.Data2AjaxForSuccess(null);
+    }
+
+    public Map<String,Object> getUserAsFriend(int userId1,int userId2){
+        return userDao.getUserAsFriend(userId1,userId2);
     }
 }

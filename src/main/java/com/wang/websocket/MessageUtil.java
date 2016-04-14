@@ -30,14 +30,26 @@ public class MessageUtil {
                 .setMessageContent("连接服务器失败,请刷新浏览器").builder().getMessage();
     }
 
-    public static Message newSysMessage(int user2,String messageContent,Date messageTime,int messageState){
+    public static Message newSysMessage(int user1,int user2,String messageContent,Date messageTime,int messageState){
         return creatMessage().setMessageCode(MessageCode.SYS)
                 .setMessageType(2)
-                .setMessageUser1(0)
+                .setMessageUser1(user1)
                 .setMessageUser2(user2)
                 .setMessageContent(messageContent)
                 .setMessageTime(messageTime)
                 .setMessageSate(messageState)
+                .builder().getMessage();
+    }
+
+    public static Message newAddFriendMessage(int user1,int user2,String userName){
+        return creatMessage().setMessageCode(MessageCode.SYS)
+                .setMessageType(3)
+                .setMessageUser1(user1)
+                .setMessageUser2(user2)
+                .setUserName(userName)
+                .setMessageContent(userName+"请求添加你为好友")
+                .setMessageTime(new Date())
+                .setMessageSate(10)
                 .builder().getMessage();
     }
 
@@ -58,6 +70,10 @@ public class MessageUtil {
         }
         public Builder setMessageUser2(int user2){
             message.setMessageUser2(user2);
+            return this;
+        }
+        public Builder setUserName(String userName){
+            message.setUser_name(userName);
             return this;
         }
         public Builder setMessageContent(String messageContent){

@@ -3,8 +3,8 @@
  */
 
 define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/array/userArray','require','view/baseView',
-        'data/array/organizationArray','view/organizationView','view/modalView','data/myData'],
-    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray,organizationView,modalView,myData){
+        'data/array/organizationArray','view/organizationView','view/modalView','data/myData','data/friendData'],
+    function(ajax,talkingArray,friendArray,userArray,require,baseView,organizationArray,organizationView,modalView,myData,friendData){
 
     /**
      * 通过id获取用户的基本信息
@@ -25,7 +25,16 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
         }
         user = userArray.getUserById(id);
         return user;
-    }
+    };
+
+        var getUserAndPutToHtml = function(id){
+            var user = getUser(id);
+            if (user != null){
+                require("view/windowView").addUnGetUserInfo(user);
+                return;
+            }
+            ajaxGetUser(id);
+        };
 
         /**
          * ajax获取用户的基本信息
@@ -34,9 +43,9 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
         var ajaxGetUser = function(ids){
             var param = {
                 ids : ids
-            }
+            };
             ajax.ajaxFunction('user/getUsers',param,getUserSuccess,getUserError);
-        }
+        };
 
         function getUserSuccess (data){
             var r = eval(data);
@@ -69,9 +78,9 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
         var getAllOrgUserList = function(id){
             var params = {
                 id : id
-            }
+            };
             ajax.ajaxFunction('user/getOrgUserList',params,getAllOrgUserListSuccess,getUserError);
-        }
+        };
 
         function getAllOrgUserListSuccess(data){
             var r = eval(data);
@@ -124,9 +133,9 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
         var getUserInfo = function(user_id){
             var params = {
                 userId : user_id
-            }
+            };
             ajax.ajaxFunction('user/getUserInfo',params,getUserInfoSuccess,getUserError);
-        }
+        };
 
         function getUserInfoSuccess(data){
             var r = eval(data);
@@ -194,10 +203,18 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
             var r = eval(data);
             if(r.code == 1){
                 baseView.setErrorTimer("消息发送成功");
+                friendData.getUserAndAddFriendSuccess(data);
             }else{
                 baseView.setErrorTimer(r.msg);
             }
         }
+
+        var addFriendAjax = function (userId) {
+              var params = {
+                  userId : userId
+              };
+            ajax.ajaxFunction('user/addFriend',params,agreeFriendRequestSuccess,updateUserDescError)
+        };
 
     return{
         getUser: getUser,
@@ -207,6 +224,8 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
         getUserInfo : getUserInfo,
         updateUserDesc : updateUserDesc,
         rejectFriendRequest : rejectFriendRequest,
-        agreeFriendRequest : agreeFriendRequest
+        agreeFriendRequest : agreeFriendRequest,
+        addFriendAjax : addFriendAjax,
+        getUserAndPutToHtml : getUserAndPutToHtml
     }
 });

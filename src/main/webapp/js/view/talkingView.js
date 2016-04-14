@@ -44,7 +44,7 @@ define(['jquery','view/windowView'],function($,windowView){
         $.each(friendTalking,function(i,item){
             html = html+"<li class='talking-li' _type='sys' _id='"+item.message_id+"' id='sys_"+item.message_id+"'>";
             html = html+"<div class='name-desc'>";
-            html = html+"<div class='talking-content'>"+item.user_name+"&nbsp;请求添加你为好友</div></div>";
+            html = html+"<div class='talking-content'>"+item.message_content+"</div></div>";
             html = html+"<span class='unread-count'>1</span></li>";
         });
         if(html == ""){
@@ -116,9 +116,18 @@ define(['jquery','view/windowView'],function($,windowView){
             }
             var intCount = Number(count);
             sys.find(".unread-count").text(intCount+1);
+            upTalkingPanel('sys',0);
             return false;
         }
         return true;
+    };
+
+    var addFriendMessage = function (message) {
+        var html = "";
+        html = html+"<li class='talking-li' _type='sys' _id='"+message.message_id+"' id='sys_"+message.message_id+"'>";
+        html = html+"<div class='name-desc'>";
+        html = html+"<div class='talking-content'>"+message.message_content+"</div></div>";
+        $(".my-talking").prepend(html);
     };
 
     function initSysTalking(){
@@ -137,6 +146,7 @@ define(['jquery','view/windowView'],function($,windowView){
         addTalkingPanel : addTalkingPanel,
         upTalkingPanel : upTalkingPanel,
         removeMessageCount : removeMessageCount,
-        addSysMessage : addSysMessage
+        addSysMessage : addSysMessage,
+        addFriendMessage : addFriendMessage
     }
 });

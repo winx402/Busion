@@ -36,10 +36,10 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
     var addFriendInfo = function (user) {
         var html = "<table>";
         if(user.user_phone != null){
-            html = html+"<tr><td valign='top'>电话:</td><td>"+user.user_phone+"</td> </tr>";
+            html = html+"<tr><td valign='top'>电话:</td><td>"+user.user_phone+"</td></tr>";
         }
         if(user.user_mail != null){
-            html = html+"<tr> <td valign='top'>邮箱:</td> <td>"+user.user_mail+"</td> </tr>"
+            html = html+"<tr><td valign='top'>邮箱:</td><td>"+user.user_mail+"</td></tr>"
         }
         if(user.user_description != null){
             html = html+"<tr><td valign='top'>说明:</td><td>"+user.user_description+"</td></tr></table>";
@@ -116,13 +116,10 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
 
     var initAddFriendModal = function (user) {
         if (user != null){
-            if(user.user_photo == null){
-                $(".add-friend-request .user_photo").attr('src','../img/photo.jpg');
-            }else {
-                $(".add-friend-request .user_photo").attr('src','../'+user.user_photo);
-            }
-            $(".add-friend-request .user-name").text(user.user_name);
-            if (user.message_isRead == 0){
+            $(".add-friend-request .user_photo").attr('src','../img/photo.jpg');
+            $(".add-friend-request .user_photo").addClass('unget-userPhoto-'+user.user_id);
+            $(".add-friend-request .user-name").addClass("unget-userName-"+user.user_id);
+            if (user.message_isRead <= 1){
                 $(".add-friend-request .modal-body").text("请求添加你为好友!");
                 $(".add-friend-request .reject-friend-request").attr('_id',user.message_id).attr('disabled',false);;
                 $(".add-friend-request .agree-friend-request").attr('_id',user.message_id).attr('disabled',false);
@@ -136,6 +133,7 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
                 $(".add-friend-request .agree-friend-request").attr('disabled',true);
             }
             $(".add-friend-request").modal('show');
+            require("data/userData").getUserAndPutToHtml(user.user_id);
         }
     };
 
@@ -155,4 +153,4 @@ define(['jquery','bootstrap','data/myData'],function($,bootstrap,myData){
         initAddFriendModal : initAddFriendModal,
         initSysMessageModal : initSysMessageModal
     }
-})
+});

@@ -12,10 +12,19 @@ public class Message {
     private int messageId;
     private int messageUser1;
     private int messageUser2;
+    private String user_name;
     private int messageType;
     private String messageContent;
     private Date messageTime;
     private int messageState;
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
 
     public MessageCode getMessageCode() {
         return messageCode;
@@ -85,6 +94,7 @@ public class Message {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("message_code",messageCode.getMessageTypeCode());
         jsonObject.put("user_id",messageUser1);
+        jsonObject.put("user_name",user_name);
         jsonObject.put("message_id",messageId);
         jsonObject.put("message_content",messageContent);
         jsonObject.put("message_time",messageTime);

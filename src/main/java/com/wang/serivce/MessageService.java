@@ -66,7 +66,7 @@ public class MessageService {
      * @return
      */
     public Message addMessage(int user1,int user2,int messageType,String messageContent,Date messageTime,int messageState){
-        Message message = MessageUtil.newSysMessage(user2,messageContent,messageTime,messageState);
+        Message message = MessageUtil.newSysMessage(user1,user2,messageContent,messageTime,messageState);
         if (messageDao.addMessage(message) == 1){
             return message;
         }

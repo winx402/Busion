@@ -51,7 +51,30 @@ define(['network/ajax','data/array/friendArray','view/friendView','view/menu_bot
             base.setErrorTimer("获取好友信息出错");
         }
 
+        var getUserAndAddFriend = function (userId) {
+            var user = friendArray.getUserById(userId);
+            if (user == null){
+                var param = {
+                    userId : userId
+                };
+                ajax.ajaxFunction('user/getUserAsFriend',userId,getUserAndAddFriendSuccess,getError)
+            }
+        };
+
+        function getUserAndAddFriendSuccess(data){
+            var r = eval(data);
+            if(r.code == 1){
+                friendArray.addFriend(r.data);
+                friendView.addFriend(r.data);
+            }else{
+                window.friendState = 0;
+                base.setErrorTimer(r.msg);
+            }
+        }
+
         return{
-            initFriend: initFriend
+            initFriend: initFriend,
+            getUserAndAddFriend : getUserAndAddFriend,
+            getUserAndAddFriendSuccess : getUserAndAddFriendSuccess
         }
 });

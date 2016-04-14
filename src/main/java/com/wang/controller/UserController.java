@@ -333,12 +333,23 @@ public class UserController {
 
 
 
-//    @RequestMapping("addFriend")
-//    public JSONObject addFriend(HttpSession session,int userId){
-//        User user = (User)session.getAttribute("user");
-//        if (user == null){
-//            return AjaxReturn.Data2Ajax(0,"未登陆",null);
-//        }
-//
-//    }
+    @RequestMapping("addFriend")
+    @ResponseBody
+    public JSONObject addFriend(HttpSession session,int userId){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        return userService.addFriend(user.getUser_id(),userId,user.getUser_name());
+    }
+
+    @RequestMapping("getUserAsFriend")
+    @ResponseBody
+    public JSONObject getUserAsFriend(HttpSession session,int userId){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2Ajax(0,"未登陆",null);
+        }
+        return AjaxReturn.Data2AjaxForSuccess(userService.getUserAsFriend(user.getUser_id(),userId));
+    }
 }

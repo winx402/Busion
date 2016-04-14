@@ -80,7 +80,7 @@ define(['jquery','require'],function($,require){
             }
         }
         $(".organization-allOrg .organization-body").append(html);
-    }
+    };
 
     var addOrgUserList = function (id,userList) {
         var nowId = $(".guide-now").attr("_index");

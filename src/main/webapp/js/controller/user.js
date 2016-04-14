@@ -49,7 +49,8 @@ define(['jquery','data/userData','view/modalView','view/windowView','data/array/
          */
         $(document).on('click','.add-friend',function(){
             var user_id = $(this).attr("_id");
-
+            userData.addFriendAjax(user_id);
+            $(".user-info-modal").modal('hide');
         });
 
         $(".update-user-info").click(function(){

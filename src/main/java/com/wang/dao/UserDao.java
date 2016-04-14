@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wangwenxiang on 15-12-7.
@@ -68,4 +69,15 @@ public interface UserDao {
 
     @Insert("insert into t_friend values(#{0},#{1},null),(#{1},#{0},null)")
     int agreeFriendRequest(int userId,int userId1);
+
+    @Select("select count(*) from t_friend where (friend_user1=#{0} and friend_user2=#{1})")
+    int isFriend(int userId1,int userId2);
+
+    @Select("select count(*) from t_message where message_user1=#{0} and message_user2=#{1} and message_type=3 and message_state=10")
+    int haveAddFriendMessage(int userId1,int userId2);
+
+    @Select("select friend_mark,user_id,user_description,user_name,user_photo,user_sex,user_message_attention from t_friend " +
+            "inner join t_user on t_user.user_id = t_friend.friend_user2 " +
+            "where friend_user1=#{0} and friend_user2=#{1} and t_user.user_state=10")
+    Map<String , Object> getUserAsFriend(int userId1,int userId2);
 }
