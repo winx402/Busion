@@ -35,13 +35,15 @@ define(['jquery'],function($){
      * @returns {*}
      */
     var getUserById = function(id){
+        var user = null;
         $.each(friendArray,function(i,item){
             if(item.user_id == id){
-                return item;
+                user = item;
+                return;
 
             }
         });
-        return null;
+        return user;
     };
 
 

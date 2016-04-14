@@ -37,7 +37,7 @@ define(['jquery','view/menu_bottom_base','data/friendData','data/array/friendArr
                         user_description: user.user_description,
                         count: 0, //未读消息条数
                         unread_message: []
-                    }
+                    };
                     talkingArray.addPersonalTalking(u);
                     talkingView.addTalkingPanel("user",u);
                 }else {

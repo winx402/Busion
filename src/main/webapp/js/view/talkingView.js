@@ -135,7 +135,7 @@ define(['jquery','view/windowView'],function($,windowView){
         html = html+"<li class='talking-li' _type='sys' _id='0' id='sys_0'>";
         html = html+"<div class='name-desc'>";
         html = html+"<div class='talking-content'>系统消息</div></div>";
-        html = html+"<span class='unread-count'></span></li>";
+        html = html+"<span class='unread-count'>1</span></li>";
         $(".my-talking").prepend(html);
         return $("#sys_0");
     }

@@ -57,17 +57,16 @@ define(['network/ajax','data/array/friendArray','view/friendView','view/menu_bot
                 var param = {
                     userId : userId
                 };
-                ajax.ajaxFunction('user/getUserAsFriend',userId,getUserAndAddFriendSuccess,getError)
+                ajax.ajaxFunction('user/getUserAsFriend',param,getUserAndAddFriendSuccess,getError)
             }
         };
 
         function getUserAndAddFriendSuccess(data){
             var r = eval(data);
-            if(r.code == 1){
+            if(r.code == 1 && window.friendState!=0){
                 friendArray.addFriend(r.data);
                 friendView.addFriend(r.data);
             }else{
-                window.friendState = 0;
                 base.setErrorTimer(r.msg);
             }
         }

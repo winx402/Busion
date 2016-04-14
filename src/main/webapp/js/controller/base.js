@@ -53,7 +53,7 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
             if (talkingView.addSysMessage(message)){ //如果消息直接展示,则设置为已读消息
                 talkingData.readMessage(message.message_id);
             }
-            if (message.message_content.indexOf("已经添加你为好友") > 0){
+            if (window.friendState!=0 && message.message_content.indexOf("已经添加你为好友") > 0){
                 friendData.getUserAndAddFriend(message.user_id);
             }
         }
