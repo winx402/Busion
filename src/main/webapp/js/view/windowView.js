@@ -24,16 +24,16 @@ define(['jquery','data/userData'],function($,userData){
      * @param id 相应类型的编号
      */
     var showWindow = function(type,id,name){
-        if(window.TypeAndId == (type+id)){
-            return;
-        }
         var w = $("#window-"+type+"-"+id);
-        if(w.length==0){
-            w = initWindow(type,id,name);
+        if(window.TypeAndId != (type+id)){
+            if(w.length==0){
+                w = initWindow(type,id,name);
+            }
+            $(".right-base").removeClass("right-selected");
+            w.addClass("right-selected");
+            window.TypeAndId = type+id;
         }
-        $(".right-base").removeClass("right-selected");
-        w.addClass("right-selected");
-        window.TypeAndId = type+id;
+        w.find(".right-input").focus();
         return w;
     };
 
