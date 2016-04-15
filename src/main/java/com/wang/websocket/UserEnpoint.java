@@ -45,9 +45,10 @@ public class UserEnpoint {
         if(httpSession != null){
             User user = (User)httpSession.getAttribute("user");
             if(user != null){
-                if(userMap.addUser(user.getUser_id(),session))
+                if(userMap.addUser(user.getUser_id(),session)){
                     System.out.println("Connection");
                     return;
+                }
             }
         }
         if (session.isOpen()){

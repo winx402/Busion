@@ -72,7 +72,7 @@ define(['jquery','data/userData'],function($,userData){
                 lastTime : null,
                 isLoadFile : 1,
                 fileList : []
-            }
+            };
             html = html+"<div class='something-list'><div>文件列表</div>";
             html = html+"<ul class='file-list list-selected'></ul></div>";
         }
