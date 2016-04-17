@@ -7,12 +7,10 @@ import com.wang.domain.Message;
 import com.wang.domain.User;
 import com.wang.util.AjaxReturn;
 import com.wang.websocket.MessageSender;
-import com.wang.websocket.MessageUtil;
+import com.wang.websocket.MessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,9 +88,9 @@ public class UserService {
         if (userDao.haveAddFriendMessage(userId1,userId2) > 0){
             return AjaxReturn.Data2AjaxForSuccess(null);
         }
-        Message message = MessageUtil.newAddFriendMessage(userId1,userId2,userName);
+        Message message = MessageBuilder.newAddFriendMessage(userId1,userId2,userName);
         messageDao.addMessage(message);
-        MessageSender.sendMessage(userId2,message.toJsonString());
+        MessageSender.sendMessageById(userId2,message.toJsonString());
         return AjaxReturn.Data2AjaxForSuccess(null);
     }
 

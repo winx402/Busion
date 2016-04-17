@@ -1,25 +1,38 @@
 package com.wang.model;
 
+import com.alibaba.fastjson.JSONObject;
+
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 /**
  * Created by wangwenxiang on 15-12-9.
  */
 public class OnMessage {
-    private String message;
+    private JSONObject message;
     private Session session;
+    private HttpSession httpSession;
 
-    public OnMessage(String message, Session session) {
+    public OnMessage(JSONObject message, Session session,HttpSession httpSession) {
         this.message = message;
         this.session = session;
+        this.httpSession = httpSession;
     }
 
-    public String getMessage() {
+    public JSONObject getMessage() {
 
         return message;
     }
 
-    public void setMessage(String message) {
+    public HttpSession getHttpSession() {
+        return httpSession;
+    }
+
+    public void setHttpSession(HttpSession httpSession) {
+        this.httpSession = httpSession;
+    }
+
+    public void setMessage(JSONObject message) {
         this.message = message;
     }
 

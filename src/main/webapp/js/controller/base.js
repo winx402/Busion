@@ -10,6 +10,11 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
             myData.initMyInfo(); //ajax初始化我的基本数据
             talkingData.initTalking(); //页面载入时获取我的未读消息
             socket.connectSocket(messageHandle);
+
+        });
+
+        $(".setting-about").click(function () {
+            socket.sendMessage(10,1,1,"hahahah");
         });
 
         /**

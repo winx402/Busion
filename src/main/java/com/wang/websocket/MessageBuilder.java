@@ -1,6 +1,5 @@
 package com.wang.websocket;
 
-import com.alibaba.fastjson.JSONObject;
 import com.wang.domain.Message;
 import com.wang.domain.MessageCode;
 
@@ -9,14 +8,14 @@ import java.util.Date;
 /**
  * Created on 16/4/6.
  */
-public class MessageUtil {
+public class MessageBuilder {
     private Message message;
 
     public static Builder creatMessage(){
         return new Builder();
     }
 
-    private MessageUtil(Builder builder){
+    private MessageBuilder(Builder builder){
         this.message = builder.message;
     }
 
@@ -28,6 +27,12 @@ public class MessageUtil {
         return creatMessage().setMessageCode(MessageCode.ERROR)
                 .setMessageType(401)
                 .setMessageContent("连接服务器失败,请刷新浏览器").builder().getMessage();
+    }
+
+    public static Message newHttpSessionExcepter(){
+        return creatMessage().setMessageCode(MessageCode.ERROR)
+                .setMessageType(402)
+                .setMessageContent("用户登录失效,请重新登录").builder().getMessage();
     }
 
     public static Message newSysMessage(int user1,int user2,String messageContent,Date messageTime,int messageState){
@@ -48,6 +53,17 @@ public class MessageUtil {
                 .setMessageUser2(user2)
                 .setUserName(userName)
                 .setMessageContent(userName+"请求添加你为好友")
+                .setMessageTime(new Date())
+                .setMessageSate(10)
+                .builder().getMessage();
+    }
+
+    public static Message newUserMessage(int user1,int user2,int type,String msg){
+        return creatMessage().setMessageCode(MessageCode.USER)
+                .setMessageType(type)
+                .setMessageUser1(user1)
+                .setMessageUser2(user2)
+                .setMessageContent(msg)
                 .setMessageTime(new Date())
                 .setMessageSate(10)
                 .builder().getMessage();
@@ -92,8 +108,8 @@ public class MessageUtil {
             message.setMessageState(messageSate);
             return this;
         }
-        public MessageUtil builder(){
-            return new MessageUtil(this);
+        public MessageBuilder builder(){
+            return new MessageBuilder(this);
         }
 
     }

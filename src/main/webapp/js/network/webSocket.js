@@ -37,13 +37,13 @@ define(['jquery'],function($){
             alert("Your browser does not support Web Socket.");
         }
     }
-    function sendMessage(type,id,msg) {
-        var params = messageForm(type,id,msg).toString();
+    function sendMessage(code,id,type,msg) {
+        var params = messageForm(code,id,type,msg).toString();
         if (webSocket.readyState !== 1) {
             webSocket.close();
             initWebSocket();
             setTimeout(function() {
-                sendMessage(type,id,msg);
+                sendMessage(code,id,type,msg);
             }, 250);
         } else {
             data(params);
@@ -60,11 +60,12 @@ define(['jquery'],function($){
      * @param id 消息接受对象的id
      * @param msg 包含的内容
      */
-    function messageForm(type,id,msg){
+    function messageForm(code,id,type,msg){
         return JSON.stringify({
-            type : type,
+            code : code,
             id : id,
-            msg : msg
+            type : type,
+            data : msg
         });
     }
 

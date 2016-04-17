@@ -2,8 +2,7 @@ package com.wang.serivce;
 
 import com.wang.dao.MessageDao;
 import com.wang.domain.Message;
-import com.wang.domain.MessageCode;
-import com.wang.websocket.MessageUtil;
+import com.wang.websocket.MessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,8 +64,8 @@ public class MessageService {
      * @param messageState 消息状态
      * @return
      */
-    public Message addMessage(int user1,int user2,int messageType,String messageContent,Date messageTime,int messageState){
-        Message message = MessageUtil.newSysMessage(user1,user2,messageContent,messageTime,messageState);
+    public Message addSysMessage(int user1,int user2,int messageType,String messageContent,Date messageTime,int messageState){
+        Message message = MessageBuilder.newSysMessage(user1,user2,messageContent,messageTime,messageState);
         if (messageDao.addMessage(message) == 1){
             return message;
         }

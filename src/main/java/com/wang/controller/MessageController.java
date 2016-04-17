@@ -1,7 +1,6 @@
 package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.wang.domain.Message;
 import com.wang.domain.User;
 import com.wang.serivce.MessageService;
@@ -9,7 +8,6 @@ import com.wang.serivce.UserService;
 import com.wang.util.AjaxReturn;
 import com.wang.util.MessageCreater;
 import com.wang.websocket.MessageSender;
-import com.wang.websocket.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,12 +91,12 @@ public class MessageController {
         }catch (Exception e){
             return AjaxReturn.Data2AjaxForError("不能重复添加好友");
         }
-        Message message = messageService.addMessage(user.getUser_id(),userId,2,messageContent ,
+        Message message = messageService.addSysMessage(user.getUser_id(),userId,2,messageContent ,
                 new Date(),10);
         if (message == null){
             return AjaxReturn.Data2AjaxForError("消息发送失败");
         }
-        MessageSender.sendMessage(userId,message.toJsonString());
+        MessageSender.sendMessageById(userId,message.toJsonString());
         return AjaxReturn.Data2AjaxForSuccess(userService.getUserAsFriend(user.getUser_id(),userId));
     }
 
@@ -110,12 +108,12 @@ public class MessageController {
             return AjaxReturn.Data2AjaxForError("未登陆");
         }
         String messageContent = MessageCreater.creatRejectFriendMessage(user.getUser_name());
-        Message message = messageService.addMessage(0,userId,2,messageContent ,
+        Message message = messageService.addSysMessage(0,userId,2,messageContent ,
                 new Date(),10);
         if (message == null){
             return AjaxReturn.Data2AjaxForError("消息发送失败");
         }
-        MessageSender.sendMessage(userId, message.toJsonString());
+        MessageSender.sendMessageById(userId, message.toJsonString());
         return AjaxReturn.Data2AjaxForSuccess(null);
     }
 }
