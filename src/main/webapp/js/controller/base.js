@@ -13,9 +13,9 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
 
         });
 
-        $(".setting-about").click(function () {
-            socket.sendMessage(10,1,1,"hahahah");
-        });
+        //$(".setting-about").click(function () {
+        //    socket.sendMessage(10,1,1,"hahahah");
+        //});
 
         /**
          * 将接收到的消息进行处理
@@ -28,6 +28,7 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
             var messageCode = message.message_code;
             switch (messageCode){
                 case 10: //用户消息
+                    userMessage(message);
                     break;
                 case 20:  //组织消息
                     break;
@@ -65,5 +66,10 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
 
         function addFriendMessage(message){
             talkingView.addFriendMessage(message);
+        }
+
+        function userMessage(message){
+            talkingArray.addPersonalTalking(message,true);
+
         }
 });

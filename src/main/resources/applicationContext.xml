@@ -64,4 +64,8 @@
 		<property name="javaMailSender" ref="javaMailSender"></property>
 	</bean>
 
+	<bean id="messageParser" class="com.wang.websocket.MessageParser">
+		<property name="messageDao" ref="messageDao"></property>
+	</bean>
+
 </beans>

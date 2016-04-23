@@ -51,7 +51,6 @@ define(['jquery'],function($){
     }
 
     var data = function(params) {
-        alert(params);
         webSocket.send(params);
     };
     /**

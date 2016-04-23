@@ -3,6 +3,7 @@ package com.wang.websocket;
 import com.alibaba.fastjson.JSONObject;
 import com.wang.domain.User;
 import com.wang.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
@@ -53,6 +54,7 @@ public class UserEnpoint {
         JSONObject jsonObject;
         try {
             jsonObject = JSONObject.parseObject(message);
+            System.out.println(httpSession.getAttribute("user"));
         }catch (RuntimeException e){
             userMap.removeValue(session);
             return;
@@ -69,11 +71,12 @@ public class UserEnpoint {
     @OnError
     public void onError(Throwable e, Session session){
         userMap.removeValue(session);
+        System.out.println("Connection error");
         if (session.isOpen()){
             try {
                 session.close();
             }catch (Exception ioe){
-                System.out.println("Connection error");
+                System.out.println("Connection error1");
             }
         }
     }

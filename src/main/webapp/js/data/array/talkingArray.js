@@ -33,16 +33,38 @@ define(['network/ajax'],function(ajax){
      * 添加一条用户的talking
      * @param item
      */
-    var addPersonalTalking = function(item){
-        var talking = {
-            user_id: item.user_id,
-            name: item.user_name,
-            user_photo: item.user_photo,
-            user_description: item.user_description,
-            count: item.count, //未读消息条数
-            unread_message: []
-        };
-        personalTalkingArray.push(talking);
+    var addPersonalTalking = function(user,isLoad){
+        var talking = null;
+        var have = false;
+        $.each(personalTalkingArray,function(i,item){
+            if (item.user_id == user.user_id){
+                talking = item;
+                have = true;
+            }
+        });
+        if(!have){
+            talking = {
+                user_id: user.user_id,
+                name: user.user_name,
+                user_photo: user.user_photo,
+                user_description: user.user_description,
+                count: user.count, //未读消息条数,未获取在本地
+                unread_message: [] //未读消息,已获取在本地
+            };
+        }
+        if (isLoad){
+            var message = {
+                message_id:user.message_id,
+                message_content:user.message_content,
+                message_time:user.message_time,
+                message_type:user.message_type
+            };
+            talking.unread_message.push(message);
+        }
+        if (!have){
+            personalTalkingArray.push(talking);
+        }
+        return talking;
     };
 
     /**

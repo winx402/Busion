@@ -42,7 +42,7 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
         if(r.code == 1){
             var message = r.data;
             $.each(message.personalTalking,function(i,item){ //添加个人消息
-                talkingArray.addPersonalTalking(item);
+                talkingArray.addPersonalTalking(item,false); //添加一个未加载聊天
             });
             $.each(message.orgTalking,function(i,item){ //添加组织消息
                 talkingArray.addOrgTalking(item);

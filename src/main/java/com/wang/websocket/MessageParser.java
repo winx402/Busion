@@ -6,7 +6,6 @@ import com.wang.domain.Message;
 import com.wang.domain.MessageCode;
 import com.wang.domain.User;
 import com.wang.model.OnMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +14,11 @@ import javax.servlet.http.HttpSession;
  */
 public class MessageParser {
 
-    @Autowired
     private static MessageDao messageDao;
+
+    public void setMessageDao(MessageDao messageDao) {
+        MessageParser.messageDao = messageDao;
+    }
 
     /**
      * 解析消息
