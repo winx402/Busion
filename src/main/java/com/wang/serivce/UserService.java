@@ -6,8 +6,8 @@ import com.wang.dao.UserDao;
 import com.wang.domain.Message;
 import com.wang.domain.User;
 import com.wang.util.AjaxReturn;
-import com.wang.websocket.MessageSender;
-import com.wang.websocket.MessageBuilder;
+import com.wang.serivce.message.MessageSender;
+import com.wang.serivce.message.MessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

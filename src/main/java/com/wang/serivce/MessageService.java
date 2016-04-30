@@ -2,7 +2,7 @@ package com.wang.serivce;
 
 import com.wang.dao.MessageDao;
 import com.wang.domain.Message;
-import com.wang.websocket.MessageBuilder;
+import com.wang.serivce.message.MessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

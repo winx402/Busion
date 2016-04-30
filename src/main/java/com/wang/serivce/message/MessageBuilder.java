@@ -70,7 +70,7 @@ public class MessageBuilder {
     }
 
     public static Message newOrgMessage(int user1,int org,int type,String msg){
-        return creatMessage().setMessageCode(MessageCode.USER)
+        return creatMessage().setMessageCode(MessageCode.ORG)
                 .setMessageType(type)
                 .setMessageUser1(user1)
                 .setMessageUser2(org)

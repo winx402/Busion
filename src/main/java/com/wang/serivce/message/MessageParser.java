@@ -5,11 +5,12 @@ import com.wang.dao.MessageDao;
 import com.wang.domain.MessageCode;
 import com.wang.domain.User;
 import com.wang.model.OnMessage;
+import com.wang.model.UserMap;
 import com.wang.serivce.message.impl.AbstractMessageHandle;
 import com.wang.serivce.message.impl.OrgMessageHandle;
 import com.wang.serivce.message.impl.UserMessageHandle;
-import com.wang.websocket.MessageBuilder;
-import com.wang.websocket.MessageSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,11 +19,7 @@ import javax.servlet.http.HttpSession;
  */
 public class MessageParser {
 
-    private static MessageDao messageDao;
-
-    public void setMessageDao(MessageDao messageDao) {
-        MessageParser.messageDao = messageDao;
-    }
+    private static Logger logger = LoggerFactory.getLogger(MessageParser.class);
 
     /**
      * 解析消息
@@ -42,7 +39,12 @@ public class MessageParser {
     }
 
     private static int checkUser(HttpSession session){
-        User user = (User)session.getAttribute("user");
+        User user = null;
+        try {
+            user = (User)session.getAttribute("user");
+        }catch (NullPointerException e){
+            logger.error("user is empty");
+        }
         if (user == null){
             return 0;
         }

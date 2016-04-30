@@ -3,7 +3,8 @@ package com.wang.websocket;
 import com.alibaba.fastjson.JSONObject;
 import com.wang.domain.User;
 import com.wang.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wang.serivce.message.MessageBuilder;
+import com.wang.serivce.message.MessageParser;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
@@ -12,7 +13,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 
 /**
- * Created by wangwenxiang on 15-12-7.
+ * Created BY wangwenxiang on 15-12-7.
  */
 @ServerEndpoint(value = "/userEnpoint",configurator = GetHttpSessionConfigurator.class)
 public class UserEnpoint {
@@ -69,6 +70,7 @@ public class UserEnpoint {
 
     @OnError
     public void onError(Throwable e, Session session){
+        e.printStackTrace();
         userMap.removeValue(session);
         System.out.println("Connection error");
         if (session.isOpen()){

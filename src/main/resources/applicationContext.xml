@@ -37,7 +37,7 @@
 		<property name="basePackage" value="com.wang.dao" />
 		<!-- <property name="markerInterface" value="cn.springmvc.dao.Sqlmaper"/> -->
 		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplateBatch" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
 
@@ -61,11 +61,19 @@
 	</bean>
 
 	<bean id="test" class="com.wang.util.MailSender">
-		<property name="javaMailSender" ref="javaMailSender"></property>
+		<property name="javaMailSender" ref="javaMailSender" />
 	</bean>
 
-	<bean id="messageParser" class="com.wang.websocket.MessageParser">
-		<property name="messageDao" ref="messageDao"></property>
+	<bean class="com.wang.serivce.message.impl.UserMessageHandle">
+		<property name="messageDao" ref="messageDao" />
+	</bean>
+
+	<bean class="com.wang.serivce.message.impl.OrgMessageHandle">
+		<property name="orgMessageDao" ref="orgMessageDao" />
+	</bean>
+
+	<bean class="com.wang.serivce.cache.OrgCache">
+		<property name="orgMessageDao" ref="orgMessageDao" />
 	</bean>
 
 </beans>

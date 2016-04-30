@@ -7,7 +7,7 @@ import com.wang.serivce.MessageService;
 import com.wang.serivce.UserService;
 import com.wang.util.AjaxReturn;
 import com.wang.util.MessageCreater;
-import com.wang.websocket.MessageSender;
+import com.wang.serivce.message.MessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

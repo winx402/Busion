@@ -10,10 +10,22 @@ define(['jquery','network/webSocket','view/windowView'],
             messageParse($(this));
         });
 
-        $(document).on('keyup','.right-input',function(e){
+        $(document).on('keydown','.right-input',function(e){
             var ev = document.all ? window.event : e;
             if(ev.keyCode==13) {
                 messageParse($(this).siblings(".right-send"));
+            }
+        });
+
+        $(document).on('keyup','.right-input',function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                var button = $(this).siblings(".right-send");
+                var textarea = button.siblings(".right-input");
+                var content = textarea.val();
+                if (content != null && content != ""){
+                    textarea.val("");
+                }
             }
         });
 
