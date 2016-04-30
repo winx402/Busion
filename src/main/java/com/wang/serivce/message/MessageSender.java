@@ -1,4 +1,4 @@
-package com.wang.websocket;
+package com.wang.serivce.message;
 
 import com.wang.model.UserMap;
 

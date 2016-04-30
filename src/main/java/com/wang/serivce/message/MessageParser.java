@@ -1,11 +1,15 @@
-package com.wang.websocket;
+package com.wang.serivce.message;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wang.dao.MessageDao;
-import com.wang.domain.Message;
 import com.wang.domain.MessageCode;
 import com.wang.domain.User;
 import com.wang.model.OnMessage;
+import com.wang.serivce.message.impl.AbstractMessageHandle;
+import com.wang.serivce.message.impl.OrgMessageHandle;
+import com.wang.serivce.message.impl.UserMessageHandle;
+import com.wang.websocket.MessageBuilder;
+import com.wang.websocket.MessageSender;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,12 +33,12 @@ public class MessageParser {
     public static void start(OnMessage message){
         int userId = checkUser(message.getHttpSession());
         if (userId == 0){
-            MessageSender.sendMessageBySession(message.getSession(),MessageBuilder.newHttpSessionExcepter().toJsonString());
+            MessageSender.sendMessageBySession(message.getSession(), MessageBuilder.newHttpSessionExcepter().toJsonString());
             return;
         }
-        Message message1 = parseMessage(message.getMessage(),userId);
-        messageDao.addMessage(message1);
-        MessageSender.sendMessageById(message1.getMessageUser2(),message1.toJsonString());
+        AbstractMessageHandle messageHandle = parseMessage(message.getMessage());
+        assert messageHandle != null;
+        messageHandle.flowController(message.getMessage(),userId);
     }
 
     private static int checkUser(HttpSession session){
@@ -45,15 +49,12 @@ public class MessageParser {
         return user.getUser_id();
     }
 
-    private static Message parseMessage(JSONObject jsonObject,int sender){
+    private static AbstractMessageHandle parseMessage(JSONObject jsonObject){
         int type = jsonObject.getInteger("code");
         if (type == MessageCode.USER.getMessageTypeCode()){
-            return MessageBuilder.newUserMessage(sender,
-                    jsonObject.getInteger("id"),
-                    jsonObject.getInteger("type"),
-                    jsonObject.getString("data"));
+            return new UserMessageHandle();
         }else if (type == MessageCode.ORG.getMessageTypeCode()){
-
+            return new OrgMessageHandle();
         }else if (type == MessageCode.SYS.getMessageTypeCode()){
 
         }else if (type == MessageCode.ERROR.getMessageTypeCode()){
