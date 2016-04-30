@@ -23,7 +23,7 @@ define(['network/ajax','view/baseView'],function(ajax,baseView){
     var initMyInfo = function(){
         myInfo.infoState = 1;
         ajax.ajaxFunction("user/getMyInfo",null,initMyInfoSuccess,initMyInfoError);
-    }
+    };
 
     var initMyInfoSuccess = function(data){
         var r = eval(data);
@@ -42,20 +42,20 @@ define(['network/ajax','view/baseView'],function(ajax,baseView){
         }else {
             baseView.showErrorMsg(r.msg);
         }
-    }
+    };
 
     var initMyInfoError = function(){
         baseView.showErrorMsg("系统错误");
-    }
+    };
 
     var getMyInfo = function(){
         return myInfo;
-    }
+    };
 
     var updateUserDescInfo = function (userDesc) {
         myInfo.user_desc = userDesc;
         baseView.updateMyDesc(userDesc);
-    }
+    };
 
     return{
         initMyInfo: initMyInfo,

@@ -54,6 +54,10 @@ public class MessageService {
         messageDao.readMessage(messageId);
     }
 
+    public void readMessages(String[] ids){
+        messageDao.readMessages(ids);
+    }
+
     /**
      * 持久化消息,并返回消息的主键
      * @param user1 发送者

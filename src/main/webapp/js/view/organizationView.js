@@ -61,7 +61,7 @@ define(['jquery','require'],function($,require){
                 var noUser = [];
                 $.each(list,function(i,item){
                     var user = userData.getUser(item);
-                    if(user == null){
+                    if(user.user_name == null){
                         noUser.push(item);
                         html = html+"<div class='organization-name all-org-user' _index='"+user.user_id+"'>";
                         html = html+"<span><img class='photo user-click unget-userPhoto-"+item+"' _id='"+user.user_id+"' src='../img/photo.jpg'><br><span class='unget-userName-"+item+"'>null</span></span></div>";
@@ -106,7 +106,7 @@ define(['jquery','require'],function($,require){
             $(".load-org-user").remove();
             $(".organization-allOrg .organization-body").append(html);
         }
-    }
+    };
 
     /**
      * 绘制所有组织顶部的导航

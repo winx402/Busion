@@ -1,10 +1,7 @@
 package com.wang.dao;
 
 import com.wang.domain.Message;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -31,6 +28,15 @@ public interface MessageDao {
     List<HashMap<String,Object>> getMyUnReadTalking(int userId);
 
 
+    @Update({"<script>",
+            "update t_message set message_state=20",
+            "WHERE message_id IN ",
+            "<foreach item='item' index='index' collection='ids'",
+            "open='(' separator=',' close=')'>",
+            "#{item}",
+            "</foreach>",
+            "</script>"})
+    void readMessages(@Param("ids") String[] ids);
 
     /**
      * 获取用户的未读取消息

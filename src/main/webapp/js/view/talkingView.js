@@ -2,7 +2,7 @@
  * Created by wangwenxiang on 16-1-11.
  */
 
-define(['jquery','view/windowView'],function($,windowView){
+define(['jquery','view/windowView','data/userData'],function($,windowView,userData){
 
     /**
      * 初始化talking面板
@@ -101,7 +101,7 @@ define(['jquery','view/windowView'],function($,windowView){
     };
 
     var removeMessageCount = function (element) {
-        element.find(".unread-count").text("");
+        element.text("");
     };
 
     var addSysMessage = function(message){
@@ -140,6 +140,48 @@ define(['jquery','view/windowView'],function($,windowView){
         return $("#sys_0");
     }
 
+    var addUserMessage = function (user) {
+        var userTalking = $("#user_"+user.user_id);
+        if (userTalking.length == 0){
+            userTalking = initUserTalking(user);
+        }
+        var count = userTalking.find(".unread-count").text();
+        if(count == undefined){
+            count = 0;
+        }
+        var intCount = Number(count);
+        userTalking.find(".unread-count").text(intCount+1);
+        upTalkingPanel('user',user.user_id);
+    };
+
+    function initUserTalking(user){
+        var html = "";
+        html = html+"<li class='talking-li' _type='user' _id='"+user.user_id+"' id='user_"+user.user_id+"'>";
+        if (user.user_name == null){
+            html = html+"<img class='unget-userPhoto-"+user.user_id+"' src='../img/photo.jpg'>";
+            html = html+"<div class='name-desc'><div class='talking-name unget-userName-"+user.user_id+"'>null</div>";
+            html = html+"<div class='talking-desc'>该用户没有说明</div>";
+        }else {
+            if(user.user_photo == null || user.user_photo == ""){
+                html = html+"<img src='../img/photo.jpg'>";
+            }else{
+                html = html+"<img src='"+user.user_photo+"'>";
+            }
+            html = html+"<div class='name-desc'><div class='talking-name'>"+user.user_name+"</div>";
+            if(user.user_description == null || user.user_description == ""){
+                html = html+"<div class='talking-desc'>该用户没有说明</div>";
+            }else{
+                html = html+"<div class='talking-desc'>"+user.user_description+"</div>";
+            }
+        }
+        html = html+"</div><span class='unread-count'></span></li>"
+        $(".my-talking").prepend(html);
+        if (user.user_name == null){
+            userData.ajaxGetUser(user.user_id);
+        }
+        return $("#user_"+user.user_id);
+    }
+
     return{
         initTalkingPanel : initTalkingPanel,
         removeUnreadCount : removeUnreadCount,
@@ -147,6 +189,7 @@ define(['jquery','view/windowView'],function($,windowView){
         upTalkingPanel : upTalkingPanel,
         removeMessageCount : removeMessageCount,
         addSysMessage : addSysMessage,
-        addFriendMessage : addFriendMessage
+        addFriendMessage : addFriendMessage,
+        addUserMessage : addUserMessage
     }
 });

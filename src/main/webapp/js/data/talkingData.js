@@ -19,6 +19,7 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
      * 当talkingState不等于3时，初始化talking面板
      *
      */
+
     function initTalking(){
         if (window.talkingState == 0){
             getData();
@@ -65,6 +66,17 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
         }
     }
 
+        var readMessageHaveView = function(type,id){
+            var idArray = talkingArray.getReadMessageId(type,id);
+            if (idArray.length == 0){
+                return;
+            }
+            var ids = idArray.join(",");
+            if (type == "user"){
+                readMessage(ids);
+            }
+            talkingArray.clearReadMessageId(type,id);
+        };
 
 
         /**
@@ -91,7 +103,7 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
     return{
         initTalking : initTalking,
         readMessage : readMessage,
-        readSysMessage : readSysMessage
-
+        readSysMessage : readSysMessage,
+        readMessageHaveView : readMessageHaveView
     }
 });

@@ -1,8 +1,8 @@
 /**
  * Created by wangwenxiang on 16-1-12.
  */
-require(['jquery','network/webSocket','data/myData','data/talkingData','view/baseView','data/array/talkingArray','view/talkingView','data/friendData'],
-    function($,socket,myData,talkingData,baseView,talkingArray,talkingView,friendData){
+require(['jquery','network/webSocket','data/myData','data/talkingData','view/baseView','data/array/talkingArray','view/talkingView','data/friendData','data/userData','view/windowView'],
+    function($,socket,myData,talkingData,baseView,talkingArray,talkingView,friendData,userData,windowView){
         /**
          * 页面载入时所做的事情
          */
@@ -13,9 +13,9 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
 
         });
 
-        //$(".setting-about").click(function () {
-        //    socket.sendMessage(10,1,1,"hahahah");
-        //});
+        $(".setting-about").click(function () {
+            socket.sendMessage(10,2,1,"hahahah");
+        });
 
         /**
          * 将接收到的消息进行处理
@@ -69,7 +69,11 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
         }
 
         function userMessage(message){
-            talkingArray.addPersonalTalking(message,true);
-
+            if(!windowView.addTalkingIfPosiabe("user",message.user_id,message)){
+                var user = userData.getUser(message.user_id);
+                talkingView.addUserMessage(user);
+            }else {
+                talkingData.readMessage(message.message_id);
+            }
         }
 });

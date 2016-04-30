@@ -15,7 +15,7 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
      * @param id
      */
     var getUser = function (id) {
-        var user = talkingArray.getUserById(id);
+        var user = userArray.getUserById(id);
         if(user != null){
             return user;
         }
@@ -23,7 +23,13 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
         if(user != null){
             return user;
         }
-        user = userArray.getUserById(id);
+        user = talkingArray.getUserById(id);
+        if(user != null){
+            return user;
+        }
+        user = {
+            user_id : id
+        };
         return user;
     };
 
@@ -67,7 +73,7 @@ define(['network/ajax','data/array/talkingArray','data/array/friendArray','data/
             org.isLoadUser = 2;
             var params = {
                 id : org.id
-            }
+            };
             ajax.ajaxFunction('user/getOrgUserList',params,getOrgUserListSuccess,getUserError);
         }
 

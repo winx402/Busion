@@ -30,11 +30,25 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
             }
             var talking = talkingArray.getTalkingByTypeId(type,id);
             if (type != "sys"){
-                var w = windowView.showWindow(type,id,talking.name);
-                talkingView.upTalkingPanel(type,id);
-                var count = talking.count;
-                if(count > 0){ //如果有未读消息
-                    windowData.getUnreadMessage(type,id);
+                var newWindow = windowView.showWindow(type,id,$(this).find(".talking-name").text());
+                if(newWindow){ //如果有未读消息
+                    if(talking.count > 0){
+                        windowData.getUnreadMessage(type,id);
+                        talking.count = 0;
+                    }else if(talking.unread_message.length > 0){
+                        windowView.addUserUnreadTalking({
+                            userId : talking.user_id,
+                            rows : talking.unread_message
+                        });
+                        var messageIds = [];
+                        $.each(talking.unread_message,function(i,item){
+                            messageIds.push(item.message_id);
+                        });
+                        talkingData.readMessage(messageIds.join(","));
+                        talking.unread_message = [];
+                    }
+                    talkingView.removeUnreadCount(type,id);
+                    talkingData.readMessageHaveView(type,id);
                 }
             }else {
                 if(talking.message_type == 3){

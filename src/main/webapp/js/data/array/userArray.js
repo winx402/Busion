@@ -20,9 +20,10 @@ define(['jquery'],function($){
             user_id: item.user_id,
             user_name: item.user_name,
             user_photo: item.user_photo,
-        }
+            user_description : item.user_description
+        };
         userArray.push(user);
-    }
+    };
 
     /**
      * 通过id获取一个用户的基本数据
@@ -37,9 +38,9 @@ define(['jquery'],function($){
                 user = item;
                 return;
             }
-        })
+        });
         return user;
-    }
+    };
 
     return{
         addUser: addUser,

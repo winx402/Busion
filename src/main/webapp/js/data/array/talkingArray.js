@@ -49,7 +49,8 @@ define(['network/ajax'],function(ajax){
                 user_photo: user.user_photo,
                 user_description: user.user_description,
                 count: user.count, //未读消息条数,未获取在本地
-                unread_message: [] //未读消息,已获取在本地
+                unread_message: [], //未读消息,已获取在本地
+                readMessageId : [] //未读消息,但是已经绘制进窗口
             };
         }
         if (isLoad){
@@ -67,6 +68,21 @@ define(['network/ajax'],function(ajax){
         return talking;
     };
 
+    var addReadMessageId = function(type,id,messageId){
+        var talking = getTalkingByTypeId(type,id);
+        talking.readMessageId.push(messageId);
+    };
+
+    var getReadMessageId = function(type,id){
+        var talking = getTalkingByTypeId(type,id);
+        return talking.readMessageId;
+    };
+
+    var clearReadMessageId = function(type,id){
+        var talking = getTalkingByTypeId(type,id);
+        talking.readMessageId = [];
+    };
+
     /**
      * 添加一条组织的talking
      * @param item
@@ -77,7 +93,8 @@ define(['network/ajax'],function(ajax){
             name: item.organization_name,
             organization_logo: item.organization_logo,
             count: item.count, //未读消息条数
-            unread_message: []
+            unread_message: [],
+            readMessageId : []
         };
         orgTalkingArray.push(talking);
     };
@@ -155,7 +172,8 @@ define(['network/ajax'],function(ajax){
                 return {
                     user_id : item.user_id,
                     user_name : item.name,
-                    user_photo : item.user_photo
+                    user_photo : item.user_photo,
+                    user_description : item.user_description
                 };
             }
         });
@@ -171,14 +189,12 @@ define(['network/ajax'],function(ajax){
             $.each(personalTalkingArray,function(i,item){
                 if(item.user_id == id){
                     item.count = 0;
-                    return;
                 }
             })
         }else if(type == "org"){
             $.each(orgTalkingArray,function(i,item){
                 if(item.organization_id == id){
                     item.count = 0;
-                    return;
                 }
             })
         }
@@ -199,6 +215,9 @@ define(['network/ajax'],function(ajax){
         addSysTalking : addSysTalking,
         getAllSysTalking : getAllSysTalking,
         getAllFriendTalking : getAllFriendTalking,
-        setReadSysMessage : setReadSysMessage
+        setReadSysMessage : setReadSysMessage,
+        addReadMessageId : addReadMessageId,
+        getReadMessageId : getReadMessageId,
+        clearReadMessageId : clearReadMessageId
     }
 });

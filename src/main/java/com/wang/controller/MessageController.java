@@ -55,8 +55,15 @@ public class MessageController {
      */
     @RequestMapping("readMessage")
     @ResponseBody
-    public JSONObject readMessage(int messageId){
-        messageService.readMessage(messageId);
+    public JSONObject readMessage(String messageId){
+        if (messageId == null){
+            return AjaxReturn.Data2AjaxForError(null);
+        }
+        if (messageId.contains(",")){
+            messageService.readMessages(messageId.split(","));
+        }else {
+            messageService.readMessage(Integer.parseInt(messageId));
+        }
         return AjaxReturn.Data2Ajax(1,null,null);
     }
 

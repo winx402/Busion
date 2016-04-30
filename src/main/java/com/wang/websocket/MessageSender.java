@@ -20,7 +20,7 @@ public class MessageSender {
     public static boolean sendMessageBySession(Session session,String message){
         if (session != null){
             try {
-                session.getBasicRemote().sendText(message);
+                 session.getBasicRemote().sendText(message);
                 return true;
             } catch (Exception e) {
                 userMap.removeValue(session);

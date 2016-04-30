@@ -3,7 +3,7 @@
  * 窗口右边的显示面板,聊天,信息
  */
 
-define(['jquery','data/userData'],function($,userData){
+define(['jquery','data/userData','data/array/talkingArray','data/myData'],function($,userData,talkingArray,myData){
     /**
      * 存放每一个实例化窗口的基本信息
      * showTime : 聊天面板最后一次显示的时间
@@ -24,6 +24,7 @@ define(['jquery','data/userData'],function($,userData){
      * @param id 相应类型的编号
      */
     var showWindow = function(type,id,name){
+        var newWindow = false;
         var w = $("#window-"+type+"-"+id);
         if(window.TypeAndId != (type+id)){
             if(w.length==0){
@@ -32,9 +33,10 @@ define(['jquery','data/userData'],function($,userData){
             $(".right-base").removeClass("right-selected");
             w.addClass("right-selected");
             window.TypeAndId = type+id;
+            newWindow = true;
         }
         w.find(".right-input").focus();
-        return w;
+        return newWindow;
     };
 
     /**
@@ -47,7 +49,11 @@ define(['jquery','data/userData'],function($,userData){
     function initWindow(type,id,name){
         var w = null;
         var html = "<div class='right-base' id='window-"+type+"-"+id+"'>";
-        html = html+"<div class='right-top'>"+name+"</div><div class='right-body'><div class='talking-body'>";
+        if(name == null){
+            html = html+"<div class='right-top unget-userName-"+id+"'>"+name+"</div><div class='right-body'><div class='talking-body'>";
+        }else {
+            html = html+"<div class='right-top'>"+name+"</div><div class='right-body'><div class='talking-body'>";
+        }
         //html = html+"<li class='li-right'><img src='../img/photo.jpg' alt='头像' class='photo'><div class='chat'>hello</div></li>";
         html = html+"</div>";
         if(type == "org"){
@@ -77,7 +83,7 @@ define(['jquery','data/userData'],function($,userData){
             html = html+"<ul class='file-list list-selected'></ul></div>";
         }
         html = html+"</div><div>";
-        html = html+"<div class='right-send'>发送</div>";
+        html = html+"<div class='right-send' _type='"+type+"' _id='"+id+"'>发送</div>";
         html = html+"<div class='right-box'>";
         html = html+"<i class='fa fa-smile-o'></i>";
         html = html+"<i class='fa fa-file-image-o'></i>";
@@ -110,11 +116,25 @@ define(['jquery','data/userData'],function($,userData){
      */
     var addUserUnreadTalking = function (data) {
         var id = data.userId;
+        if (id == null){
+            id = data.user_id;
+        }
         var user = userData.getUser(id); //获取用户的基本资料,id,名字,头像
-        var rows = data.rows;
+        var rows = [];
+        if (data.rows instanceof Array){
+            rows = data.rows;
+        }else {
+            rows.push({
+                message_id : data.message_id,
+                message_time : data.message_time,
+                message_content : data.message_content,
+                message_type : data.message_type
+            })
+        }
         var html = "";
-        if(user == null){
+        if(user.user_name == null){
             $.each(rows,function(i,item){
+                talkingArray.addReadMessageId("user",id,item.message_id);
                 html = html+"<li class='li-left'>";
                 html = html + "<img class='photo user-click' _id='"+id+"' src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
                 html = html + "<div class='chat'>"+item.message_content+"</div></li>"
@@ -124,13 +144,27 @@ define(['jquery','data/userData'],function($,userData){
             if(photo == null || photo == "")
                 photo = "img/photo.jpg";
             $.each(rows,function(i,item){
+                talkingArray.addReadMessageId("user",id,item.message_id);
                 html = html+"<li class='li-left'>";
                 html = html + "<img class='photo user-click' _id='"+user.user_id+"' src='"+photo+"' alt='头像' class='photo'>";
                 html = html + "<div class='chat'>"+item.message_content+"</div></li>"
             })
         }
-        $("#window-user-"+id).find(".talking-body").append(html);
+        var w = $("#window-user-"+id);
+        w.find(".talking-body").append(html);
+        return isShow(w);
+    };
 
+    var addTalkingIfPosiabe = function(type,id,message){
+        if ($("#window-"+type+"-"+id).length == 0){
+            talkingArray.addPersonalTalking(message,true);
+            return false;
+        }
+        if (type == "user"){
+            return addUserUnreadTalking(message);
+        }else if (type == "org"){
+            return addOrgUnreadTalking(message);
+        }
     };
 
     /**
@@ -168,7 +202,7 @@ define(['jquery','data/userData'],function($,userData){
         var noLoadId = [];  //本地没有基本数据的用户id数组
         $.each(rows,function(i,item){
             var user = userData.getUser(item.org_message_user);
-            if(user == null){
+            if(user.user_name == null){
                 noLoadId.push(item.org_message_user);
                 html = html+"<li class='li-left'>";
                 html = html+"<img class='photo user-click' _id='"+item.org_message_user+"' src='../img/photo.jpg' alt='头像' class='photo unget-userPhoto-"+id+"'>";
@@ -234,7 +268,7 @@ define(['jquery','data/userData'],function($,userData){
             var userIds = [];
             $.each(items, function(i,item){
                 var user = userData.getUser(item.organization_user_user);
-                if(user == null){
+                if(user.user_name == null){
                     userIds.push(item.organization_user_user);
                     html = html+"<li class='user-click' _id='"+item.organization_user_user+"'><i class='fa fa-user'></i>&nbsp;<span class='unget-userName-"+item.organization_user_user+"'>null</span></li>";
                 }else{
@@ -249,6 +283,23 @@ define(['jquery','data/userData'],function($,userData){
         }
     };
 
+    var addMyTalking = function(type,id,content){
+        var w = $("#window-"+type+"-"+id);
+        if (w.length == 0){
+            return;
+        }
+        var my = myData.getMyInfo();
+        var html = "<li class='li-right'>";
+        if (my.user_photo == null){
+            html = html + "<img src='../img/photo.jpg' alt='头像' class='photo'>";
+        }else{
+            html = html + "<img src='../"+my.user_photo+"' alt='头像' class='photo'>";
+        }
+        html = html + "<div class='chat'>"+content+"</div></li>";
+        w.find(".talking-body").append(html);
+    };
+
+
     return{
         addUnGetUserInfo : addUnGetUserInfo,
         showWindow : showWindow,
@@ -257,6 +308,8 @@ define(['jquery','data/userData'],function($,userData){
         addOrgUnreadTalking : addOrgUnreadTalking,
         getWindowData : getWindowData,
         addOrgUserList : addOrgUserList,
-        addSysUnreadTalking : addSysUnreadTalking
+        addSysUnreadTalking : addSysUnreadTalking,
+        addTalkingIfPosiabe : addTalkingIfPosiabe,
+        addMyTalking : addMyTalking
     }
 });

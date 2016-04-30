@@ -54,7 +54,6 @@ public class UserEnpoint {
         JSONObject jsonObject;
         try {
             jsonObject = JSONObject.parseObject(message);
-            System.out.println(httpSession.getAttribute("user"));
         }catch (RuntimeException e){
             userMap.removeValue(session);
             return;

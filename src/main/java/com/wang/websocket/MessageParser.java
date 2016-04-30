@@ -34,7 +34,7 @@ public class MessageParser {
         }
         Message message1 = parseMessage(message.getMessage(),userId);
         messageDao.addMessage(message1);
-        MessageSender.sendMessageBySession(message.getSession(),message1.toJsonString());
+        MessageSender.sendMessageById(message1.getMessageUser2(),message1.toJsonString());
     }
 
     private static int checkUser(HttpSession session){
