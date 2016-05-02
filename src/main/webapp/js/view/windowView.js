@@ -157,7 +157,11 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
 
     var addTalkingIfPosiabe = function(type,id,message){
         if ($("#window-"+type+"-"+id).length == 0){
-            talkingArray.addPersonalTalking(message,true);
+            if(type == "user"){
+                talkingArray.addPersonalTalking(message,true);
+            }else if(type == "org"){
+                talkingArray.addOrg
+            }
             return false;
         }
         if (type == "user"){

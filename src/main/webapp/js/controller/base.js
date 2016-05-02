@@ -31,6 +31,7 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
                     userMessage(message);
                     break;
                 case 20:  //组织消息
+                    orgMessage(message);
                     break;
                 case 30:  //系统消息
                     talkingArray.addSysTalking(message);
@@ -68,8 +69,23 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
             talkingView.addFriendMessage(message);
         }
 
+        /**
+         * 1.尝试将消息添加到聊天面板中,如果添加成功并且当前聊天面板正在显示,则返回true,其余情况均返回false
+         * 2.如果返回true则设置消息已读
+         * 3.如果返回false则在会话面板添加该会话,并添加未读消息条数
+         * @param message
+         */
         function userMessage(message){
             if(!windowView.addTalkingIfPosiabe("user",message.user_id,message)){
+                var user = userData.getUser(message.user_id);
+                talkingView.addUserMessage(user);
+            }else {
+                talkingData.readMessage(message.message_id);
+            }
+        }
+
+        function orgMessage(message){
+            if(!windowView.addTalkingIfPosiabe("org",message.user_id,message)){
                 var user = userData.getUser(message.user_id);
                 talkingView.addUserMessage(user);
             }else {
