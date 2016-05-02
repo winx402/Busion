@@ -4,10 +4,7 @@ import com.wang.domain.Message;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created on 15-12-7.
@@ -37,6 +34,16 @@ public interface MessageDao {
             "</foreach>",
             "</script>"})
     void readMessages(@Param("ids") String[] ids);
+
+    @Update({"<script>",
+            "update t_message set message_state=20",
+            "WHERE message_id IN ",
+            "<foreach item='item' index='index' collection='ids'",
+            "open='(' separator=',' close=')'>",
+            "#{item}",
+            "</foreach>",
+            "</script>"})
+    void readMessagesBySet(@Param("ids") Set<Integer> ids);
 
     /**
      * 获取用户的未读取消息

@@ -3,7 +3,7 @@ package com.wang.serivce.message.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.wang.dao.OrgMessageDao;
 import com.wang.domain.Message;
-import com.wang.serivce.cache.OrgCache;
+import com.wang.cache.OrgCache;
 import com.wang.serivce.message.MessageBuilder;
 import com.wang.serivce.message.MessageSender;
 import org.springframework.stereotype.Service;

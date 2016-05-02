@@ -1,6 +1,9 @@
 package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wang.cache.OrgMessageReader;
+import com.wang.cache.read.impl.OrgMessageReadCache;
+import com.wang.cache.read.impl.UserMessageReadCache;
 import com.wang.domain.AllOrganization;
 import com.wang.domain.User;
 import com.wang.model.Mail;
@@ -46,6 +49,12 @@ public class UserController {
 
     @Autowired
     private AllOrganization allOrganization;
+
+    @Autowired
+    private OrgMessageReadCache orgMessageReadCache;
+
+    @Autowired
+    private UserMessageReadCache userMessageReadCache;
     /**
      * 用户登陆
      * 验证用户是否存在
@@ -271,6 +280,8 @@ public class UserController {
             return AjaxReturn.Data2Ajax(0,"未登陆",null);
         }
         int userId = user.getUser_id();
+        userMessageReadCache.invalidate(userId);
+        orgMessageReadCache.invalidate(userId);
         JSONObject jo = new JSONObject();
         //获取个人消息
         jo.put("personalTalking",messageService.getMyUnReadTalking(userId));
@@ -352,4 +363,5 @@ public class UserController {
         }
         return AjaxReturn.Data2AjaxForSuccess(userService.getUserAsFriend(user.getUser_id(),userId));
     }
+
 }

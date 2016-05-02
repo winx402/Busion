@@ -72,7 +72,7 @@
 		<property name="orgMessageDao" ref="orgMessageDao" />
 	</bean>
 
-	<bean class="com.wang.serivce.cache.OrgCache">
+	<bean class="com.wang.cache.OrgCache">
 		<property name="orgMessageDao" ref="orgMessageDao" />
 	</bean>
 

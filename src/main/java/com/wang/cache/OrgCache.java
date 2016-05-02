@@ -1,4 +1,4 @@
-package com.wang.serivce.cache;
+package com.wang.cache;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

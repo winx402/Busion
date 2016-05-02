@@ -1,6 +1,7 @@
 package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wang.cache.read.impl.UserMessageReadCache;
 import com.wang.domain.Message;
 import com.wang.domain.User;
 import com.wang.serivce.MessageService;
@@ -29,11 +30,14 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserMessageReadCache userMessageReadCache;
+
     /**
      * 获取用户的未读消息
-     * @param id
-     * @param session
-     * @return
+     * @param id 目标用户id
+     * @param session 获取自己的userId
+     * @return 未读消息集合
      */
     @RequestMapping("getUserUnReadTalking")
     @ResponseBody
@@ -55,15 +59,15 @@ public class MessageController {
      */
     @RequestMapping("readMessage")
     @ResponseBody
-    public JSONObject readMessage(String messageId){
+    public JSONObject readMessage(HttpSession session,String messageId){
+        User user = (User)session.getAttribute("user");
+        if (user == null){
+            return AjaxReturn.Data2AjaxForError("未登录");
+        }
         if (messageId == null){
             return AjaxReturn.Data2AjaxForError(null);
         }
-        if (messageId.contains(",")){
-            messageService.readMessages(messageId.split(","));
-        }else {
-            messageService.readMessage(Integer.parseInt(messageId));
-        }
+        userMessageReadCache.put(user.getUser_id(),messageId);
         return AjaxReturn.Data2Ajax(1,null,null);
     }
 
