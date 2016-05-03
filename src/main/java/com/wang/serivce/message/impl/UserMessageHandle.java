@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created BY wangwenxiang on 4/30/16.
  */
-public class UserMessageHandle extends AbstractMessageHandle {
+public class UserMessageHandle extends AbstractMessageHandle<Message> {
 
     @Autowired
     private static MessageDao messageDao;

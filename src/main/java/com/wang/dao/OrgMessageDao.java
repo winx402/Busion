@@ -1,6 +1,7 @@
 package com.wang.dao;
 
 import com.wang.domain.Message;
+import com.wang.domain.OrgMessage;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
@@ -39,9 +40,9 @@ public interface OrgMessageDao {
     @Update("update t_organization_user set user_read_line=#{2} where organization_user_organization=#{1} and organization_user_user=#{0}")
     void updateOrgUnReadTalking(int userId,int orgId,int maxLine);
 
-    @Insert("insert into t_org_message values (null,#{messageUser1},#{messageUser2},#{messageType},#{messageContent},#{messageTime},#{messageState})")
+    @Insert("insert into t_org_message values (null,#{messageUser1},#{messageOrgId},#{messageType},#{messageContent},#{messageTime},#{messageState})")
     @Options(useGeneratedKeys = true,keyColumn = "message_id",keyProperty = "messageId")
-    int addOrgMessage(Message message);
+    int addOrgMessage(OrgMessage message);
 
     @Select("select organization_user_user from t_organization_user where organization_user_organization=#{0}")
     Set<Integer> getOrgUserSet(Integer orgId);

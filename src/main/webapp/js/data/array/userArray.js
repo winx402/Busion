@@ -36,7 +36,6 @@ define(['jquery'],function($){
         $.each(userArray,function(i,item){
             if(item.user_id == id){
                 user = item;
-                return;
             }
         });
         return user;

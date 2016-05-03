@@ -9,7 +9,7 @@ define(['jquery','require'],function($,require){
      */
     var changeOrganization = function(index){
         $(".organization-menu").removeClass("organization-selected").eq(index).addClass("organization-selected");
-    }
+    };
 
     /**
      * 显示面板
@@ -17,7 +17,7 @@ define(['jquery','require'],function($,require){
      */
     var showOrganization = function(index){
         $(".organization-option").removeClass("select").eq(index).addClass("select");
-    }
+    };
 
     /**
      * 初始化我的组织面板
@@ -31,7 +31,7 @@ define(['jquery','require'],function($,require){
             html = html+"<div class='org-talking' _id="+item.organization_id+">发送消息</div></div>";
         });
         $(".organization-myOrg .organization-body").append(html);
-    }
+    };
 
     /**
      * 初始化所有组织面板
@@ -117,7 +117,7 @@ define(['jquery','require'],function($,require){
         var html = "<i class='fa fa-chevron-right'></i>";
         html = html+"<a class='guide-point guide-now' _index='"+id+"'>"+name+"</a>"
         $(".organization-guide").append(html);
-    }
+    };
 
     /**
      * 绘制所有组织顶部的导航
@@ -126,7 +126,7 @@ define(['jquery','require'],function($,require){
     var delOrganizationGuide = function (point){
         point.nextAll().remove();
         point.addClass("guide-now");
-    }
+    };
 
 
     /**
@@ -138,7 +138,12 @@ define(['jquery','require'],function($,require){
                 showOrganization(org);
             }
         }
-    }
+    };
+
+    var addUnGetOrgInfo = function(org){
+        $(".unget-orgName-"+org.organization_id).text(org.organization_name);
+        $(".unget-orgLogo-"+org.organization_id).removeClass().addClass("fa").addClass(org.organization_logo);
+    };
 
     return{
         changeOrganization : changeOrganization,
@@ -148,6 +153,7 @@ define(['jquery','require'],function($,require){
         initAllOrganizationPanel : initAllOrganizationPanel,
         delOrganizationGuide : delOrganizationGuide,
         addOrganizationGuide : addOrganizationGuide,
-        addOrgUserList : addOrgUserList
+        addOrgUserList : addOrgUserList,
+        addUnGetOrgInfo : addUnGetOrgInfo
     }
-})
+});

@@ -1,72 +1,104 @@
 package com.wang.domain;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.Date;
 
 /**
- * Created by wangwenxiang on 16-1-10.
+ * Created by wangwenxiang on 16-1-7.
  */
 public class OrgMessage {
-    private int org_message_id;
-    private int org_message_user;
-    private int org_message_organization;
-    private int org_message_type;
-    private String org_message_content;
-    private Date org_message_date;
-    private int org_message_state;
+    private MessageCode messageCode;
+    private int messageId;
+    private int messageUser1; //发送者
+    private int messageUser2; //接受者
+    private int messageOrgId; //发送orgId
+    private int messageType;
+    private String messageContent;
+    private Date messageTime;
+    private int messageState;
 
-    public int getOrg_message_id() {
-        return org_message_id;
+    public int getMessageOrgId() {
+        return messageOrgId;
     }
 
-    public void setOrg_message_id(int org_message_id) {
-        this.org_message_id = org_message_id;
+    public void setMessageOrgId(int messageOrgId) {
+        this.messageOrgId = messageOrgId;
     }
 
-    public int getOrg_message_user() {
-        return org_message_user;
+    public MessageCode getMessageCode() {
+        return messageCode;
     }
 
-    public void setOrg_message_user(int org_message_user) {
-        this.org_message_user = org_message_user;
+    public void setMessageCode(MessageCode messageCode) {
+        this.messageCode = messageCode;
     }
 
-    public int getOrg_message_organization() {
-        return org_message_organization;
+    public int getMessageId() {
+        return messageId;
     }
 
-    public void setOrg_message_organization(int org_message_organization) {
-        this.org_message_organization = org_message_organization;
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
     }
 
-    public int getOrg_message_type() {
-        return org_message_type;
+    public int getMessageUser1() {
+        return messageUser1;
     }
 
-    public void setOrg_message_type(int org_message_type) {
-        this.org_message_type = org_message_type;
+    public void setMessageUser1(int messageUser1) {
+        this.messageUser1 = messageUser1;
     }
 
-    public String getOrg_message_content() {
-        return org_message_content;
+    public int getMessageUser2() {
+        return messageUser2;
     }
 
-    public void setOrg_message_content(String org_message_content) {
-        this.org_message_content = org_message_content;
+    public void setMessageUser2(int messageUser2) {
+        this.messageUser2 = messageUser2;
     }
 
-    public Date getOrg_message_date() {
-        return org_message_date;
+    public int getMessageType() {
+        return messageType;
     }
 
-    public void setOrg_message_date(Date org_message_date) {
-        this.org_message_date = org_message_date;
+    public void setMessageType(int messageType) {
+        this.messageType = messageType;
     }
 
-    public int getOrg_message_state() {
-        return org_message_state;
+    public String getMessageContent() {
+        return messageContent;
     }
 
-    public void setOrg_message_state(int org_message_state) {
-        this.org_message_state = org_message_state;
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
+    }
+
+    public Date getMessageTime() {
+        return messageTime;
+    }
+
+    public void setMessageTime(Date messageTime) {
+        this.messageTime = messageTime;
+    }
+
+    public int getMessageState() {
+        return messageState;
+    }
+
+    public void setMessageState(int messageState) {
+        this.messageState = messageState;
+    }
+
+    public String toJsonString(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("message_code",messageCode.getMessageTypeCode());
+        jsonObject.put("user_id",messageUser1);
+        jsonObject.put("organization_user_organization",messageOrgId);
+        jsonObject.put("message_id",messageId);
+        jsonObject.put("message_content",messageContent);
+        jsonObject.put("message_time",messageTime);
+        jsonObject.put("message_type",messageType);
+        return jsonObject.toString();
     }
 }

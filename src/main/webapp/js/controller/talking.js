@@ -36,15 +36,23 @@ define(["jquery","view/menu_bottom_base",'data/array/talkingArray','view/windowV
                         windowData.getUnreadMessage(type,id);
                         talking.count = 0;
                     }else if(talking.unread_message.length > 0){
-                        windowView.addUserUnreadTalking({
-                            userId : talking.user_id,
-                            rows : talking.unread_message
-                        });
-                        var messageIds = [];
-                        $.each(talking.unread_message,function(i,item){
-                            messageIds.push(item.message_id);
-                        });
-                        talkingData.readMessage(messageIds.join(","));
+                        if (type == "user"){
+                            windowView.addUserUnreadTalking({
+                                userId : talking.user_id,
+                                rows : talking.unread_message
+                            });
+                            var messageIds = [];
+                            $.each(talking.unread_message,function(i,item){
+                                messageIds.push(item.message_id);
+                            });
+                            talkingData.readMessage(messageIds.join(","));
+                        }else if (type == "org"){
+                            var maxId = windowView.addOrgUnreadTalking({
+                                orgId : talking.organization_id,
+                                rows : talking.unread_message
+                            });
+                            talkingData.readOrgMessage(talking.organization_id,maxId);
+                        }
                         talking.unread_message = [];
                     }
                     talkingView.removeUnreadCount(type,id);

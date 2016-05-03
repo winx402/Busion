@@ -87,16 +87,52 @@ define(['network/ajax'],function(ajax){
      * 添加一条组织的talking
      * @param item
      */
-    var addOrgTalking = function(item){
-        var talking = {
-            organization_id: item.organization_user_organization,
-            name: item.organization_name,
-            organization_logo: item.organization_logo,
-            count: item.count, //未读消息条数
-            unread_message: [],
-            readMessageId : []
-        };
-        orgTalkingArray.push(talking);
+    var addOrgTalking = function(user,isLoad){
+        var talking = null;
+        var have = false;
+        $.each(orgTalkingArray,function(i,item){
+            if (item.organization_id == user.organization_user_organization){
+                talking = item;
+                have = true;
+            }
+        });
+        if(!have){
+            talking = {
+                organization_id: user.organization_user_organization,
+                name: user.organization_name,
+                organization_logo: user.organization_logo,
+                count: user.count, //未读消息条数
+                unread_message: [],
+                readMessageId : []
+            };
+        }
+        if (isLoad){
+            var message = {
+                message_id:user.message_id,
+                org_message_content:user.message_content,
+                message_time:user.message_time,
+                message_type:user.message_type,
+                org_message_user : user.user_id
+            };
+            talking.unread_message.push(message);
+        }
+        if (!have){
+            orgTalkingArray.push(talking);
+        }
+        return talking;
+    };
+
+    var getOrgData = function(orgId){
+        $.each(orgTalkingArray,function(i,item){
+            if (item.organization_id == orgId){
+                return {
+                    organization_id: item.organization_user_organization,
+                    organization_name: item.organization_name,
+                    organization_logo: item.organization_logo
+                }
+            }
+        });
+        return null;
     };
 
     /**
@@ -138,21 +174,18 @@ define(['network/ajax'],function(ajax){
             $.each(orgTalkingArray,function(i,item){
                 if(item.organization_id == id){
                     talking = item;
-                    return;
                 }
             })
         }else if(type == "user"){
             $.each(personalTalkingArray,function(i,item){
                 if(item.user_id == id){
                     talking = item;
-                    return;
                 }
             })
         }else if(type == "sys"){
             $.each(friendTalkingArray,function(i,item){
                 if(item.message_id == id){
                     talking = item;
-                    return;
                 }
             })
         }
@@ -218,6 +251,7 @@ define(['network/ajax'],function(ajax){
         setReadSysMessage : setReadSysMessage,
         addReadMessageId : addReadMessageId,
         getReadMessageId : getReadMessageId,
-        clearReadMessageId : clearReadMessageId
+        clearReadMessageId : clearReadMessageId,
+        getOrgData : getOrgData
     }
 });

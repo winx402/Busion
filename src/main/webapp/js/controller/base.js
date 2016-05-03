@@ -1,8 +1,8 @@
 /**
  * Created by wangwenxiang on 16-1-12.
  */
-require(['jquery','network/webSocket','data/myData','data/talkingData','view/baseView','data/array/talkingArray','view/talkingView','data/friendData','data/userData','view/windowView'],
-    function($,socket,myData,talkingData,baseView,talkingArray,talkingView,friendData,userData,windowView){
+require(['jquery','network/webSocket','data/myData','data/talkingData','view/baseView','data/array/talkingArray','view/talkingView','data/friendData','data/userData','view/windowView','data/organizationData'],
+    function($,socket,myData,talkingData,baseView,talkingArray,talkingView,friendData,userData,windowView,organizationData){
         /**
          * 页面载入时所做的事情
          */
@@ -85,11 +85,11 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
         }
 
         function orgMessage(message){
-            if(!windowView.addTalkingIfPosiabe("org",message.user_id,message)){
-                var user = userData.getUser(message.user_id);
-                talkingView.addUserMessage(user);
+            if(!windowView.addTalkingIfPosiabe("org",message.organization_user_organization,message)){
+                var org = organizationData.getOrgData(message.organization_user_organization);
+                talkingView.addOrgMessage(org);
             }else {
-                talkingData.readMessage(message.message_id);
+                talkingData.readOrgMessage(message.organization_user_organization,message.message_id);
             }
         }
 });

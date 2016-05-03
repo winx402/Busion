@@ -160,7 +160,7 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
             if(type == "user"){
                 talkingArray.addPersonalTalking(message,true);
             }else if(type == "org"){
-                talkingArray.addOrg
+                talkingArray.addOrgTalking(message,true)
             }
             return false;
         }
@@ -204,6 +204,18 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
         var rows = data.rows;
         var html = "";
         var noLoadId = [];  //本地没有基本数据的用户id数组
+        var maxId = 0;
+        if (data.rows instanceof Array){
+            rows = data.rows;
+        }else {
+            rows.push({
+                org_message_user : data.user_id,
+                message_time : data.message_time,
+                org_message_content : data.message_content,
+                message_type : data.message_type,
+                message_id : data.message_id
+            })
+        }
         $.each(rows,function(i,item){
             var user = userData.getUser(item.org_message_user);
             if(user.user_name == null){
@@ -226,6 +238,7 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
                 html = html+"<br><div class='chatCon'>"+item.org_message_content+"</div>";
                 html = html+"</div></li>";
             }
+            maxId = item.message_id;
         });
         html = html+"<li class='notice'>以上"+rows.length+"条为未读消息</li>";
         $("#window-org-"+id).find(".talking-body").append(html);
@@ -239,7 +252,8 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
             }
             userData.ajaxGetUser(ids.join(","));
         }
-    }
+        return maxId;
+    };
 
     /**
      * 将页面上未显示的用户信息用正确信息替换上去

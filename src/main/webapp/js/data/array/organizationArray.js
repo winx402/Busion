@@ -9,13 +9,34 @@ define(['jquery'],function($){
 
         var allOrganizationArray = [];
 
+    var getOrgData = function(orgId){
+        var org = null;
+        $.each(myOrganizationArray,function(i,item){
+            if (item.organization_id == orgId){
+                org = item;
+            }
+        });
+        $.each(allOrganizationArray,function(i,item){
+            if (item.organization_id == orgId){
+                org = item;
+            }
+        });
+        if (org != null){
+            org = {
+                organization_id: org.organization_user_organization,
+                organization_name: org.organization_name,
+                organization_logo: org.organization_logo
+            }
+        }
+        return org;
+    };
     /**
      * 返回我的所有组织信息
      * @returns {Array}
      */
     var getAll = function(){
         return myOrganizationArray;
-    }
+    };
 
     /**
      * 添加我的组织
@@ -26,10 +47,10 @@ define(['jquery'],function($){
             organization_id: item.organization_user_organization,
             organization_name: item.organization_name,
             organization_logo: item.organization_logo,
-            organization_user_manage: item.organization_user_manage,
-        }
+            organization_user_manage: item.organization_user_manage
+        };
         myOrganizationArray.push(myOrganization);
-    }
+    };
 
     /**
      * 根据parent获取组织集合
@@ -54,15 +75,15 @@ define(['jquery'],function($){
             org : org,
             load : organization_load_user,
             list : organization_user_list
-        }
+        };
         return pamars;
-    }
+    };
 
     /**
      * 获取的组织信息
      */
     var getMyOrg = function(orgId){
-        var org;
+        var org = null;
         $.each(myOrganizationArray,function(i,item){
             if(item.organization_id==orgId) {
                 org = item;
@@ -76,7 +97,7 @@ define(['jquery'],function($){
             });
         }
         return org;
-    }
+    };
 
     /**
      * 添加一条组织信息
@@ -100,21 +121,19 @@ define(['jquery'],function($){
         $.each(myOrganizationArray,function(i,item){
             if(item.organization_id==id){
                 org = item;
-                return;
             }
         });
         return org;
-    }
+    };
 
     var setAllOrgUserList = function (orgId,ids) {
         $.each(allOrganizationArray,function(i,item){
             if(item.organization_id==orgId){
                 item.organization_user_list = ids;
                 item.organization_load_user = 2;
-                return;
             }
         });
-    }
+    };
 
     return{
         getAll : getAll,
@@ -123,6 +142,7 @@ define(['jquery'],function($){
         addAllOrganization :addAllOrganization,
         getOrgById:getOrgById,
         setAllOrgUserList : setAllOrgUserList,
-        getMyOrg : getMyOrg
+        getMyOrg : getMyOrg,
+        getOrgData : getOrgData
     }
 });

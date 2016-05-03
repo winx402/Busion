@@ -1,8 +1,8 @@
 /**
  * Created by wangwenxiang on 16-1-11.
  */
-define(['network/ajax','data/array/organizationArray','view/organizationView','view/baseView','view/modalView'],
-    function(ajax,orgArray,orgView,baseView,modalView){
+define(['network/ajax','data/array/organizationArray','view/organizationView','view/baseView','view/modalView','data/array/talkingArray'],
+    function(ajax,orgArray,orgView,baseView,modalView,talkingArray){
         /**
          * 组织面板状态
          * 0-未初始化，无数据
@@ -12,6 +12,34 @@ define(['network/ajax','data/array/organizationArray','view/organizationView','v
          */
         window.myOrganizationState = 0;
         window.allOrganizationState = 0;
+
+        var organizationArray = [];
+
+        var getOrgData = function(orgId){
+            var org = orgArray.getOrgData(orgId);
+            if (org != null){
+                return org;
+            }
+            $.each(organizationArray,function(i,item){
+                if (item.organization_id == orgId){
+                    org = {
+                        organization_id: item.organization_user_organization,
+                        organization_name: item.organization_name,
+                        organization_logo: item.organization_logo
+                    }
+                }
+            });
+            if (org != null){
+                return org;
+            }
+            org = talkingArray.getOrgData(orgId);
+            if (org != null){
+                return org;
+            }
+            return {
+                organization_id : orgId
+            }
+        };
 
     /**
      * 初始化数据
@@ -27,7 +55,19 @@ define(['network/ajax','data/array/organizationArray','view/organizationView','v
                 getData(1);
             }
         }
-    }
+    };
+
+        function addOrgData(org){
+            var org = {
+                organization_id : org.organization_id,
+                organization_name : org.organization_name,
+                organization_logo : org.organization_logo,
+                organization_desc : org.organization_desc,
+                organization_notice : org.organization_notice
+            };
+            organizationArray.push(org);
+            return org;
+        }
 
     /**
      * ajax获取数据
@@ -108,21 +148,40 @@ define(['network/ajax','data/array/organizationArray','view/organizationView','v
         function getOrgInfo(orgId){
             var params = {
                 orgId : orgId
-            }
+            };
             ajax.ajaxFunction('organization/getOrgInfo',params,getOrgInfoSuccess,getAllError);
         }
 
         function getOrgInfoSuccess(data){
             var r = eval(data);
             if(r.code == 1){
-                modalView.addOrgInfo(r.data);
+                var org = modalView.addOrgInfo(r.data);
+                orgView.addUnGetOrgInfo(org);
             }else{
                 baseView.setErrorTimer("获取所有组织信息出错");
             }
         }
 
+        var getOrgAjax = function(orgId){
+            var params = {
+                orgId : orgId
+            };
+            ajax.ajaxFunction('getMyOrganization/getOrgInfo',params,getOrgAjaxSuccess,getAllError)
+        };
+
+        function getOrgAjaxSuccess(data){
+            var r = eval(data);
+            if (r.code == 1){
+                addOrgData.addOrgData(r.data);
+            }else {
+                baseView.setErrorTimer("获取组织信息出错");
+            }
+        }
+
     return{
         init : init,
-        getOrgInfo : getOrgInfo
+        getOrgInfo : getOrgInfo,
+        getOrgData : getOrgData,
+        getOrgAjax : getOrgAjax
     }
 });

@@ -46,7 +46,7 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
                 talkingArray.addPersonalTalking(item,false); //添加一个未加载聊天
             });
             $.each(message.orgTalking,function(i,item){ //添加组织消息
-                talkingArray.addOrgTalking(item);
+                talkingArray.addOrgTalking(item,false);
             });
             $.each(message.sysTalking,function(i,item){ //添加系统消息
                 talkingArray.addSysTalking(item);
@@ -71,9 +71,11 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
             if (idArray.length == 0){
                 return;
             }
-            var ids = idArray.join(",");
             if (type == "user"){
+                var ids = idArray.join(",");
                 readMessage(ids);
+            }else if (type == "org"){
+                readOrgMessage(id,idArray[0]);
             }
             talkingArray.clearReadMessageId(type,id);
         };
@@ -100,10 +102,18 @@ define(['network/ajax','data/array/talkingArray','view/talkingView','view/menu_b
             ajax.ajaxFunction('message/readSysMessage');
         };
 
+        var readOrgMessage = function (orgId,messageId){
+            var params = {
+                orgId : orgId,
+                maxId : messageId
+            };
+            ajax.ajaxFunction('orgMessage/readOrgMessage',params)
+        };
     return{
         initTalking : initTalking,
         readMessage : readMessage,
         readSysMessage : readSysMessage,
-        readMessageHaveView : readMessageHaveView
+        readMessageHaveView : readMessageHaveView,
+        readOrgMessage : readOrgMessage
     }
 });

@@ -2,6 +2,7 @@ package com.wang.serivce.message;
 
 import com.wang.domain.Message;
 import com.wang.domain.MessageCode;
+import com.wang.domain.OrgMessage;
 
 import java.util.Date;
 
@@ -63,17 +64,6 @@ public class MessageBuilder {
                 .setMessageType(type)
                 .setMessageUser1(user1)
                 .setMessageUser2(user2)
-                .setMessageContent(msg)
-                .setMessageTime(new Date())
-                .setMessageSate(10)
-                .builder().getMessage();
-    }
-
-    public static Message newOrgMessage(int user1,int org,int type,String msg){
-        return creatMessage().setMessageCode(MessageCode.ORG)
-                .setMessageType(type)
-                .setMessageUser1(user1)
-                .setMessageUser2(org)
                 .setMessageContent(msg)
                 .setMessageTime(new Date())
                 .setMessageSate(10)

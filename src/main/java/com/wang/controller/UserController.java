@@ -1,7 +1,6 @@
 package com.wang.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wang.cache.OrgMessageReader;
 import com.wang.cache.read.impl.OrgMessageReadCache;
 import com.wang.cache.read.impl.UserMessageReadCache;
 import com.wang.domain.AllOrganization;

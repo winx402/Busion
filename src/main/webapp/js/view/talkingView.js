@@ -2,7 +2,7 @@
  * Created by wangwenxiang on 16-1-11.
  */
 
-define(['jquery','view/windowView','data/userData'],function($,windowView,userData){
+define(['jquery','view/windowView','data/userData','data/organizationData'],function($,windowView,userData,orgData){
 
     /**
      * 初始化talking面板
@@ -154,6 +154,20 @@ define(['jquery','view/windowView','data/userData'],function($,windowView,userDa
         upTalkingPanel('user',user.user_id);
     };
 
+    var addOrgMessage = function(org){
+        var orgTalking = $("#org_"+org.organization_id);
+        if (orgTalking.length == 0){
+            orgTalking = initOrgTalking(org);
+        }
+        var count = orgTalking.find(".unread-count").text();
+        if(count == undefined){
+            count = 0;
+        }
+        var intCount = Number(count);
+        orgTalking.find(".unread-count").text(intCount+1);
+        upTalkingPanel('org',org.organization_id);
+    };
+
     function initUserTalking(user){
         var html = "";
         html = html+"<li class='talking-li' _type='user' _id='"+user.user_id+"' id='user_"+user.user_id+"'>";
@@ -182,6 +196,22 @@ define(['jquery','view/windowView','data/userData'],function($,windowView,userDa
         return $("#user_"+user.user_id);
     }
 
+    function initOrgTalking(org){
+        var html = "";
+        html = html+"<li class='talking-li' _type='org' _id='"+org.organization_id+"' id='org_"+org.organization_id+"'>";
+        if (org.organization_name == null){
+            html = html+"<i class='fa fa-mobile unget-orgLogo-"+org.organization_id+"'></i><div class='name-desc'>";
+            html = html+"<div class='talking-content talking-name unget-orgName-"+org.organization_id+"'>null</div>";
+            orgData.getOrgAjax(org.organization_id);
+        }else {
+            html = html+"<i class='fa "+org.organization_logo+"'></i><div class='name-desc'>";
+            html = html+"<div class='talking-content talking-name'>"+org.organization_name+"</div>";
+        }
+        html = html+"</div><span class='unread-count'></span></li>"
+        $(".my-talking").prepend(html);
+        return $("#org_"+org.organization_id);
+    }
+
     return{
         initTalkingPanel : initTalkingPanel,
         removeUnreadCount : removeUnreadCount,
@@ -190,6 +220,7 @@ define(['jquery','view/windowView','data/userData'],function($,windowView,userDa
         removeMessageCount : removeMessageCount,
         addSysMessage : addSysMessage,
         addFriendMessage : addFriendMessage,
-        addUserMessage : addUserMessage
+        addUserMessage : addUserMessage,
+        addOrgMessage : addOrgMessage
     }
 });
