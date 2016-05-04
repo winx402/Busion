@@ -23,7 +23,7 @@ define(['network/ajax','data/array/organizationArray','view/organizationView','v
             $.each(organizationArray,function(i,item){
                 if (item.organization_id == orgId){
                     org = {
-                        organization_id: item.organization_user_organization,
+                        organization_id: item.organization_id,
                         organization_name: item.organization_name,
                         organization_logo: item.organization_logo
                     }
@@ -155,8 +155,7 @@ define(['network/ajax','data/array/organizationArray','view/organizationView','v
         function getOrgInfoSuccess(data){
             var r = eval(data);
             if(r.code == 1){
-                var org = modalView.addOrgInfo(r.data);
-                orgView.addUnGetOrgInfo(org);
+                modalView.addOrgInfo(r.data);
             }else{
                 baseView.setErrorTimer("获取所有组织信息出错");
             }
@@ -166,13 +165,14 @@ define(['network/ajax','data/array/organizationArray','view/organizationView','v
             var params = {
                 orgId : orgId
             };
-            ajax.ajaxFunction('getMyOrganization/getOrgInfo',params,getOrgAjaxSuccess,getAllError)
+            ajax.ajaxFunction('organization/getOrgInfo',params,getOrgAjaxSuccess,getAllError)
         };
 
         function getOrgAjaxSuccess(data){
             var r = eval(data);
             if (r.code == 1){
-                addOrgData.addOrgData(r.data);
+                var org = addOrgData(r.data);
+                orgView.addUnGetOrgInfo(org);
             }else {
                 baseView.setErrorTimer("获取组织信息出错");
             }

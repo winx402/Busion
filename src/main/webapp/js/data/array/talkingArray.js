@@ -70,6 +70,9 @@ define(['network/ajax'],function(ajax){
 
     var addReadMessageId = function(type,id,messageId){
         var talking = getTalkingByTypeId(type,id);
+        if (type == "org"){
+            talking.readMessageId = [];
+        }
         talking.readMessageId.push(messageId);
     };
 

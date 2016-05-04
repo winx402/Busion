@@ -68,9 +68,11 @@
 		<property name="messageDao" ref="messageDao" />
 	</bean>
 
-	<bean class="com.wang.serivce.message.impl.OrgMessageHandle">
-		<property name="orgMessageDao" ref="orgMessageDao" />
-	</bean>
+	<!--<bean class="com.wang.serivce.message.impl.OrgMessageHandle">-->
+		<!--<property name="orgMessageDao" ref="orgMessageDao" />-->
+	<!--</bean>-->
+
+	<bean name="springUtils" class="com.wang.util.SpringUtils"/>
 
 	<bean class="com.wang.cache.OrgCache">
 		<property name="orgMessageDao" ref="orgMessageDao" />

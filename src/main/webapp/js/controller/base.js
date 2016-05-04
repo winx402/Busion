@@ -72,7 +72,7 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
         /**
          * 1.尝试将消息添加到聊天面板中,如果添加成功并且当前聊天面板正在显示,则返回true,其余情况均返回false
          * 2.如果返回true则设置消息已读
-         * 3.如果返回false则在会话面板添加该会话,并添加未读消息条数
+         * 3.如果返回false则在会话面板添加该会话,并添加未读消xxxxxxx息条数
          * @param message
          */
         function userMessage(message){
@@ -85,7 +85,9 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
         }
 
         function orgMessage(message){
-            if(!windowView.addTalkingIfPosiabe("org",message.organization_user_organization,message)){
+            windowView.addTalkingIfPosiabe("org",message.organization_user_organization,message);
+            var w = $("#window-org-"+message.organization_user_organization);
+            if (!(w.length == 1 && w.hasClass("right-selected"))){
                 var org = organizationData.getOrgData(message.organization_user_organization);
                 talkingView.addOrgMessage(org);
             }else {

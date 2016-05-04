@@ -9,6 +9,7 @@ import com.wang.model.UserMap;
 import com.wang.serivce.message.impl.AbstractMessageHandle;
 import com.wang.serivce.message.impl.OrgMessageHandle;
 import com.wang.serivce.message.impl.UserMessageHandle;
+import com.wang.util.SpringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,9 +55,9 @@ public class MessageParser {
     private static AbstractMessageHandle parseMessage(JSONObject jsonObject){
         int type = jsonObject.getInteger("code");
         if (type == MessageCode.USER.getMessageTypeCode()){
-            return new UserMessageHandle();
+            return SpringUtils.getBean(UserMessageHandle.class);
         }else if (type == MessageCode.ORG.getMessageTypeCode()){
-            return new OrgMessageHandle();
+            return SpringUtils.getBean(OrgMessageHandle.class);
         }else if (type == MessageCode.SYS.getMessageTypeCode()){
 
         }else if (type == MessageCode.ERROR.getMessageTypeCode()){

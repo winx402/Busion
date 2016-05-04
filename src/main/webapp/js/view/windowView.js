@@ -201,7 +201,10 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
      */
     var addOrgUnreadTalking = function (data) {
         var id = data.orgId;
-        var rows = data.rows;
+        if (id == null){
+            id = data.organization_user_organization;
+        }
+        var rows = [];
         var html = "";
         var noLoadId = [];  //本地没有基本数据的用户id数组
         var maxId = 0;
@@ -240,7 +243,7 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
             }
             maxId = item.message_id;
         });
-        html = html+"<li class='notice'>以上"+rows.length+"条为未读消息</li>";
+        //html = html+"<li class='notice'>以上"+rows.length+"条为未读消息</li>";
         $("#window-org-"+id).find(".talking-body").append(html);
         if(noLoadId.length > 0){
             var ids = [];
@@ -252,6 +255,7 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
             }
             userData.ajaxGetUser(ids.join(","));
         }
+        talkingArray.addReadMessageId("org",id,maxId);
         return maxId;
     };
 

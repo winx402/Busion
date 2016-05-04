@@ -1,5 +1,5 @@
 /**
- * Created by wangwenxiang on 16-1-8.
+ * Created BY wangwenxiang on 16-1-8.
  */
 define(['jquery','network/webSocket','view/windowView'],
     function($,socket,windowView){
@@ -23,7 +23,7 @@ define(['jquery','network/webSocket','view/windowView'],
                 var button = $(this).siblings(".right-send");
                 var textarea = button.siblings(".right-input");
                 var content = textarea.val();
-                if (content != null && content != ""){
+                if (content == "\n"){
                     textarea.val("");
                 }
             }
