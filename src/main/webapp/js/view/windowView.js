@@ -152,6 +152,7 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
         }
         var w = $("#window-user-"+id);
         w.find(".talking-body").append(html);
+        scroll(w.find(".talking-body"));
         return isShow(w);
     };
 
@@ -184,7 +185,9 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
         }else {
             html = html + "<div class='chat-box'><div class='chat'>"+sysMessages.message_content+"</div></div>"
         }
-        $("#window-sys-0").find(".right-body-sys").append(html);
+        var w = $("#window-sys-0").find(".right-body-sys");
+        w.append(html);
+        scroll(w);
         return isShow($("#window-sys-0"));
     };
 
@@ -256,6 +259,7 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
             userData.ajaxGetUser(ids.join(","));
         }
         talkingArray.addReadMessageId("org",id,maxId);
+        scroll($("#window-org-"+id).find(".talking-body"));
         return maxId;
     };
 
@@ -319,8 +323,14 @@ define(['jquery','data/userData','data/array/talkingArray','data/myData'],functi
         }
         html = html + "<div class='chat'>"+content+"</div></li>";
         w.find(".talking-body").append(html);
+        scroll(w.find(".talking-body"));
     };
 
+    function scroll(element){
+        var cHeight = element.height();
+        var oHeight = element.get(0).scrollHeight;
+        element.animate({scrollTop:oHeight-cHeight},200);
+    }
 
     return{
         addUnGetUserInfo : addUnGetUserInfo,
