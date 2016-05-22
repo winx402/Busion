@@ -1,5 +1,5 @@
 /**
- * Created by wangwenxiang on 16-1-12.
+ * Created BY wangwenxiang on 16-1-12.
  */
 require(['jquery','network/webSocket','data/myData','data/talkingData','view/baseView','data/array/talkingArray','view/talkingView','data/friendData','data/userData','view/windowView','data/organizationData'],
     function($,socket,myData,talkingData,baseView,talkingArray,talkingView,friendData,userData,windowView,organizationData){
@@ -11,10 +11,6 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
             talkingData.initTalking(); //页面载入时获取我的未读消息
             socket.connectSocket(messageHandle);
 
-        });
-
-        $(".setting-about").click(function () {
-            socket.sendMessage(10,2,1,"hahahah");
         });
 
         /**
@@ -72,7 +68,7 @@ require(['jquery','network/webSocket','data/myData','data/talkingData','view/bas
         /**
          * 1.尝试将消息添加到聊天面板中,如果添加成功并且当前聊天面板正在显示,则返回true,其余情况均返回false
          * 2.如果返回true则设置消息已读
-         * 3.如果返回false则在会话面板添加该会话,并添加未读消xxxxxxx息条数
+         * 3.如果返回false则在会话面板添加该会话,并添加未读消息条数
          * @param message
          */
         function userMessage(message){

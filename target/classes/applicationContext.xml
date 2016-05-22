@@ -49,9 +49,9 @@
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="protocol" value="smtp"/>
 		<property name="host" value="smtp.163.com"/>
-		<property name="port" value="25" /><!--Gmail的SMTP端口居然是这个，去google网站上了解吧-->
+		<property name="port" value="25" />
 		<property name="username" value="18701113061@163.com"/>
-		<property name="password" value="123456789wwx"/>
+		<property name="password" value="123456789w"/>
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
